@@ -1,6 +1,6 @@
 import {Button, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import API from '../../assets/api';
+import API from '../../config/api';
 
 const SplashScreen = () => {
   return (
