@@ -2,6 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from '../screens/SplashScreen/SplashScreen';
 import MainScreen from '../screens/MainScreen/MainScreen';
+import MapScreen from '../screens/MapScreen/MapScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -9,9 +10,10 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="SplashScreen">
+      initialRouteName="MapScreen">
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} />
+      <Stack.Screen name="MapScreen" component={MapScreen} />
     </Stack.Navigator>
   );
 };
