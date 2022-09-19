@@ -39,8 +39,8 @@ const MapScreen = () => {
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={{width: '100%', height: '50%'}}
         region={{
-          latitude: location.lat,
-          longitude: location.lng,
+          latitude: location.lat && location.lat,
+          longitude: location.lng && location.lng,
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}>
