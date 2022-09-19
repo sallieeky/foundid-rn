@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const HomeTab = () => {
   return (
     <View>
-      <Text>HomeTab</Text>
+      <Text style={{fontFamily: 'Frijole-Regular', fontSize: 24}}>HomeTab</Text>
       <Icon name="rocket" size={30} color="#900" />
     </View>
   );
