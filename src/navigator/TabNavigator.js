@@ -17,7 +17,6 @@ const CustomTabBarButton = ({children, onPress}) => {
     <TouchableOpacity
       activeOpacity={0.7}
       style={{
-        top: -30,
         justifyContent: 'center',
         alignItems: 'center',
         ...styles.shadow,
@@ -25,9 +24,9 @@ const CustomTabBarButton = ({children, onPress}) => {
       onPress={onPress}>
       <View
         style={{
-          width: 56,
-          height: 56,
-          borderRadius: 28,
+          width: 42,
+          height: 42,
+          borderRadius: 8,
           backgroundColor: '#e32f45',
         }}>
         {children}
@@ -44,12 +43,12 @@ const TabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: 12,
-          left: 20,
-          right: 20,
+          bottom: 8,
+          left: 8,
+          right: 8,
           elevation: 0,
           backgroundColor: '#ffffff',
-          borderRadius: 15,
+          borderRadius: 8,
           height: 56,
           ...styles.shadow,
         },
