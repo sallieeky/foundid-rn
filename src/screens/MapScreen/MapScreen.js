@@ -19,20 +19,18 @@ const MapScreen = () => {
   }, []);
 
   const getLocation = () => {
-    if (requestLocationPermission) {
-      Geolocation.getCurrentPosition(
-        position => {
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        error => {
-          console.log(error);
-        },
-        {enableHighAccuracy: true},
-      );
-    }
+    Geolocation.getCurrentPosition(
+      position => {
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      error => {
+        console.log(error);
+      },
+      {enableHighAccuracy: true},
+    );
   };
 
   return (
