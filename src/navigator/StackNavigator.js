@@ -10,7 +10,7 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="MainScreen">
+      initialRouteName="MapScreen">
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} />
       <Stack.Screen name="MapScreen" component={MapScreen} />
