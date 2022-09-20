@@ -8,7 +8,6 @@ const HomeTab = ({navigation}) => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'salmon',
       }}>
       <Text style={{fontFamily: 'Frijole-Regular', fontSize: 24}}>HomeTab</Text>
       <Icon name="rocket" size={30} color="#900" />
