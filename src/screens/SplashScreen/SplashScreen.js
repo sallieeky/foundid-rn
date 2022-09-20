@@ -47,10 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
-  logo: {
-    width: 252,
-    height: 266,
-  },
+  logo: {},
   spinner: {
     position: 'absolute',
     bottom: 32,
