@@ -5,35 +5,12 @@ import ProfileTab from '../tabs/ProfileTab/ProfileTab';
 import SearchTab from '../tabs/SearchTab/SearchTab';
 import AddTab from '../tabs/AddTab/AddTab';
 import HistoryTab from '../tabs/HistoryTab/HistoryTab';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
-
-const CustomTabBarButton = ({children, onPress}) => {
-  return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        ...styles.shadow,
-      }}
-      onPress={onPress}>
-      <View
-        style={{
-          width: 42,
-          height: 42,
-          borderRadius: 8,
-          backgroundColor: '#e32f45',
-        }}>
-        {children}
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 const TabNavigator = () => {
   return (
@@ -43,14 +20,9 @@ const TabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: 8,
-          left: 8,
-          right: 8,
           elevation: 0,
           backgroundColor: '#ffffff',
-          borderRadius: 8,
-          height: 56,
-          ...styles.shadow,
+          height: 64,
         },
       }}>
       <Tab.Screen
@@ -61,11 +33,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <MaterialCommunityIcons
                 name="home"
-                color={focused ? '#8a7ce1' : '#748c94'}
+                color={focused ? '#474A56' : '#C8D1E1'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#8a7ce1' : '#748c94'}}>
+                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
                 Home
               </Text>
             </View>
@@ -80,11 +52,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <MaterialIcons
                 name="search"
-                color={focused ? '#8a7ce1' : '#748c94'}
+                color={focused ? '#474A56' : '#C8D1E1'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#8a7ce1' : '#748c94'}}>
+                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
                 Search
               </Text>
             </View>
@@ -96,9 +68,21 @@ const TabNavigator = () => {
         component={AddTab}
         options={{
           tabBarIcon: ({focused, size}) => (
-            <IonIcons name="ios-add" color={'#ffffff'} size={size} />
+            <View
+              style={{
+                backgroundColor: focused ? '#1687D1' : '#FFF',
+                padding: 4,
+                borderWidth: 1,
+                borderColor: '#1687D1',
+                borderRadius: 4,
+              }}>
+              <IonIcons
+                name="ios-add"
+                color={focused ? '#FFF' : '#1687D1'}
+                size={size}
+              />
+            </View>
           ),
-          tabBarButton: props => <CustomTabBarButton {...props} />,
         }}
       />
       <Tab.Screen
@@ -109,11 +93,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <MaterialCommunityIcons
                 name="history"
-                color={focused ? '#8a7ce1' : '#748c94'}
+                color={focused ? '#474A56' : '#C8D1E1'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#8a7ce1' : '#748c94'}}>
+                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
                 History
               </Text>
             </View>
@@ -128,11 +112,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <IonIcons
                 name="person"
-                color={focused ? '#8a7ce1' : '#748c94'}
+                color={focused ? '#474A56' : '#C8D1E1'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#8a7ce1' : '#748c94'}}>
+                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
                 Profile
               </Text>
             </View>
@@ -144,16 +128,3 @@ const TabNavigator = () => {
 };
 
 export default TabNavigator;
-
-const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: '#7F5DF0',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    elevation: 5,
-  },
-});
