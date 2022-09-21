@@ -62,7 +62,7 @@ const OnboardingScreen = ({navigation}) => {
         />
         <Text style={styles.title2}>Saling Membantu</Text>
         <Text style={styles.subtitle2}>
-          Dengan Found.id anda dapat menenukan barang anda yang hilang dengan
+          Dengan Found.id anda dapat menemukan barang anda yang hilang dengan
           mudah. Selain itu, anda juga dapat membantu orang lain dalam menemukan
           barang mereka yang hilang
         </Text>
