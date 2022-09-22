@@ -5,12 +5,38 @@ import ProfileTab from '../tabs/ProfileTab/ProfileTab';
 import SearchTab from '../tabs/SearchTab/SearchTab';
 import AddTab from '../tabs/AddTab/AddTab';
 import HistoryTab from '../tabs/HistoryTab/HistoryTab';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Tab = createBottomTabNavigator();
+
+const CustomTabBarButton = ({children, onPress}) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      onPress={onPress}>
+      <View
+        style={{
+          width: 60,
+          height: 60,
+          bottom: 16,
+          borderWidth: 1,
+          borderRadius: 30,
+          borderColor: '#fff',
+          backgroundColor: '#fff',
+        }}>
+        {children}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const TabNavigator = () => {
   return (
@@ -33,11 +59,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <MaterialCommunityIcons
                 name="home"
-                color={focused ? '#474A56' : '#C8D1E1'}
+                color={focused ? '#1687D1' : '#9C9C9C'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
+                style={{fontSize: 12, color: focused ? '#1687D1' : '#9C9C9C'}}>
                 Home
               </Text>
             </View>
@@ -52,11 +78,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <MaterialIcons
                 name="search"
-                color={focused ? '#474A56' : '#C8D1E1'}
+                color={focused ? '#1687D1' : '#9C9C9C'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
+                style={{fontSize: 12, color: focused ? '#1687D1' : '#9C9C9C'}}>
                 Search
               </Text>
             </View>
@@ -70,19 +96,14 @@ const TabNavigator = () => {
           tabBarIcon: ({focused, size}) => (
             <View
               style={{
-                backgroundColor: focused ? '#1687D1' : '#FFF',
-                padding: 4,
-                borderWidth: 1,
-                borderColor: '#1687D1',
-                borderRadius: 4,
+                backgroundColor: '#1687D1',
+                padding: 12,
+                borderRadius: size,
               }}>
-              <IonIcons
-                name="ios-add"
-                color={focused ? '#FFF' : '#1687D1'}
-                size={size}
-              />
+              <AntDesign name="plus" color="#FFF" size={size} />
             </View>
           ),
+          tabBarButton: props => <CustomTabBarButton {...props} />,
         }}
       />
       <Tab.Screen
@@ -93,11 +114,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <MaterialCommunityIcons
                 name="history"
-                color={focused ? '#474A56' : '#C8D1E1'}
+                color={focused ? '#1687D1' : '#9C9C9C'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
+                style={{fontSize: 12, color: focused ? '#1687D1' : '#9C9C9C'}}>
                 History
               </Text>
             </View>
@@ -112,11 +133,11 @@ const TabNavigator = () => {
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <IonIcons
                 name="person"
-                color={focused ? '#474A56' : '#C8D1E1'}
+                color={focused ? '#1687D1' : '#9C9C9C'}
                 size={size}
               />
               <Text
-                style={{fontSize: 12, color: focused ? '#474A56' : '#C8D1E1'}}>
+                style={{fontSize: 12, color: focused ? '#1687D1' : '#9C9C9C'}}>
                 Profile
               </Text>
             </View>
