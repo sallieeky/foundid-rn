@@ -10,8 +10,8 @@ LogBox.ignoreAllLogs();
 
 const MapScreen = () => {
   const [location, setLocation] = useState({
-    lat: null,
-    lng: null,
+    lat: -2.548926,
+    lng: 118.0148634,
   });
 
   useEffect(() => {

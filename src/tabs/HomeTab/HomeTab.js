@@ -1,38 +1,28 @@
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import API from '../../config/api';
+import Header from './components/Header/Header';
+import CardUser from './components/CardUser/CardUser';
+import styles from './HomeTabStyle';
+import Terbaru from './components/Terbaru/Terbaru';
 const HomeTab = ({navigation}) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    const data = await API.get('/tes');
-    setData(data.data);
+    const response = await API.get('/tes');
+    setData(response.data);
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text style={{fontFamily: 'Frijole-Regular', fontSize: 24}}>HomeTab</Text>
-      <Text style={{fontFamily: 'Frijole-Regular', fontSize: 16}}>
-        {data[0].pesan}
-      </Text>
-      <Icon name="rocket" size={30} color="#900" />
-      <Button
-        title="Halaman Maps"
-        onPress={() => navigation.push('MapScreen')}
-      />
+    <View style={styles.body}>
+      <Header />
+      <CardUser />
+      <Terbaru />
     </View>
   );
 };
 
 export default HomeTab;
-
-const styles = StyleSheet.create({});
