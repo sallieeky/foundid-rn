@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './HeaderStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,7 +15,9 @@ const Header = () => {
             size={24}
             color={'#1687D1'}
           />
-          <Text style={styles.lokasi}>Balikpapan</Text>
+          <TouchableOpacity activeOpacity={0.6}>
+            <Text style={styles.lokasi}>Balikpapan</Text>
+          </TouchableOpacity>
           <MaterialIcons
             name="keyboard-arrow-down"
             size={24}
