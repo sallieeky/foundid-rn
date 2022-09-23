@@ -4,15 +4,15 @@ import {globalFont} from '../../../../assets/style/globalStyle';
 const styles = StyleSheet.create({
   container: {
     marginTop: 16,
-    marginLeft: 24,
   },
-  terbaruHeadingContainer: {
+  listItemHeadingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  terbaruHeading: {
+  listItemHeading: {
     ...globalFont.bold,
     fontSize: 18,
+    marginLeft: 24,
   },
   lihatSemua: {
     ...globalFont.normal,
@@ -25,17 +25,17 @@ const styles = StyleSheet.create({
     height: 208,
     width: 142,
     backgroundColor: '#D9D9D9',
-    marginRight: 24,
+    marginHorizontal: 8,
     borderRadius: 16,
     marginBottom: 16,
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 6,
+      height: 4,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.19,
     shadowRadius: 5.62,
-    elevation: 8,
+    elevation: 6,
   },
   contentImageSection: {
     height: 148,
