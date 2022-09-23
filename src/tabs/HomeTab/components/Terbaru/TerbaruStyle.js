@@ -4,7 +4,6 @@ import {globalFont} from '../../../../assets/style/globalStyle';
 const styles = StyleSheet.create({
   container: {
     marginTop: 16,
-    marginLeft: 24,
   },
   terbaruHeadingContainer: {
     flexDirection: 'row',
@@ -13,6 +12,7 @@ const styles = StyleSheet.create({
   terbaruHeading: {
     ...globalFont.bold,
     fontSize: 18,
+    marginLeft: 24,
   },
   lihatSemua: {
     ...globalFont.normal,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     height: 208,
     width: 142,
     backgroundColor: '#D9D9D9',
-    marginRight: 24,
+    marginHorizontal: 8,
     borderRadius: 16,
     marginBottom: 16,
     shadowColor: '#000000',
