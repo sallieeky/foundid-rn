@@ -4,9 +4,10 @@ import API from '../../config/api';
 import Header from './components/Header/Header';
 import CardUser from './components/CardUser/CardUser';
 import styles from './HomeTabStyle';
-import Terbaru from './components/Terbaru/Terbaru';
+import ListItem from './components/ListItem/ListItem';
 import Kategori from './components/Kategori/Kategori';
 import Disekitar from './components/Disekitar/Disekitar';
+import Tips from './components/Tips/Tips';
 const HomeTab = ({navigation}) => {
   const [data, setData] = useState();
   useEffect(() => {
@@ -21,9 +22,12 @@ const HomeTab = ({navigation}) => {
     <ScrollView style={styles.body}>
       <Header />
       <CardUser />
-      <Terbaru />
+      <ListItem header={'Terbaru'} />
       <Kategori />
       <Disekitar navigation={() => navigation.push('MapScreen')} />
+      <ListItem header={'Barang Ditemukan'} />
+      <ListItem header={'Barang Hilang'} />
+      <Tips />
     </ScrollView>
   );
 };

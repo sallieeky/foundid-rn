@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
 import React from 'react';
-import styles from './TerbaruStyle';
+import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DATA = [
@@ -54,13 +54,13 @@ const Item = ({title}) => (
   </View>
 );
 
-const Terbaru = () => {
+const ListItem = ({header}) => {
   const renderItem = ({item}) => <Item title={item.title} />;
 
   return (
     <View style={styles.container}>
-      <View style={styles.terbaruHeadingContainer}>
-        <Text style={styles.terbaruHeading}>Terbaru</Text>
+      <View style={styles.listItemHeadingContainer}>
+        <Text style={styles.listItemHeading}>{header}</Text>
         <TouchableOpacity activeOpacity={0.6}>
           <Text style={styles.lihatSemua}>Lihat Semua</Text>
         </TouchableOpacity>
@@ -79,4 +79,4 @@ const Terbaru = () => {
   );
 };
 
-export default Terbaru;
+export default ListItem;
