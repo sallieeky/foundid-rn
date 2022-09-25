@@ -12,19 +12,25 @@ import MapSekitar from './components/MapSekitar/MapSekitar';
 
 const HomeTab = ({navigation}) => {
   const [itemTerbaru, setItemTerbaru] = useState();
+  const [countKehilanganDitemukan, setCountKehilanganDitemukan] = useState();
   const [kategori, setKategori] = useState();
   const [hilang, setHilang] = useState();
   const [ditemukan, setDitemukan] = useState();
   useEffect(() => {
-    getData();
+    getTerbaru();
+    getCountKehilanganDitemukan();
     getKategori();
     getHilang();
     getDitemukan();
   }, []);
 
-  const getData = async () => {
+  const getTerbaru = async () => {
     const response = await API.get('/home-tab/get-terbaru');
     setItemTerbaru(response.data);
+  };
+  const getCountKehilanganDitemukan = async () => {
+    const response = await API.get('/home-tab/get-count-hilang-ditemukan');
+    setCountKehilanganDitemukan(response.data);
   };
 
   const getKategori = async () => {
@@ -46,10 +52,14 @@ const HomeTab = ({navigation}) => {
     <ScrollView style={styles.body}>
       <Header />
       <CardUser />
-      <MapSekitar navigation={navigation} />
+      <MapSekitar
+        navigation={navigation}
+        data={itemTerbaru}
+        count={countKehilanganDitemukan}
+      />
       <ListItem header={'Terbaru'} data={itemTerbaru} />
       <Kategori data={kategori} />
-      <Disekitar navigation={() => navigation.push('MapScreen')} />
+      <Disekitar navigation={navigation} />
       <ListItem header={'Barang Ditemukan'} data={hilang} />
       <ListItem header={'Barang Hilang'} data={ditemukan} />
       <Tips />

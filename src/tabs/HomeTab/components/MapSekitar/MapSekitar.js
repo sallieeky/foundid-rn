@@ -4,7 +4,7 @@ import styles from './MapSekitarStyle';
 import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
-const MapSekitar = ({navigation}) => {
+const MapSekitar = ({navigation, data, count}) => {
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
@@ -20,15 +20,15 @@ const MapSekitar = ({navigation}) => {
         <View style={styles.infoContainer}>
           <View style={styles.infoTextContainer}>
             <View style={{...styles.circle, backgroundColor: '#FC6011'}} />
-            <Text>Kehilangan: 100</Text>
+            <Text>Kehilangan: {count ? count.kehilangan : 'Memuat'}</Text>
           </View>
           <View style={styles.infoTextContainer}>
             <View style={{...styles.circle, backgroundColor: '#1262A5'}} />
-            <Text>Ditemukan: 100</Text>
+            <Text>Ditemukan: {count ? count.ditemukan : 'Memuat'}</Text>
           </View>
         </View>
         <MapView
-          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+          provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={{
             latitude: -1.142232852071283,
@@ -36,18 +36,22 @@ const MapSekitar = ({navigation}) => {
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}>
-          <Marker
-            coordinate={{
-              latitude: -1.142232852071283,
-              longitude: 116.86777883563393,
-            }}
-            image={require('../../../../assets/images/marker.png')}>
-            <Callout>
-              <View>
-                <Text>awdawdad</Text>
-              </View>
-            </Callout>
-          </Marker>
+          {data &&
+            data.map((item, i) => (
+              <Marker
+                key={i}
+                coordinate={{
+                  latitude: parseFloat(item.item.lokasi.lat),
+                  longitude: parseFloat(item.item.lokasi.lng),
+                }}
+                image={require('../../../../assets/images/marker.png')}>
+                <Callout>
+                  <View>
+                    <Text>{item.item.nama}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            ))}
         </MapView>
       </View>
 
