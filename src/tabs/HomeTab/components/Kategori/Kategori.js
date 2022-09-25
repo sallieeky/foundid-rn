@@ -3,46 +3,32 @@ import React from 'react';
 import styles from './KategoriStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Kategori = () => {
+const Kategori = ({data}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.kategoriHeading}>Kategori</Text>
       <View style={styles.kategoriContainer}>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
-        </TouchableOpacity>
+        {data &&
+          data.map((item, i) => (
+            <TouchableOpacity
+              key={i}
+              activeOpacity={0.6}
+              style={styles.kategori}>
+              <MaterialCommunityIcons
+                name={item.icon}
+                size={32}
+                color={'#1262A5'}
+              />
+              <Text style={styles.namaKategori}>{item.nama}</Text>
+            </TouchableOpacity>
+          ))}
         <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
           <MaterialCommunityIcons
-            name="cellphone"
+            name="view-grid-outline"
             size={32}
             color={'#1262A5'}
           />
-          <Text style={styles.namaKategori}>Smartphone</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-          <MaterialCommunityIcons name="car" size={32} color={'#1262A5'} />
-          <Text style={styles.namaKategori}>Kendaraan</Text>
+          <Text style={styles.namaKategori}>Lainnya</Text>
         </TouchableOpacity>
       </View>
     </View>
