@@ -2,6 +2,11 @@ import {StyleSheet} from 'react-native';
 import {globalFont} from '../../../../assets/style/globalStyle';
 
 const styles = StyleSheet.create({
+  skeletonContainer: {
+    flexDirection: 'row',
+    marginTop: 16,
+  },
+
   container: {
     marginTop: 16,
   },

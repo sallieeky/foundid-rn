@@ -28,7 +28,7 @@ const Disekitar = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.disekitarDetailBox}
-          onPress={navigation}>
+          onPress={() => navigation.push('MapScreen')}>
           <Image
             source={require('../../../../assets/images/disekitar.png')}
             style={styles.disekitarDetailBoxImage}
