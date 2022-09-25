@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   contentKategoriContainer: {
-    backgroundColor: '#1F6BAA',
     borderRadius: 16,
     paddingVertical: 6,
     width: '70%',

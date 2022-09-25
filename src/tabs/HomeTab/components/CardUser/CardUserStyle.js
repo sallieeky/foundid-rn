@@ -18,10 +18,18 @@ const styles = StyleSheet.create({
     shadowRadius: 8.19,
     elevation: 11,
   },
-  circle: {
+  accentRight: {
     position: 'absolute',
     right: -40,
-    top: -40,
+    top: -20,
+  },
+  accentIcon: {
+    position: 'absolute',
+    top: 48,
+    left: 32,
+  },
+  circle: {
+    position: 'relative',
     width: 128,
     height: 128,
     borderRadius: 64,
@@ -32,11 +40,52 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
   },
+  profileLvContainer: {
+    position: 'absolute',
+    backgroundColor: '#CBE2F1',
+    borderRadius: 4,
+    bottom: 10,
+    paddingHorizontal: 4,
+  },
+  profileXpContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#CBE2F1',
+    borderRadius: 4,
+    width: 60,
+    bottom: 0,
+    paddingHorizontal: 4,
+  },
+  profileLv: {
+    ...globalFont,
+    textAlign: 'center',
+    fontSize: 6,
+    color: '#1687D1',
+  },
+  profileXp: {
+    ...globalFont,
+    fontSize: 6,
+    color: '#1687D1',
+  },
+  xpBack: {
+    width: 38,
+    height: 4,
+    marginLeft: 2,
+    borderRadius: 4,
+    backgroundColor: '#FFF',
+  },
+  xpFront: {
+    height: 4,
+    left: -38,
+    borderRadius: 4,
+    backgroundColor: '#1262A5',
+  },
   imgProfile: {
-    width: 54,
-    height: 54,
+    width: 60,
+    height: 60,
     backgroundColor: '#fefefe',
-    borderRadius: 27,
+    borderRadius: 30,
     marginRight: 16,
   },
   hello: {
@@ -62,19 +111,29 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flexDirection: 'row',
-    width: '100%',
-    marginTop: 32,
+    marginTop: 8,
+    marginHorizontal: 24,
     justifyContent: 'space-between',
   },
   bottom: {
-    backgroundColor: '#F9F9F9',
-    paddingHorizontal: 16,
+    backgroundColor: '#CBE2F1',
+    paddingHorizontal: 32,
     paddingVertical: 4,
     borderRadius: 16,
+
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 8.19,
+    elevation: 11,
   },
   bottomText: {
     ...globalFont.normal,
     fontSize: 14,
+    color: '#1262A5',
   },
 });
 
