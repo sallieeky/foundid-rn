@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import API from '../../config/api';
 import Header from './components/Header/Header';
@@ -9,6 +9,7 @@ import Kategori from './components/Kategori/Kategori';
 import Disekitar from './components/Disekitar/Disekitar';
 import Tips from './components/Tips/Tips';
 import MapSekitar from './components/MapSekitar/MapSekitar';
+
 const HomeTab = ({navigation}) => {
   const [itemTerbaru, setItemTerbaru] = useState();
   const [kategori, setKategori] = useState();
@@ -40,6 +41,7 @@ const HomeTab = ({navigation}) => {
     const response = await API.get('/home-tab/get-ditemukan');
     setDitemukan(response.data);
   };
+
   return (
     <ScrollView style={styles.body}>
       <Header />

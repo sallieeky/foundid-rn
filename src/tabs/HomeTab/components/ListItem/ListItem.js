@@ -2,6 +2,32 @@ import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
 import React from 'react';
 import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
+const Loader = () => (
+  <SkeletonPlaceholder>
+    <View style={styles.skeletonContainer}>
+      <SkeletonPlaceholder.Item
+        marginHorizontal={8}
+        width={142}
+        height={208}
+        borderRadius={16}
+      />
+      <SkeletonPlaceholder.Item
+        marginHorizontal={8}
+        width={142}
+        height={208}
+        borderRadius={16}
+      />
+      <SkeletonPlaceholder.Item
+        marginHorizontal={8}
+        width={142}
+        height={208}
+        borderRadius={16}
+      />
+    </View>
+  </SkeletonPlaceholder>
+);
 
 const Item = ({nama, gambar, kota, status, no_telp}) => (
   <View style={styles.content}>
@@ -35,8 +61,8 @@ const Item = ({nama, gambar, kota, status, no_telp}) => (
   </View>
 );
 
-const ListItem = ({header, data}) => {
-  const renderItem = ({item}) => (
+const renderItem = ({item}) => {
+  return (
     <Item
       nama={item.item.nama}
       gambar={item.item.gambar}
@@ -45,7 +71,9 @@ const ListItem = ({header, data}) => {
       no_telp={item.user.no_telp}
     />
   );
+};
 
+const ListItem = ({header, data}) => {
   return (
     <View style={styles.container}>
       <View style={styles.listItemHeadingContainer}>
@@ -55,15 +83,19 @@ const ListItem = ({header, data}) => {
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={styles.contentContainer}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-      />
+      {data ? (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          style={styles.contentContainer}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+        />
+      ) : (
+        <Loader />
+      )}
     </View>
   );
 };
