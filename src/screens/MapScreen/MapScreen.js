@@ -1,7 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
-import {requestLocationPermission} from '../../config/permission';
 import Geolocation from '@react-native-community/geolocation';
 
 import {LogBox} from 'react-native';
