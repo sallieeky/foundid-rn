@@ -60,8 +60,8 @@ const HomeTab = ({navigation}) => {
       <ListItem header={'Terbaru'} data={itemTerbaru} />
       <Kategori data={kategori} />
       <Disekitar navigation={navigation} />
-      <ListItem header={'Barang Ditemukan'} data={hilang} />
-      <ListItem header={'Barang Hilang'} data={ditemukan} />
+      <ListItem header={'Barang Ditemukan'} data={ditemukan} />
+      <ListItem header={'Barang Hilang'} data={hilang} />
       <Tips />
     </ScrollView>
   );
