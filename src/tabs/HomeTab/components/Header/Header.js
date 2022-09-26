@@ -4,7 +4,7 @@ import styles from './HeaderStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Header = () => {
+const Header = ({location}) => {
   return (
     <View style={styles.header}>
       <View>
@@ -16,7 +16,9 @@ const Header = () => {
             color={'#1687D1'}
           />
           <TouchableOpacity activeOpacity={0.6}>
-            <Text style={styles.lokasi}>Balikpapan</Text>
+            <Text style={styles.lokasi}>
+              {location ? location.detail[0].subAdminArea : 'Melacak lokasi'}
+            </Text>
           </TouchableOpacity>
           <MaterialIcons
             name="keyboard-arrow-down"
