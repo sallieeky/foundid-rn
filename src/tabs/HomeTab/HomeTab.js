@@ -52,11 +52,7 @@ const HomeTab = ({navigation}) => {
     <ScrollView style={styles.body}>
       <Header />
       <CardUser />
-      <MapSekitar
-        navigation={navigation}
-        data={itemTerbaru}
-        count={countKehilanganDitemukan}
-      />
+      <MapSekitar navigation={navigation} count={countKehilanganDitemukan} />
       <ListItem header={'Terbaru'} data={itemTerbaru} />
       <Kategori data={kategori} />
       <Disekitar navigation={navigation} />
