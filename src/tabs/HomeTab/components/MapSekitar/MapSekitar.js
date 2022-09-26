@@ -13,29 +13,68 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import API from '../../../../config/api';
 
-const MapSekitar = ({navigation, count}) => {
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
+const Loader = () => (
+  <SkeletonPlaceholder>
+    <View style={styles.skeletonContainer}>
+      <SkeletonPlaceholder.Item
+        marginHorizontal={8}
+        width={312}
+        height={112}
+        borderRadius={8}
+      />
+      <SkeletonPlaceholder.Item
+        marginHorizontal={8}
+        width={312}
+        height={112}
+        borderRadius={8}
+      />
+    </View>
+  </SkeletonPlaceholder>
+);
+
+const MapSekitar = ({navigation, count, location}) => {
   const [filterActive, setFilterActive] = useState();
   const [filterData, setFilterData] = useState();
+  const [filterDataCount, setFilterDataCount] = useState();
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [location]);
 
   const getData = async () => {
-    const response = await API.get('/home-tab/get-terbaru');
-    setFilterData(response.data);
+    const response = await API.get(
+      `/home-tab/get-terbaru?kota=${location.detail[0].subAdminArea}`,
+    );
+    setFilterData(response.data.data);
+    setFilterDataCount(response.data.total);
   };
 
   const onPressHilang = async () => {
     setFilterActive('hilang');
-    const response = await API.get('/home-tab/get-hilang');
-    setFilterData(response.data);
+    setFilterData();
+    const response = await API.get(
+      `/home-tab/get-hilang?kota=${location.detail[0].subAdminArea}`,
+    );
+    setFilterData(response.data.data);
+    setFilterDataCount(response.data.total);
   };
 
   const onPressDitemukan = async () => {
     setFilterActive('ditemukan');
-    const response = await API.get('/home-tab/get-ditemukan');
-    setFilterData(response.data);
+    setFilterData();
+    const response = await API.get(
+      `/home-tab/get-ditemukan?kota=${location.detail[0].subAdminArea}`,
+    );
+    setFilterData(response.data.data);
+    setFilterDataCount(response.data.total);
+  };
+
+  const onPressAll = () => {
+    setFilterActive();
+    setFilterData();
+    getData();
   };
 
   const Item = ({nama, gambar, kota, status, no_telp}) => (
@@ -58,7 +97,7 @@ const MapSekitar = ({navigation, count}) => {
         <Text style={styles.contentDetailNama}>{nama}</Text>
         <View style={styles.contentInfo}>
           <MaterialCommunityIcons name="map-marker-outline" size={16} />
-          <Text style={styles.detail}>Sekitar {kota}</Text>
+          <Text style={styles.detail}>{kota}</Text>
         </View>
         <View style={styles.contentInfo}>
           <MaterialCommunityIcons name="account-outline" size={16} />
@@ -148,10 +187,14 @@ const MapSekitar = ({navigation, count}) => {
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={{
-            latitude: -1.142232852071283,
-            longitude: 116.86777883563393,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
+            latitude: location
+              ? parseFloat(location.coords.lat)
+              : -1.142232852071283,
+            longitude: location
+              ? parseFloat(location.coords.lng)
+              : 116.86777883563393,
+            latitudeDelta: location ? 0.015 : 30,
+            longitudeDelta: location ? 0.0121 : 30,
           }}>
           {filterData &&
             filterData.map((item, i) => (
@@ -173,7 +216,13 @@ const MapSekitar = ({navigation, count}) => {
       </View>
 
       <View style={styles.filterContainer}>
-        <IonIcons name="grid" size={32} color={'#1262A5'} />
+        <Pressable onPress={onPressAll}>
+          <IonIcons
+            name={filterActive ? 'grid-outline' : 'grid'}
+            size={32}
+            color={'#1262A5'}
+          />
+        </Pressable>
         <Pressable onPress={onPressHilang}>
           <View
             style={{
@@ -208,8 +257,11 @@ const MapSekitar = ({navigation, count}) => {
         </Pressable>
       </View>
 
+      {filterDataCount === 0 && (
+        <Text style={styles.contentBlank}>Data masih Kosong</Text>
+      )}
       <View style={styles.contentContainer}>
-        {filterData && (
+        {filterData ? (
           <FlatList
             data={filterData}
             renderItem={renderItem}
@@ -219,6 +271,8 @@ const MapSekitar = ({navigation, count}) => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           />
+        ) : (
+          <Loader />
         )}
       </View>
     </View>

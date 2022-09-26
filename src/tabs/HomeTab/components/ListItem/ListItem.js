@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
@@ -51,7 +51,7 @@ const Item = ({nama, gambar, kota, status, no_telp}) => (
     <View style={styles.contentDetailContainer}>
       <View style={styles.contentDetail}>
         <MaterialCommunityIcons name="map-marker-outline" size={16} />
-        <Text style={styles.detail}>Sekitar {kota}</Text>
+        <Text style={styles.detail}>{kota}</Text>
       </View>
       <View style={styles.contentDetail}>
         <MaterialCommunityIcons name="account-outline" size={16} />
@@ -82,17 +82,20 @@ const ListItem = ({header, data}) => {
           <Text style={styles.lihatSemua}>Lihat Semua</Text>
         </TouchableOpacity>
       </View>
-
       {data ? (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          style={styles.contentContainer}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        />
+        data.total < 1 ? (
+          <Text style={styles.contentBlank}>Data masih Kosong</Text>
+        ) : (
+          <FlatList
+            data={data.data}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            style={styles.contentContainer}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          />
+        )
       ) : (
         <Loader />
       )}
