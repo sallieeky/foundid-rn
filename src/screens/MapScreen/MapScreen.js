@@ -48,7 +48,9 @@ const MapScreen = () => {
             latitude: location.lat,
             longitude: location.lng,
           }}
-          image={require('../../assets/images/marker.png')}>
+          image={{
+            uri: 'https://api.foundid.my.id/storage/images/marker.png',
+          }}>
           <Callout>
             <View>
               <Text>Kos ITK (Bougenville Putra)</Text>

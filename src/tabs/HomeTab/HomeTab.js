@@ -40,7 +40,7 @@ const HomeTab = ({navigation}) => {
 
   return (
     <ScrollView style={styles.body}>
-      <Header location={location} />
+      <Header location={location} onReload={getLocation} />
       <CardUser />
       <MapSekitar navigation={navigation} location={location} />
       <Kategori />

@@ -4,7 +4,7 @@ import styles from './HeaderStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Header = ({location}) => {
+const Header = ({location, onReload}) => {
   return (
     <View style={styles.header}>
       <View>
@@ -15,16 +15,15 @@ const Header = ({location}) => {
             size={24}
             color={'#1687D1'}
           />
-          <TouchableOpacity activeOpacity={0.6}>
-            <Text style={styles.lokasi}>
-              {location ? location.detail[0].subAdminArea : 'Melacak lokasi'}
-            </Text>
-          </TouchableOpacity>
-          <MaterialIcons
-            name="keyboard-arrow-down"
-            size={24}
-            color={'#242424'}
-          />
+          <Text style={styles.lokasi}>
+            {location ? location.detail[0].subAdminArea : 'Melacak lokasi'}
+          </Text>
+
+          {!location && (
+            <TouchableOpacity activeOpacity={0.6} onPress={onReload}>
+              <MaterialIcons name="refresh" size={24} color={'#242424'} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       <MaterialCommunityIcons name="bell" color={'#4A4B4D'} size={28} />

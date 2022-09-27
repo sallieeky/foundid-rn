@@ -35,14 +35,14 @@ const Loader = () => (
 );
 
 const MapSekitar = ({navigation, location}) => {
-  const [count, setCount] = useState()
+  const [count, setCount] = useState();
   const [filterActive, setFilterActive] = useState();
   const [filterData, setFilterData] = useState();
   const [filterDataCount, setFilterDataCount] = useState();
 
   useEffect(() => {
     getData();
-    getCountKehilanganDitemukan()
+    getCountKehilanganDitemukan();
   }, [location]);
 
   const getData = async () => {
@@ -66,6 +66,7 @@ const MapSekitar = ({navigation, location}) => {
     const response = await API.get(
       `/home-tab/get-hilang?kota=${location.detail[0].subAdminArea}`,
     );
+    getCountKehilanganDitemukan();
     setFilterData(response.data.data);
     setFilterDataCount(response.data.total);
   };
@@ -76,11 +77,13 @@ const MapSekitar = ({navigation, location}) => {
     const response = await API.get(
       `/home-tab/get-ditemukan?kota=${location.detail[0].subAdminArea}`,
     );
+    getCountKehilanganDitemukan();
     setFilterData(response.data.data);
     setFilterDataCount(response.data.total);
   };
 
   const onPressAll = () => {
+    getCountKehilanganDitemukan();
     setFilterActive();
     setFilterData();
     getData();
@@ -213,7 +216,11 @@ const MapSekitar = ({navigation, location}) => {
                   latitude: parseFloat(item.item.lokasi.lat),
                   longitude: parseFloat(item.item.lokasi.lng),
                 }}
-                image={require('../../../../assets/images/marker.png')}>
+                image={{
+                  uri: 'https://api.foundid.my.id/storage/images/marker.png',
+                }}
+                // image={require('../../../../assets/images/marker.png')}
+              >
                 <Callout>
                   <View>
                     <Text>{item.item.nama}</Text>
