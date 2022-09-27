@@ -25,7 +25,6 @@ const Kategori = () => {
   const getKategori = async () => {
     const response = await API.get(`/home-tab/get-kategori`);
     setData(response.data);
-    console.log(response.data);
   };
 
   return (

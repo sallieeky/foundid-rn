@@ -30,6 +30,20 @@ const Loader = () => (
   </SkeletonPlaceholder>
 );
 
+const Error = ({pressHandler}) => (
+  <TouchableOpacity
+    style={{
+      alignItems: 'center',
+      marginHorizontal: 24,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderColor: '#242424',
+    }}
+    onPress={pressHandler}>
+    <Text>Refresh Page</Text>
+  </TouchableOpacity>
+);
+
 const Item = ({nama, gambar, kota, status, no_telp}) => (
   <View style={styles.content}>
     <View style={styles.contentImageSection}>
@@ -75,6 +89,7 @@ const renderItem = ({item}) => {
 };
 
 const ListItem = ({header, location, name}) => {
+  const [isError, setIsError] = useState(false);
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -82,10 +97,15 @@ const ListItem = ({header, location, name}) => {
   }, [location]);
 
   const getData = async () => {
-    const response = await API.get(
-      `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
-    );
-    setData(response.data);
+    try {
+      const response = await API.get(
+        `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
+      );
+      setIsError(false);
+      setData(response.data);
+    } catch (e) {
+      setIsError(true);
+    }
   };
 
   return (
@@ -96,6 +116,7 @@ const ListItem = ({header, location, name}) => {
           <Text style={styles.lihatSemua}>Lihat Semua</Text>
         </TouchableOpacity>
       </View>
+      {isError && <Error pressHandler={() => getData()} />}
       {data ? (
         data.total < 1 ? (
           <Text style={styles.contentBlank}>Data masih Kosong</Text>
@@ -111,7 +132,7 @@ const ListItem = ({header, location, name}) => {
           />
         )
       ) : (
-        <Loader />
+        !isError && <Loader />
       )}
     </View>
   );
