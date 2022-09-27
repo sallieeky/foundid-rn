@@ -1,8 +1,9 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './KategoriStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import API from '../../../../config/api';
 
 const Loader = () => (
   <SkeletonPlaceholder>
@@ -15,7 +16,18 @@ const Loader = () => (
   </SkeletonPlaceholder>
 );
 
-const Kategori = ({data}) => {
+const Kategori = () => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    getKategori();
+  }, []);
+
+  const getKategori = async () => {
+    const response = await API.get(`/home-tab/get-kategori`);
+    setData(response.data);
+    console.log(response.data);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.kategoriHeading}>Kategori</Text>

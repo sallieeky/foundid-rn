@@ -13,55 +13,10 @@ import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
 
 const HomeTab = ({navigation}) => {
-  const [itemTerbaru, setItemTerbaru] = useState();
-  const [countKehilanganDitemukan, setCountKehilanganDitemukan] = useState();
-  const [kategori, setKategori] = useState();
-  const [hilang, setHilang] = useState();
-  const [ditemukan, setDitemukan] = useState();
   const [location, setLocation] = useState();
   useEffect(() => {
     getLocation();
   }, []);
-
-  useEffect(() => {
-    getTerbaru();
-    getCountKehilanganDitemukan();
-    getKategori();
-    getHilang();
-    getDitemukan();
-  }, [location]);
-
-  const getTerbaru = async () => {
-    const response = await API.get(
-      `/home-tab/get-terbaru?kota=${location.detail[0].subAdminArea}`,
-    );
-    setItemTerbaru(response.data);
-  };
-  const getCountKehilanganDitemukan = async () => {
-    const response = await API.get(
-      `/home-tab/get-count-hilang-ditemukan?kota=${location.detail[0].subAdminArea}`,
-    );
-    setCountKehilanganDitemukan(response.data);
-  };
-
-  const getKategori = async () => {
-    const response = await API.get(`/home-tab/get-kategori`);
-    setKategori(response.data);
-  };
-
-  const getHilang = async () => {
-    const response = await API.get(
-      `/home-tab/get-hilang?kota=${location.detail[0].subAdminArea}`,
-    );
-    setHilang(response.data);
-  };
-
-  const getDitemukan = async () => {
-    const response = await API.get(
-      `/home-tab/get-ditemukan?kota=${location.detail[0].subAdminArea}`,
-    );
-    setDitemukan(response.data);
-  };
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
@@ -87,16 +42,15 @@ const HomeTab = ({navigation}) => {
     <ScrollView style={styles.body}>
       <Header location={location} />
       <CardUser />
-      <MapSekitar
-        navigation={navigation}
-        count={countKehilanganDitemukan}
-        location={location}
-      />
-      {/* <ListItem header={'Terbaru'} data={itemTerbaru} /> */}
-      <Kategori data={kategori} />
+      <MapSekitar navigation={navigation} location={location} />
+      <Kategori />
       <PeringkatKota navigation={navigation} />
-      <ListItem header={'Barang Ditemukan'} data={ditemukan} />
-      <ListItem header={'Barang Hilang'} data={hilang} />
+      <ListItem
+        header={'Barang Ditemukan'}
+        location={location}
+        name={'ditemukan'}
+      />
+      <ListItem header={'Barang Hilang'} location={location} name={'hilang'} />
       <Tips />
     </ScrollView>
   );
