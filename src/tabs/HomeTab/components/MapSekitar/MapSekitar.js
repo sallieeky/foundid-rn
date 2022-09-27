@@ -34,13 +34,15 @@ const Loader = () => (
   </SkeletonPlaceholder>
 );
 
-const MapSekitar = ({navigation, count, location}) => {
+const MapSekitar = ({navigation, location}) => {
+  const [count, setCount] = useState()
   const [filterActive, setFilterActive] = useState();
   const [filterData, setFilterData] = useState();
   const [filterDataCount, setFilterDataCount] = useState();
 
   useEffect(() => {
     getData();
+    getCountKehilanganDitemukan()
   }, [location]);
 
   const getData = async () => {
@@ -49,6 +51,13 @@ const MapSekitar = ({navigation, count, location}) => {
     );
     setFilterData(response.data.data);
     setFilterDataCount(response.data.total);
+  };
+
+  const getCountKehilanganDitemukan = async () => {
+    const response = await API.get(
+      `/home-tab/get-count-hilang-ditemukan?kota=${location.detail[0].subAdminArea}`,
+    );
+    setCount(response.data);
   };
 
   const onPressHilang = async () => {

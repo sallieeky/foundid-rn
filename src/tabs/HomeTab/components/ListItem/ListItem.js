@@ -1,8 +1,9 @@
 import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import API from '../../../../config/api';
 
 const Loader = () => (
   <SkeletonPlaceholder>
@@ -73,7 +74,20 @@ const renderItem = ({item}) => {
   );
 };
 
-const ListItem = ({header, data}) => {
+const ListItem = ({header, location, name}) => {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    getData();
+  }, [location]);
+
+  const getData = async () => {
+    const response = await API.get(
+      `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
+    );
+    setData(response.data);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.listItemHeadingContainer}>
