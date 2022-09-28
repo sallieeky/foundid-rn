@@ -2,7 +2,7 @@ import {Dimensions, StyleSheet} from 'react-native';
 import {globalFont} from '../../../../assets/style/globalStyle';
 
 const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} = Dimensions.get('window');
-const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.4;
+const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.5;
 const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.12;
 const CONTENT_HEIGHT = BOTTOM_SHEET_MAX_HEIGHT - BOTTOM_SHEET_MIN_HEIGHT;
 

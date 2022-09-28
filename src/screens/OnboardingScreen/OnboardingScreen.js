@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const OnboardingScreen = ({navigation}) => {
   const onDone = async () => {
     try {
-      // await AsyncStorage.setItem('isOnboarding', 'true');
+      await AsyncStorage.setItem('isOnboarding', 'true');
       navigation.replace('MainScreen');
     } catch (e) {
       alert('Kesalahan');
