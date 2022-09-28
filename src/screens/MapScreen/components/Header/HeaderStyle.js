@@ -3,11 +3,14 @@ import {globalFont} from '../../../../assets/style/globalStyle';
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    height: 64,
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 24,
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 8,
   },
   lokasiTitle: {
     ...globalFont.normal,

@@ -197,6 +197,8 @@ const MapSekitar = ({navigation, location}) => {
         </View>
         <MapView
           provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+          loadingEnabled={true}
           style={styles.map}
           region={{
             latitude: location

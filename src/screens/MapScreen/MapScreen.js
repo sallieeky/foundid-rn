@@ -6,12 +6,14 @@ import BottomSheet from './components/BottomSheet/BottomSheet';
 import styles from './MapScreenStyle';
 import Header from './components/Header/Header';
 import Geocoder from 'react-native-geocoder';
-const MapScreen = () => {
+import API from '../../config/api';
+const MapScreen = ({navigation}) => {
   const [location, setLocation] = useState();
   const [count, setCount] = useState();
   const [filterActive, setFilterActive] = useState();
   const [filterData, setFilterData] = useState();
   const [filterDataCount, setFilterDataCount] = useState();
+  const [showLocation, setShowLocation] = useState();
 
   useEffect(() => {
     getLocation();
@@ -86,21 +88,40 @@ const MapScreen = () => {
     getData();
   };
 
+  const showLocationHandle = (lat, lng) => {
+    console.log(lat, lng);
+    setShowLocation({
+      lat,
+      lng,
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Header location={location} />
+      <Header
+        location={location}
+        navigation={navigation}
+        onReload={getLocation}
+      />
       <MapView
+        showsUserLocation={true}
+        loadingEnabled={true}
         provider={PROVIDER_GOOGLE}
-        style={styles.map}
+        style={{...styles.map}}
         region={{
           latitude: location
-            ? parseFloat(location.coords.lat)
+            ? showLocation
+              ? parseFloat(showLocation.lat)
+              : parseFloat(location.coords.lat)
             : -1.142232852071283,
+
           longitude: location
-            ? parseFloat(location.coords.lng)
-            : 116.86777883563393,
-          latitudeDelta: location ? 0.015 : 30,
-          longitudeDelta: location ? 0.0121 : 30,
+            ? showLocation
+              ? parseFloat(showLocation.lng)
+              : parseFloat(location.coords.lng)
+            : -1.142232852071283,
+          latitudeDelta: location ? (showLocation ? 0.001 : 0.015) : 30,
+          longitudeDelta: location ? (showLocation ? 0.001 : 0.015) : 30,
         }}>
         {filterData &&
           filterData.map((item, i) => (
@@ -112,9 +133,7 @@ const MapScreen = () => {
               }}
               image={{
                 uri: 'https://api.foundid.my.id/storage/images/marker.png',
-              }}
-              // image={require('../../../../assets/images/marker.png')}
-            >
+              }}>
               <Callout>
                 <View>
                   <Text>{item.item.nama}</Text>
@@ -128,6 +147,8 @@ const MapScreen = () => {
         onPressAll={onPressAll}
         onPressHilang={onPressHilang}
         onPressDitemukan={onPressDitemukan}
+        data={filterData}
+        showLocation={showLocationHandle}
       />
     </View>
   );
