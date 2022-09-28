@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import API from '../../config/api';
 import Header from './components/Header/Header';
@@ -6,50 +6,51 @@ import CardUser from './components/CardUser/CardUser';
 import styles from './HomeTabStyle';
 import ListItem from './components/ListItem/ListItem';
 import Kategori from './components/Kategori/Kategori';
-import Disekitar from './components/Disekitar/Disekitar';
+import PeringkatKota from './components/PeringkatKota/PeringkatKota';
 import Tips from './components/Tips/Tips';
 import MapSekitar from './components/MapSekitar/MapSekitar';
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoder';
+
 const HomeTab = ({navigation}) => {
-  const [itemTerbaru, setItemTerbaru] = useState();
-  const [kategori, setKategori] = useState();
-  const [hilang, setHilang] = useState();
-  const [ditemukan, setDitemukan] = useState();
+  const [location, setLocation] = useState();
   useEffect(() => {
-    getData();
-    getKategori();
-    getHilang();
-    getDitemukan();
+    getLocation();
   }, []);
 
-  const getData = async () => {
-    const response = await API.get('/home-tab/get-terbaru');
-    setItemTerbaru(response.data);
+  const getLocation = () => {
+    Geolocation.getCurrentPosition(
+      async position => {
+        const CO = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const geocoder = await Geocoder.geocodePosition(CO);
+        setLocation({
+          coords: CO,
+          detail: geocoder,
+        });
+      },
+      error => {
+        alert('gagal');
+      },
+      {enableHighAccuracy: true},
+    );
   };
 
-  const getKategori = async () => {
-    const response = await API.get('/home-tab/get-kategori');
-    setKategori(response.data);
-  };
-
-  const getHilang = async () => {
-    const response = await API.get('/home-tab/get-hilang');
-    setHilang(response.data);
-  };
-
-  const getDitemukan = async () => {
-    const response = await API.get('/home-tab/get-ditemukan');
-    setDitemukan(response.data);
-  };
   return (
     <ScrollView style={styles.body}>
-      <Header />
+      <Header location={location} onReload={getLocation} />
       <CardUser />
-      <MapSekitar navigation={navigation} />
-      <ListItem header={'Terbaru'} data={itemTerbaru} />
-      <Kategori data={kategori} />
-      <Disekitar navigation={() => navigation.push('MapScreen')} />
-      <ListItem header={'Barang Ditemukan'} data={hilang} />
-      <ListItem header={'Barang Hilang'} data={ditemukan} />
+      <MapSekitar navigation={navigation} location={location} />
+      <Kategori />
+      <PeringkatKota navigation={navigation} />
+      <ListItem
+        header={'Barang Ditemukan'}
+        location={location}
+        name={'ditemukan'}
+      />
+      <ListItem header={'Barang Hilang'} location={location} name={'hilang'} />
       <Tips />
     </ScrollView>
   );

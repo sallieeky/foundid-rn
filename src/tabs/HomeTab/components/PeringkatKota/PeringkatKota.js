@@ -1,9 +1,9 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import styles from './DisekitarStyle';
+import styles from './PeringkatKotaStyle';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-const Disekitar = ({navigation}) => {
+const PeringkatKota = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.disekitarHeading}>Disekitar</Text>
@@ -28,7 +28,7 @@ const Disekitar = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.disekitarDetailBox}
-          onPress={navigation}>
+          onPress={() => navigation.push('MapScreen')}>
           <Image
             source={require('../../../../assets/images/disekitar.png')}
             style={styles.disekitarDetailBoxImage}
@@ -45,4 +45,4 @@ const Disekitar = ({navigation}) => {
   );
 };
 
-export default Disekitar;
+export default PeringkatKota;

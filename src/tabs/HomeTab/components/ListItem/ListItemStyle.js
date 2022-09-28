@@ -2,6 +2,11 @@ import {StyleSheet} from 'react-native';
 import {globalFont} from '../../../../assets/style/globalStyle';
 
 const styles = StyleSheet.create({
+  skeletonContainer: {
+    flexDirection: 'row',
+    marginTop: 16,
+  },
+
   container: {
     marginTop: 16,
   },
@@ -22,8 +27,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   content: {
-    height: 208,
     width: 142,
+    paddingBottom: 4,
     backgroundColor: '#D9D9D9',
     marginHorizontal: 8,
     borderRadius: 16,
@@ -80,6 +85,19 @@ const styles = StyleSheet.create({
   detail: {
     ...globalFont.normal,
     fontSize: 12,
+  },
+
+  // CONTENT BLANK
+  contentBlank: {
+    ...globalFont.bold,
+    marginTop: 8,
+    textAlign: 'center',
+    fontSize: 20,
+    borderWidth: 1,
+    marginHorizontal: 24,
+    paddingVertical: 8,
+    borderStyle: 'dotted',
+    borderRadius: 8,
   },
 });
 

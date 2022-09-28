@@ -2,13 +2,16 @@ import {StyleSheet} from 'react-native';
 import {globalFont} from '../../../../assets/style/globalStyle';
 
 const styles = StyleSheet.create({
+  skeletonContainer: {
+    flexDirection: 'row',
+  },
   container: {
     marginTop: 24,
-    marginHorizontal: 24,
   },
   headingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginHorizontal: 24,
   },
   mapHeading: {
     ...globalFont.bold,
@@ -22,6 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     overflow: 'hidden',
     marginTop: 16,
+    marginHorizontal: 24,
   },
   infoContainer: {
     position: 'absolute',
@@ -55,6 +59,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     marginTop: 8,
+    marginHorizontal: 24,
   },
   filter: {
     borderWidth: 1,
@@ -66,6 +71,81 @@ const styles = StyleSheet.create({
   filterText: {
     ...globalFont.normal,
     fontSize: 12,
+  },
+  contentContainer: {
+    marginTop: 4,
+  },
+  content: {
+    flexDirection: 'row',
+    padding: 4,
+    backgroundColor: '#D9D9D9',
+    borderRadius: 8,
+    width: 312,
+    marginHorizontal: 8,
+  },
+  contentImageContainer: {
+    height: 100,
+    width: 108,
+  },
+  contentImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+    position: 'absolute',
+  },
+  contentStatusContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    backgroundColor: '#FA6011',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  contentStatus: {
+    ...globalFont.bold,
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: 10,
+  },
+  contentDetail: {
+    marginLeft: 8,
+    width: 188,
+  },
+  contentDetailNama: {
+    ...globalFont.bold,
+  },
+  contentInfo: {
+    flexDirection: 'row',
+    marginTop: 4,
+  },
+  detail: {
+    ...globalFont.normal,
+    fontSize: 10,
+  },
+  floatingButtonContainer: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+    width: 64,
+    height: 64,
+    backgroundColor: '#1F6BAA',
+    borderRadius: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  // CONTENT BLANK
+  contentBlank: {
+    ...globalFont.bold,
+    marginTop: 8,
+    textAlign: 'center',
+    fontSize: 20,
+    borderWidth: 1,
+    marginHorizontal: 24,
+    paddingVertical: 8,
+    borderStyle: 'dotted',
+    borderRadius: 8,
   },
 });
 

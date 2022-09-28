@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import com.foundid.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
