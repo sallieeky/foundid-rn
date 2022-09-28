@@ -89,7 +89,6 @@ const MapScreen = ({navigation}) => {
   };
 
   const showLocationHandle = (lat, lng) => {
-    console.log(lat, lng);
     setShowLocation({
       lat,
       lng,
@@ -103,6 +102,48 @@ const MapScreen = ({navigation}) => {
         navigation={navigation}
         onReload={getLocation}
       />
+      <View style={styles.infoContainer}>
+        <View style={styles.infoTextContainer}>
+          <View
+            style={{
+              ...styles.circle,
+              backgroundColor:
+                filterActive === 'hilang' || !filterActive
+                  ? '#FC6011'
+                  : '#C8D1E1',
+            }}
+          />
+          <Text
+            style={{
+              color:
+                filterActive === 'hilang' || !filterActive
+                  ? '#4A4B4D'
+                  : '#C8D1E1',
+            }}>
+            Kehilangan: {count ? count.kehilangan : 'Memuat'}
+          </Text>
+        </View>
+        <View style={styles.infoTextContainer}>
+          <View
+            style={{
+              ...styles.circle,
+              backgroundColor:
+                filterActive === 'ditemukan' || !filterActive
+                  ? '#1262A5'
+                  : '#C8D1E1',
+            }}
+          />
+          <Text
+            style={{
+              color:
+                filterActive === 'ditemukan' || !filterActive
+                  ? '#4A4B4D'
+                  : '#C8D1E1',
+            }}>
+            Ditemukan: {count ? count.ditemukan : 'Memuat'}
+          </Text>
+        </View>
+      </View>
       <MapView
         showsUserLocation={true}
         loadingEnabled={true}
@@ -111,7 +152,7 @@ const MapScreen = ({navigation}) => {
         region={{
           latitude: location
             ? showLocation
-              ? parseFloat(showLocation.lat)
+              ? parseFloat(showLocation.lat) - 0.0005
               : parseFloat(location.coords.lat)
             : -1.142232852071283,
 

@@ -14,7 +14,7 @@ import {globalFont} from '../../../../assets/style/globalStyle';
 import ListItem from '../ListItem/ListItem';
 
 const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} = Dimensions.get('window');
-const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.4;
+const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.5;
 const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.12;
 const MAX_UPWARD_TRANSLATE_Y =
   BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT;
