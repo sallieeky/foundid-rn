@@ -11,10 +11,11 @@ import {
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {globalFont} from '../../../../assets/style/globalStyle';
+import ListItem from '../ListItem/ListItem';
 
 const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} = Dimensions.get('window');
-const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.6;
-const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.13;
+const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.4;
+const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.12;
 const MAX_UPWARD_TRANSLATE_Y =
   BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT;
 const MAX_DOWNWARD_TRANSLATE_Y = 0;
@@ -25,6 +26,8 @@ const BottomSheet = ({
   onPressAll,
   onPressHilang,
   onPressDitemukan,
+  data,
+  showLocation,
 }) => {
   const [isDrag, setIsDrag] = useState(false);
 
@@ -101,7 +104,7 @@ const BottomSheet = ({
             }}
           />
         </View>
-        {/* CONTENT */}
+        {/* CONTENT FILTER */}
         <View style={styles.filterContainer}>
           <Pressable onPress={() => onPressAll()}>
             <IonIcons
@@ -143,6 +146,11 @@ const BottomSheet = ({
             </View>
           </Pressable>
         </View>
+
+        {/* LIST ITEM */}
+        <View style={styles.listContainer}>
+          <ListItem data={data} showLocation={showLocation} />
+        </View>
       </Animated.View>
     </View>
   );
@@ -151,7 +159,7 @@ const BottomSheet = ({
 export default BottomSheet;
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
   bottomSheet: {
     position: 'absolute',
@@ -168,11 +176,10 @@ const styles = StyleSheet.create({
   dragableArea: {
     width: '100%',
     height: BOTTOM_SHEET_MIN_HEIGHT,
-    position: 'absolute',
-    top: 0,
     alignItems: 'center',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
+    position: 'absolute',
   },
   dragHandle: {
     width: 100,
@@ -197,5 +204,11 @@ const styles = StyleSheet.create({
   filterText: {
     ...globalFont.normal,
     fontSize: 12,
+  },
+  listContainer: {
+    position: 'absolute',
+    top: BOTTOM_SHEET_MIN_HEIGHT,
+    paddingHorizontal: 8,
+    width: '100%',
   },
 });
