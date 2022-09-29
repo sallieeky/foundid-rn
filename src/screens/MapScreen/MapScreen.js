@@ -24,6 +24,27 @@ const MapScreen = ({navigation}) => {
     getCountKehilanganDitemukan();
   }, [location]);
 
+  const customMapStyle = [
+    {
+      featureType: 'poi',
+      elementType: 'labels.icon',
+      stylers: [
+        {
+          color: '#bababa',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#bababa',
+        },
+      ],
+    },
+  ];
+
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       async position => {
@@ -145,6 +166,7 @@ const MapScreen = ({navigation}) => {
         </View>
       </View>
       <MapView
+        customMapStyle={customMapStyle}
         showsUserLocation={true}
         loadingEnabled={true}
         provider={PROVIDER_GOOGLE}
