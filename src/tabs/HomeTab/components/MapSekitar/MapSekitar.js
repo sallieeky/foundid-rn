@@ -34,6 +34,27 @@ const Loader = () => (
   </SkeletonPlaceholder>
 );
 
+const customMapStyle = [
+  {
+    featureType: 'poi',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        color: '#bababa',
+      },
+    ],
+  },
+  {
+    featureType: 'poi',
+    elementType: 'labels.text.fill',
+    stylers: [
+      {
+        color: '#bababa',
+      },
+    ],
+  },
+];
+
 const MapSekitar = ({navigation, location}) => {
   const [count, setCount] = useState();
   const [filterActive, setFilterActive] = useState();
@@ -200,6 +221,7 @@ const MapSekitar = ({navigation, location}) => {
           showsUserLocation={true}
           loadingEnabled={true}
           style={styles.map}
+          customMapStyle={customMapStyle}
           region={{
             latitude: location
               ? parseFloat(location.coords.lat)
@@ -220,9 +242,7 @@ const MapSekitar = ({navigation, location}) => {
                 }}
                 image={{
                   uri: 'https://api.foundid.my.id/storage/images/marker.png',
-                }}
-                // image={require('../../../../assets/images/marker.png')}
-              >
+                }}>
                 <Callout>
                   <View>
                     <Text>{item.item.nama}</Text>
