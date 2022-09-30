@@ -81,10 +81,19 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     padding: 4,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#F9F9F9',
     borderRadius: 8,
     width: 312,
     marginHorizontal: 8,
+    marginBottom: 8,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.19,
+    shadowRadius: 5.62,
+    elevation: 4,
   },
   contentImageContainer: {
     height: 100,
