@@ -8,6 +8,7 @@ import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
 import ListAllItemScreen from '../screens/ListAllItemScreen/ListAllItemScreen';
 import DetailPostinganScreen from '../screens/DetailPostinganScreen/DetailPostinganScreen';
+import TesScreen from '../screens/TesScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +16,10 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="SplashScreen">
+      initialRouteName="TesScreen">
+      {/*  */}
+      <Stack.Screen name="TesScreen" component={TesScreen} />
+      {/*  */}
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
       <Stack.Screen name="MainScreen" component={MainScreen} />
