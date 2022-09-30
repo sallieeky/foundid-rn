@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   content: {
     width: 142,
     paddingBottom: 4,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#F9F9F9',
     marginHorizontal: 8,
     borderRadius: 16,
     marginBottom: 16,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.19,
     shadowRadius: 5.62,
-    elevation: 6,
+    elevation: 4,
   },
   contentImageSection: {
     height: 148,
