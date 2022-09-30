@@ -22,10 +22,13 @@ const styles = StyleSheet.create({
     color: '#242424',
   },
   mapContainer: {
-    borderRadius: 24,
+    borderRadius: 8,
     overflow: 'hidden',
-    marginTop: 16,
-    marginHorizontal: 24,
+    marginTop: 8,
+    marginHorizontal: 8,
+    borderWidth: 1,
+    borderColor: '#1262A5',
+    borderStyle: 'dotted',
   },
   infoContainer: {
     position: 'absolute',
