@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.21,
     shadowRadius: 8.19,
-    elevation: 11,
+    elevation: 6,
   },
   accentRight: {
     position: 'absolute',
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.21,
     shadowRadius: 8.19,
-    elevation: 11,
+    elevation: 4,
   },
   bottomText: {
     ...globalFont.normal,

@@ -1,6 +1,5 @@
 import {ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import API from '../../config/api';
 import Header from './components/Header/Header';
 import CardUser from './components/CardUser/CardUser';
 import styles from './HomeTabStyle';
@@ -11,6 +10,7 @@ import Tips from './components/Tips/Tips';
 import MapSekitar from './components/MapSekitar/MapSekitar';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
+import TopFounder from './components/TopFounder/TopFounder';
 
 const HomeTab = ({navigation}) => {
   const [location, setLocation] = useState();
@@ -50,6 +50,7 @@ const HomeTab = ({navigation}) => {
         location={location}
         name={'ditemukan'}
       />
+      <TopFounder navigation={navigation} />
       <ListItem header={'Barang Hilang'} location={location} name={'hilang'} />
       <Tips />
     </ScrollView>
