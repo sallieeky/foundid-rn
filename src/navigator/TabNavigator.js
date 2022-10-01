@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeTab from '../tabs/HomeTab/HomeTab';
 import ProfileTab from '../tabs/ProfileTab/ProfileTab';
@@ -10,6 +10,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoder';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +41,32 @@ const CustomTabBarButton = ({children, onPress}) => {
 };
 
 const TabNavigator = () => {
+  const [location, setLocation] = useState();
+  useEffect(() => {
+    getCurentLocation();
+  }, []);
+
+  const getCurentLocation = () => {
+    Geolocation.getCurrentPosition(
+      async position => {
+        const CO = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        const geocoder = await Geocoder.geocodePosition(CO);
+        const response = {
+          coords: CO,
+          detail: geocoder,
+        };
+        setLocation(response);
+      },
+      error => {
+        alert('gagal');
+      },
+      {enableHighAccuracy: true},
+    );
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -53,7 +81,13 @@ const TabNavigator = () => {
       }}>
       <Tab.Screen
         name="HomeTab"
-        component={HomeTab}
+        children={props => (
+          <HomeTab
+            {...props}
+            location={location}
+            onReload={getCurentLocation}
+          />
+        )}
         options={{
           tabBarIcon: ({focused, size}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -72,7 +106,13 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="SearchTab"
-        component={SearchTab}
+        children={props => (
+          <SearchTab
+            {...props}
+            location={location}
+            onReload={getCurentLocation}
+          />
+        )}
         options={{
           tabBarIcon: ({focused, size}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
