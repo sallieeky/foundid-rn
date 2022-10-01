@@ -1,5 +1,5 @@
 import {ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Header from './components/Header/Header';
 import CardUser from './components/CardUser/CardUser';
 import styles from './HomeTabStyle';
@@ -8,39 +8,12 @@ import Kategori from './components/Kategori/Kategori';
 import PeringkatKota from './components/PeringkatKota/PeringkatKota';
 import Tips from './components/Tips/Tips';
 import MapSekitar from './components/MapSekitar/MapSekitar';
-import Geolocation from '@react-native-community/geolocation';
-import Geocoder from 'react-native-geocoder';
 import TopFounder from './components/TopFounder/TopFounder';
 
-const HomeTab = ({navigation}) => {
-  const [location, setLocation] = useState();
-  useEffect(() => {
-    getLocation();
-  }, []);
-
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      async position => {
-        const CO = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        const geocoder = await Geocoder.geocodePosition(CO);
-        setLocation({
-          coords: CO,
-          detail: geocoder,
-        });
-      },
-      error => {
-        alert('gagal');
-      },
-      {enableHighAccuracy: true},
-    );
-  };
-
+const HomeTab = ({navigation, location, onReload}) => {
   return (
     <ScrollView style={styles.body}>
-      <Header location={location} onReload={getLocation} />
+      <Header location={location} onReload={onReload} />
       <CardUser />
       <MapSekitar navigation={navigation} location={location} />
       <Kategori />

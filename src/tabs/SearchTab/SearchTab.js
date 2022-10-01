@@ -1,31 +1,15 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, Text} from 'react-native';
+import React from 'react';
+import Header from '../../components/Header/Header';
 
-import Geocoder from 'react-native-geocoder';
-
-const SearchTab = () => {
-  const [data, setData] = useState();
-
-  var NY = {
-    lat: -1.142232852071283,
-    lng: 116.86777883563393,
-  };
-
-  useEffect(() => {
-    Geocoder.geocodePosition(NY)
-      .then(res => {
-        setData(JSON.stringify(res));
-      })
-      .catch(err => console.log(err));
-  }, []);
-
+const SearchTab = ({location, onReload}) => {
   return (
-    <ScrollView>
-      <Text>{data}</Text>
-    </ScrollView>
+    <View>
+      {location && console.log(location)}
+      <Header location={location} onReload={onReload} />
+      <Text>SearchTab</Text>
+    </View>
   );
 };
 
 export default SearchTab;
-
-const styles = StyleSheet.create({});
