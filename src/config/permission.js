@@ -23,27 +23,45 @@ const requestLocationPermission = async () => {
 };
 
 const requestCameraPermission = async () => {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-      {
-        title: 'Cool Photo App Camera Permission',
-        message:
-          'Cool Photo App needs access to your camera ' +
-          'so you can take awesome pictures.',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      return true;
-    } else {
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Camera Permission',
+          message: 'App needs camera permission',
+        },
+      );
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.warn(err);
       return false;
     }
-  } catch (err) {
-    console.warn(err);
-  }
+  } else return true;
 };
 
-export {requestLocationPermission, requestCameraPermission};
+const requestExternalWritePermission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'External Storage Write Permission',
+          message: 'App needs write permission',
+        },
+      );
+      // If WRITE_EXTERNAL_STORAGE Permission is granted
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.warn(err);
+      alert('Write permission err', err);
+    }
+    return false;
+  } else return true;
+};
+
+export {
+  requestLocationPermission,
+  requestCameraPermission,
+  requestExternalWritePermission,
+};
