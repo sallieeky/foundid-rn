@@ -18,6 +18,8 @@ import ListItem from '../../components/ListItem/ListItem';
 import API from '../../config/api';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 import CheckBox from '@react-native-community/checkbox';
+import ListItemSearch from './components/ListItemSearch/ListItemSearch';
+import Spinner from 'react-native-spinkit';
 
 const radioButtonsDataOrder = [
   {
@@ -53,6 +55,8 @@ const radioButtonsDataStatus = [
 const SearchTab = ({location, onReload}) => {
   const refRBSheet = useRef();
   const [data, setData] = useState();
+  const [totalData, setTotalData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [filterActive, setFilterActive] = useState();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -60,6 +64,7 @@ const SearchTab = ({location, onReload}) => {
     order: 'DESC',
     kategori: [],
     status: false,
+    jenis: '',
   });
   const [namaBarang, setNamaBarang] = useState('');
 
@@ -96,15 +101,18 @@ const SearchTab = ({location, onReload}) => {
   }
 
   const onChangeNamaBarang = () => {
+    setDataHistory();
     getData();
   };
 
-  const getData = async () => {
+  const getData = async (jenis = filter.jenis) => {
+    setIsLoading(true);
     const response = await API.get(
-      `/search-tab/get-data?kota=${location.detail[0].subAdminArea}&nama=${namaBarang}&order=${filter.order}&kategori=${filter.kategori}&status=${filter.status}`,
+      `/search-tab/get-data?kota=${location.detail[0].subAdminArea}&nama=${namaBarang}&order=${filter.order}&kategori=${filter.kategori}&status=${filter.status}&jenis=${jenis}`,
     );
-    // setData(response.data);
-    console.log(response.data);
+    setData(response.data.data);
+    setTotalData(response.data.total);
+    setIsLoading(false);
   };
 
   const getSearchHistory = async () => {
@@ -155,14 +163,22 @@ const SearchTab = ({location, onReload}) => {
 
   const onPressHilang = async () => {
     setFilterActive('hilang');
+    setFilter({...filter, jenis: 'Kehilangan'});
+    let jenis = 'Kehilangan';
+    getData(jenis);
   };
 
   const onPressDitemukan = async () => {
     setFilterActive('ditemukan');
+    setFilter({...filter, jenis: 'Ditemukan'});
+    let jenis = 'Ditemukan';
+    getData(jenis);
   };
 
   const onPressAll = () => {
     setFilterActive();
+    setFilter({...filter, jenis: ''});
+    getData('');
   };
 
   return (
@@ -233,7 +249,7 @@ const SearchTab = ({location, onReload}) => {
       {/* END FILTER SECTION */}
 
       {/* NO SEARCH HISTORY */}
-      {!dataHistory && (
+      {!dataHistory && !data && (
         <View style={styles.noSearchHistoryContainer}>
           <Text style={styles.noSearchHistoryText}>
             Cari nama barang yang hilang atau ditemukan
@@ -243,7 +259,7 @@ const SearchTab = ({location, onReload}) => {
       {/* END NO SEARCH HISTORY */}
 
       {/* TERKINI SECTION */}
-      {dataHistory && (
+      {dataHistory && !data && (
         <View style={styles.terkiniSectionContainer}>
           <View style={styles.terkiniSectionHead}>
             <Text style={styles.terkiniSectionTitle}>Terkini</Text>
@@ -256,6 +272,24 @@ const SearchTab = ({location, onReload}) => {
         </View>
       )}
       {/* END TERKINI SECTION */}
+
+      {/* DATA SEARCH SECTION */}
+      <Spinner
+        isVisible={isLoading}
+        size={40}
+        type={'Circle'}
+        color={'#1687D1'}
+        style={styles.loadingData}
+      />
+      {data && !isLoading && totalData > 0 && (
+        <View style={styles.dataSectionContainer}>
+          <ListItemSearch data={data} />
+        </View>
+      )}
+      {data && totalData < 1 && !isLoading && (
+        <Text style={styles.dataSectionNoData}>Data Tidak Ditemukan</Text>
+      )}
+      {/* ENDDATA SEARCH SECTION */}
 
       {/* BOTTOM SHEET */}
       <RBSheet
