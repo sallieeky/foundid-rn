@@ -120,36 +120,66 @@
 
 // export default TesScreen;
 
-import {View, Text, Button} from 'react-native';
-import React, {useEffect} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import {View, Text, Button} from 'react-native';
+// import React, {useEffect} from 'react';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// const TesScreen = () => {
+//   useEffect(() => {
+//     getData();
+//   }, []);
+
+//   const getData = async () => {
+//     const data = await AsyncStorage.getItem('search');
+//     const json = JSON.parse(data);
+//     return json;
+//   };
+
+//   const setData = async () => {
+//     const data = ['tes1', 'tes2'];
+//     await AsyncStorage.setItem('search', JSON.stringify(data));
+//     getData();
+//   };
+
+//   const tambah = async id => {
+//     const data = await getData();
+//     data.push(id);
+//     await AsyncStorage.setItem('search', JSON.stringify(data));
+//   };
+//   return (
+//     <View>
+//       <Text>TesScreen</Text>
+//       <Button title="ada" onPress={() => tambah('tes3')} />
+//     </View>
+//   );
+// };
+
+// export default TesScreen;
+
+import {View, Text} from 'react-native';
+import React, {useState} from 'react';
+import CheckBox from '@react-native-community/checkbox';
 
 const TesScreen = () => {
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const data = await AsyncStorage.getItem('search');
-    const json = JSON.parse(data);
-    return json;
-  };
-
-  const setData = async () => {
-    const data = ['tes1', 'tes2'];
-    await AsyncStorage.setItem('search', JSON.stringify(data));
-    getData();
-  };
-
-  const tambah = async id => {
-    const data = await getData();
-    data.push(id);
-    await AsyncStorage.setItem('search', JSON.stringify(data));
-  };
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
   return (
     <View>
+      <CheckBox
+        disabled={false}
+        value={toggleCheckBox}
+        onValueChange={newValue => setToggleCheckBox(newValue)}
+      />
+      <CheckBox
+        disabled={false}
+        value={toggleCheckBox}
+        onValueChange={newValue => setToggleCheckBox(newValue)}
+      />
+      <CheckBox
+        disabled={false}
+        value={toggleCheckBox}
+        onValueChange={newValue => setToggleCheckBox(newValue)}
+      />
       <Text>TesScreen</Text>
-      <Button title="ada" onPress={() => tambah('tes3')} />
     </View>
   );
 };

@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListItem from '../../components/ListItem/ListItem';
 import API from '../../config/api';
 import {RadioGroup} from 'react-native-radio-buttons-group';
+import CheckBox from '@react-native-community/checkbox';
 
 const radioButtonsDataOrder = [
   {
@@ -51,14 +52,20 @@ const radioButtonsDataStatus = [
 
 const SearchTab = ({location, onReload}) => {
   const refRBSheet = useRef();
+  const [data, setData] = useState();
+
   const [filterActive, setFilterActive] = useState();
   const [filterOpen, setFilterOpen] = useState(false);
   const [filter, setFilter] = useState({
-    order: null,
-    kategori: null,
-    status: null,
+    order: 'DESC',
+    kategori: [],
+    status: false,
   });
+  const [namaBarang, setNamaBarang] = useState('');
+
   const [dataHistory, setDataHistory] = useState();
+  const [kategori, setKategori] = useState();
+  const [cbKategori, setCbKategori] = useState();
   const [radioButtonsOrder, setRadioButtonsOrder] = useState(
     radioButtonsDataOrder,
   );
@@ -68,6 +75,7 @@ const SearchTab = ({location, onReload}) => {
 
   useEffect(() => {
     getSearchHistory();
+    getKategori();
   }, []);
 
   function onPressRadioButtonOrder(radioButtonsArray) {
@@ -87,15 +95,57 @@ const SearchTab = ({location, onReload}) => {
     });
   }
 
+  const onChangeNamaBarang = () => {
+    getData();
+  };
+
+  const getData = async () => {
+    const response = await API.get(
+      `/search-tab/get-data?kota=${location.detail[0].subAdminArea}&nama=${namaBarang}&order=${filter.order}&kategori=${filter.kategori}&status=${filter.status}`,
+    );
+    // setData(response.data);
+    console.log(response.data);
+  };
+
   const getSearchHistory = async () => {
     const search = await AsyncStorage.getItem('search');
     if (search) {
-      const response = await API.get(`/search-tab/get-data-history?id=[1,4,5]`);
+      const response = await API.get(
+        `/search-tab/get-data-history?id=${search}`,
+      );
       setDataHistory(response.data);
-      console.log(response.data);
     } else {
       setDataHistory();
     }
+  };
+
+  const getKategori = async () => {
+    const response = await API.get(`/search-tab/get-kategori`);
+    setKategori(response.data);
+
+    let kategoriValue = {};
+    let kategoriFilter = [];
+    response.data.map(kt => {
+      kategoriValue[kt.nama] = true;
+      kategoriFilter.push(kt.nama);
+    });
+    setCbKategori(kategoriValue);
+    setFilter({...filter, kategori: kategoriFilter});
+  };
+
+  const kategoriCheck = (nama, value) => {
+    setCbKategori({...cbKategori, [nama]: value});
+
+    const dt = {...cbKategori, [nama]: value};
+    const arr = [];
+    for (const key in dt) {
+      dt[key] && arr.push(key);
+    }
+    setFilter({...filter, kategori: arr});
+  };
+
+  const terapkanFilter = async () => {
+    getData();
   };
 
   const onOpenFilter = () => {
@@ -118,12 +168,14 @@ const SearchTab = ({location, onReload}) => {
   return (
     <View style={{height: '100%'}}>
       <Header location={location} onReload={onReload} />
-      {console.log(filter)}
       {/* INPUT SEARCH SECTION */}
       <View style={styles.searchSectionContainer}>
         <TextInput
           style={styles.searchInput}
           placeholder="Ketikkan nama barang"
+          value={namaBarang}
+          onChangeText={txt => setNamaBarang(txt)}
+          onEndEditing={e => onChangeNamaBarang(e.nativeEvent.text)}
         />
         <Pressable onPress={onOpenFilter}>
           <MaterialCommunityIcons
@@ -218,8 +270,9 @@ const SearchTab = ({location, onReload}) => {
             backgroundColor: '#00000030',
           },
           container: {
-            borderRadius: 8,
-            padding: 16,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            padding: 24,
           },
         }}>
         <View>
@@ -229,28 +282,60 @@ const SearchTab = ({location, onReload}) => {
               <MaterialCommunityIcons name="close" size={32} />
             </Pressable>
           </View>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styles.bottomSheetOrderContainer}>
-            <Text style={styles.bottomSheetOrderTitle}>Urutkan</Text>
-            <RadioGroup
-              radioButtons={radioButtonsOrder}
-              onPress={onPressRadioButtonOrder}
-              containerStyle={{
-                alignItems: 'flex-start',
-              }}
-            />
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.bottomSheetOrderContainer}>
+              <Text style={styles.bottomSheetOrderTitle}>Urutkan</Text>
+              <RadioGroup
+                radioButtons={radioButtonsOrder}
+                onPress={onPressRadioButtonOrder}
+                containerStyle={{
+                  alignItems: 'flex-start',
+                }}
+              />
+            </View>
+            <View style={styles.bottomSheetOrderContainer}>
+              <Text style={styles.bottomSheetOrderTitle}>Status</Text>
+              <RadioGroup
+                radioButtons={radioButtonsStatus}
+                onPress={onPressRadioButtonStatus}
+                containerStyle={{
+                  alignItems: 'flex-start',
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.bottomSheetOrderContainer}>
-            <Text style={styles.bottomSheetOrderTitle}>Status</Text>
-            <RadioGroup
-              radioButtons={radioButtonsStatus}
-              onPress={onPressRadioButtonStatus}
-              containerStyle={{
-                alignItems: 'flex-start',
-              }}
-            />
+          <View style={{marginTop: 16}}>
+            <Text style={styles.bottomSheetOrderTitle}>Kategori</Text>
+            <View style={styles.bottomSheetCheckBoxContainer}>
+              {cbKategori &&
+                kategori.map((kt, i) => (
+                  <View
+                    key={i}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      flexBasis: '50%',
+                    }}>
+                    <CheckBox
+                      disabled={false}
+                      value={cbKategori[kt.nama]}
+                      onValueChange={newValue => {
+                        kategoriCheck(kt.nama, newValue);
+                      }}
+                    />
+                    <Text style={styles.bottomSheetCheckBoxName}>
+                      {kt.nama}
+                    </Text>
+                  </View>
+                ))}
+            </View>
           </View>
+          <TouchableOpacity
+            style={styles.buttonTerapkan}
+            activeOpacity={0.6}
+            onPress={terapkanFilter}>
+            <Text style={styles.buttonText}>Terapkan</Text>
+          </TouchableOpacity>
         </View>
       </RBSheet>
       {/* END BOTTOM SHEET SECTION */}

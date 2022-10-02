@@ -80,6 +80,24 @@ const styles = StyleSheet.create({
   radioItem: {
     ...globalFont.normal,
   },
+  bottomSheetCheckBoxContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  bottomSheetCheckBoxName: {
+    ...globalFont.normal,
+  },
+  buttonTerapkan: {
+    alignItems: 'center',
+    backgroundColor: '#1262A5',
+    marginTop: 16,
+    paddingVertical: 8,
+    borderRadius: 4,
+  },
+  buttonText: {
+    ...globalFont.normal,
+    color: '#F9F9F9',
+  },
 });
 
 export default styles;
