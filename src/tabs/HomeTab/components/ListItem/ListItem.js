@@ -110,7 +110,6 @@ const ListItem = ({header, location, name}) => {
 
   return (
     <View style={styles.container}>
-      {console.log(isError)}
       <View style={styles.listItemHeadingContainer}>
         <Text style={styles.listItemHeading}>{header}</Text>
         <TouchableOpacity activeOpacity={0.6}>
