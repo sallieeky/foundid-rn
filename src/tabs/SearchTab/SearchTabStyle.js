@@ -47,6 +47,18 @@ const styles = StyleSheet.create({
   terkiniSectionContainer: {
     marginTop: 16,
   },
+  dataSectionContainer: {
+    marginTop: 16,
+  },
+  dataSectionNoData: {
+    marginTop: 16,
+    textAlign: 'center',
+    ...globalFont.bold,
+  },
+  loadingData: {
+    alignSelf: 'center',
+    marginTop: 16,
+  },
   terkiniSectionHead: {
     marginHorizontal: 24,
     flexDirection: 'row',
