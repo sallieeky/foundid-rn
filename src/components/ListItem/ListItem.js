@@ -1,9 +1,8 @@
 import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import API from '../../../../config/api';
 
 const Loader = () => (
   <SkeletonPlaceholder>
@@ -11,19 +10,19 @@ const Loader = () => (
       <SkeletonPlaceholder.Item
         marginHorizontal={8}
         width={142}
-        height={164}
+        height={208}
         borderRadius={16}
       />
       <SkeletonPlaceholder.Item
         marginHorizontal={8}
         width={142}
-        height={164}
+        height={208}
         borderRadius={16}
       />
       <SkeletonPlaceholder.Item
         marginHorizontal={8}
         width={142}
-        height={164}
+        height={208}
         borderRadius={16}
       />
     </View>
@@ -88,51 +87,18 @@ const renderItem = ({item}) => {
   );
 };
 
-const ListItem = ({header, location, name}) => {
-  const [isError, setIsError] = useState(false);
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    getData();
-  }, [location]);
-
-  const getData = async () => {
-    setIsError(false);
-    try {
-      const response = await API.get(
-        `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
-      );
-      setData(response.data);
-    } catch (e) {
-      setIsError(true);
-    }
-  };
-
+const ListItem = ({data}) => {
   return (
     <View style={styles.container}>
-      {console.log(isError)}
-      <View style={styles.listItemHeadingContainer}>
-        <Text style={styles.listItemHeading}>{header}</Text>
-        <TouchableOpacity activeOpacity={0.6}>
-          <Text style={styles.lihatSemua}>Lihat Semua</Text>
-        </TouchableOpacity>
-      </View>
-      {isError && !data && <Error pressHandler={() => getData()} />}
-      {!isError && !data && <Loader />}
-      {data &&
-        (data.total < 1 ? (
-          <Text style={styles.contentBlank}>Data masih Kosong</Text>
-        ) : (
-          <FlatList
-            data={data.data}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            style={styles.contentContainer}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-          />
-        ))}
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        style={styles.contentContainer}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
