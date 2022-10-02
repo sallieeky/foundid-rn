@@ -69,6 +69,17 @@ const styles = StyleSheet.create({
     ...globalFont.bold,
     fontSize: 24,
   },
+  bottomSheetOrderContainer: {
+    flex: 1,
+    marginTop: 16,
+  },
+  bottomSheetOrderTitle: {
+    ...globalFont.bold,
+    color: '#8A8A8A',
+  },
+  radioItem: {
+    ...globalFont.normal,
+  },
 });
 
 export default styles;

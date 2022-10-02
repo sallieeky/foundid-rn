@@ -7,9 +7,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 
-  container: {
-    marginTop: 16,
-  },
+  container: {},
   listItemHeadingContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
