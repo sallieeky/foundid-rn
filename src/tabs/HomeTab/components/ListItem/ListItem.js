@@ -100,7 +100,9 @@ const ListItem = ({header, location, name}) => {
     setIsError(false);
     try {
       const response = await API.get(
-        `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
+        `/home-tab/get-${name}?kota=${
+          location ? location.detail[0].subAdminArea : ''
+        }`,
       );
       setData(response.data);
     } catch (e) {

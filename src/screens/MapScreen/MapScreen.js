@@ -7,7 +7,9 @@ import styles from './MapScreenStyle';
 import Header from './components/Header/Header';
 import Geocoder from 'react-native-geocoder';
 import API from '../../config/api';
+import Toast from '../../helper/toast';
 const MapScreen = ({navigation}) => {
+  const [isError, setIsError] = useState(false);
   const [location, setLocation] = useState();
   const [count, setCount] = useState();
   const [filterActive, setFilterActive] = useState();
@@ -59,7 +61,10 @@ const MapScreen = ({navigation}) => {
         });
       },
       error => {
-        alert('gagal');
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 5000);
       },
       {enableHighAccuracy: true},
     );
@@ -67,7 +72,9 @@ const MapScreen = ({navigation}) => {
 
   const getData = async () => {
     const response = await API.get(
-      `/home-tab/get-terbaru?kota=${location.detail[0].subAdminArea}`,
+      `/home-tab/get-terbaru?kota=${
+        location ? location.detail[0].subAdminArea : ''
+      }`,
     );
     setFilterData(response.data.data);
     setFilterDataCount(response.data.total);
@@ -75,7 +82,9 @@ const MapScreen = ({navigation}) => {
 
   const getCountKehilanganDitemukan = async () => {
     const response = await API.get(
-      `/home-tab/get-count-hilang-ditemukan?kota=${location.detail[0].subAdminArea}`,
+      `/home-tab/get-count-hilang-ditemukan?kota=${
+        location ? location.detail[0].subAdminArea : ''
+      }`,
     );
     setCount(response.data);
   };
@@ -84,7 +93,9 @@ const MapScreen = ({navigation}) => {
     setFilterActive('hilang');
     setFilterData();
     const response = await API.get(
-      `/home-tab/get-hilang?kota=${location.detail[0].subAdminArea}`,
+      `/home-tab/get-hilang?kota=${
+        location ? location.detail[0].subAdminArea : ''
+      }`,
     );
     getCountKehilanganDitemukan();
     setFilterData(response.data.data);
@@ -95,7 +106,9 @@ const MapScreen = ({navigation}) => {
     setFilterActive('ditemukan');
     setFilterData();
     const response = await API.get(
-      `/home-tab/get-ditemukan?kota=${location.detail[0].subAdminArea}`,
+      `/home-tab/get-ditemukan?kota=${
+        location ? location.detail[0].subAdminArea : ''
+      }`,
     );
     getCountKehilanganDitemukan();
     setFilterData(response.data.data);
@@ -176,15 +189,15 @@ const MapScreen = ({navigation}) => {
             ? showLocation
               ? parseFloat(showLocation.lat) - 0.0005
               : parseFloat(location.coords.lat)
-            : -1.142232852071283,
+            : -6.2,
 
           longitude: location
             ? showLocation
               ? parseFloat(showLocation.lng)
               : parseFloat(location.coords.lng)
-            : -1.142232852071283,
-          latitudeDelta: location ? (showLocation ? 0.001 : 0.015) : 30,
-          longitudeDelta: location ? (showLocation ? 0.001 : 0.015) : 30,
+            : 120.816666,
+          latitudeDelta: location ? (showLocation ? 0.001 : 0.015) : 50,
+          longitudeDelta: location ? (showLocation ? 0.001 : 0.015) : 50,
         }}>
         {filterData &&
           filterData.map((item, i) => (
@@ -213,6 +226,7 @@ const MapScreen = ({navigation}) => {
         data={filterData}
         showLocation={showLocationHandle}
       />
+      {isError && <Toast />}
     </View>
   );
 };
