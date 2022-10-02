@@ -100,7 +100,9 @@ const ListItem = ({header, location, name}) => {
     setIsError(false);
     try {
       const response = await API.get(
-        `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
+        `/home-tab/get-${name}?kota=${
+          location ? location.detail[0].subAdminArea : ''
+        }`,
       );
       setData(response.data);
     } catch (e) {
@@ -110,7 +112,6 @@ const ListItem = ({header, location, name}) => {
 
   return (
     <View style={styles.container}>
-      {console.log(isError)}
       <View style={styles.listItemHeadingContainer}>
         <Text style={styles.listItemHeading}>{header}</Text>
         <TouchableOpacity activeOpacity={0.6}>
