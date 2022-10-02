@@ -34,6 +34,20 @@ const Loader = () => (
   </SkeletonPlaceholder>
 );
 
+const Error = ({pressHandler}) => (
+  <TouchableOpacity
+    style={{
+      alignItems: 'center',
+      marginHorizontal: 24,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderColor: '#242424',
+    }}
+    onPress={pressHandler}>
+    <Text>Refresh Page</Text>
+  </TouchableOpacity>
+);
+
 const customMapStyle = [
   {
     featureType: 'poi',
@@ -56,6 +70,7 @@ const customMapStyle = [
 ];
 
 const MapSekitar = ({navigation, location}) => {
+  const [isError, setIsError] = useState(false);
   const [count, setCount] = useState();
   const [filterActive, setFilterActive] = useState();
   const [filterData, setFilterData] = useState();
@@ -67,11 +82,16 @@ const MapSekitar = ({navigation, location}) => {
   }, [location]);
 
   const getData = async () => {
-    const response = await API.get(
-      `/home-tab/get-terbaru?kota=${location.detail[0].subAdminArea}`,
-    );
-    setFilterData(response.data.data);
-    setFilterDataCount(response.data.total);
+    setIsError(false);
+    try {
+      const response = await API.get(
+        `/home-tab/get-terbaru?kota=${location.detail[0].subAdminArea}`,
+      );
+      setFilterData(response.data.data);
+      setFilterDataCount(response.data.total);
+    } catch (e) {
+      setIsError(true);
+    }
   };
 
   const getCountKehilanganDitemukan = async () => {
@@ -298,6 +318,7 @@ const MapSekitar = ({navigation, location}) => {
       {filterDataCount === 0 && (
         <Text style={styles.contentBlank}>Data masih Kosong</Text>
       )}
+      {isError && !filterData && <Error />}
       <View style={styles.contentContainer}>
         {filterData ? (
           <FlatList
@@ -310,7 +331,7 @@ const MapSekitar = ({navigation, location}) => {
             showsVerticalScrollIndicator={false}
           />
         ) : (
-          <Loader />
+          !isError && <Loader />
         )}
       </View>
     </View>

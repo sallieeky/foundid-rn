@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Button,
   Pressable,
   TextInput,
   TouchableOpacity,
@@ -100,9 +99,14 @@ const SearchTab = ({location, onReload}) => {
     });
   }
 
-  const onChangeNamaBarang = () => {
-    setDataHistory();
-    getData();
+  const onChangeNamaBarang = txt => {
+    if (txt === '') {
+      setData();
+      getSearchHistory();
+    } else {
+      setDataHistory();
+      getData();
+    }
   };
 
   const getData = async (jenis = filter.jenis) => {
@@ -182,7 +186,7 @@ const SearchTab = ({location, onReload}) => {
   };
 
   return (
-    <View style={{height: '100%'}}>
+    <View style={{height: '100%', backgroundColor: '#FEFEFE'}}>
       <Header location={location} onReload={onReload} />
       {/* INPUT SEARCH SECTION */}
       <View style={styles.searchSectionContainer}>
@@ -218,7 +222,7 @@ const SearchTab = ({location, onReload}) => {
             style={{
               ...styles.filter,
               backgroundColor:
-                filterActive === 'hilang' ? '#1262A5' : '#F9F9F9',
+                filterActive === 'hilang' ? '#1262A5' : '#FEFEFE',
             }}>
             <Text
               style={{
@@ -234,7 +238,7 @@ const SearchTab = ({location, onReload}) => {
             style={{
               ...styles.filter,
               backgroundColor:
-                filterActive === 'ditemukan' ? '#1262A5' : '#F9F9F9',
+                filterActive === 'ditemukan' ? '#1262A5' : '#FEFEFE',
             }}>
             <Text
               style={{

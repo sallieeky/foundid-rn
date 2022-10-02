@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     marginTop: 16,
-    backgroundColor: '#f9f9f9',
     marginHorizontal: 8,
   },
   filter: {

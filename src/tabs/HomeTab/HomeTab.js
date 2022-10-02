@@ -1,4 +1,4 @@
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import React from 'react';
 import Header from './components/Header/Header';
 import CardUser from './components/CardUser/CardUser';
@@ -9,24 +9,32 @@ import PeringkatKota from './components/PeringkatKota/PeringkatKota';
 import Tips from './components/Tips/Tips';
 import MapSekitar from './components/MapSekitar/MapSekitar';
 import TopFounder from './components/TopFounder/TopFounder';
+import Toast from '../../helper/toast';
 
-const HomeTab = ({navigation, location, onReload}) => {
+const HomeTab = ({navigation, location, onReload, error}) => {
   return (
-    <ScrollView style={styles.body}>
-      <Header location={location} onReload={onReload} />
-      <CardUser />
-      <MapSekitar navigation={navigation} location={location} />
-      <Kategori />
-      <PeringkatKota navigation={navigation} />
-      <ListItem
-        header={'Barang Ditemukan'}
-        location={location}
-        name={'ditemukan'}
-      />
-      <TopFounder navigation={navigation} />
-      <ListItem header={'Barang Hilang'} location={location} name={'hilang'} />
-      <Tips />
-    </ScrollView>
+    <View>
+      <ScrollView style={styles.body}>
+        <Header location={location} onReload={onReload} />
+        <CardUser />
+        <MapSekitar navigation={navigation} location={location} />
+        <Kategori />
+        <PeringkatKota navigation={navigation} />
+        <ListItem
+          header={'Barang Ditemukan'}
+          location={location}
+          name={'ditemukan'}
+        />
+        <TopFounder navigation={navigation} />
+        <ListItem
+          header={'Barang Hilang'}
+          location={location}
+          name={'hilang'}
+        />
+        <Tips />
+      </ScrollView>
+      {error && <Toast />}
+    </View>
   );
 };
 
