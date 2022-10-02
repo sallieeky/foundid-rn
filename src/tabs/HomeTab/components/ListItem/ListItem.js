@@ -11,19 +11,19 @@ const Loader = () => (
       <SkeletonPlaceholder.Item
         marginHorizontal={8}
         width={142}
-        height={208}
+        height={164}
         borderRadius={16}
       />
       <SkeletonPlaceholder.Item
         marginHorizontal={8}
         width={142}
-        height={208}
+        height={164}
         borderRadius={16}
       />
       <SkeletonPlaceholder.Item
         marginHorizontal={8}
         width={142}
-        height={208}
+        height={164}
         borderRadius={16}
       />
     </View>
@@ -97,11 +97,11 @@ const ListItem = ({header, location, name}) => {
   }, [location]);
 
   const getData = async () => {
+    setIsError(false);
     try {
       const response = await API.get(
         `/home-tab/get-${name}?kota=${location.detail[0].subAdminArea}`,
       );
-      setIsError(false);
       setData(response.data);
     } catch (e) {
       setIsError(true);
@@ -110,15 +110,17 @@ const ListItem = ({header, location, name}) => {
 
   return (
     <View style={styles.container}>
+      {console.log(isError)}
       <View style={styles.listItemHeadingContainer}>
         <Text style={styles.listItemHeading}>{header}</Text>
         <TouchableOpacity activeOpacity={0.6}>
           <Text style={styles.lihatSemua}>Lihat Semua</Text>
         </TouchableOpacity>
       </View>
-      {isError && <Error pressHandler={() => getData()} />}
-      {data ? (
-        data.total < 1 ? (
+      {isError && !data && <Error pressHandler={() => getData()} />}
+      {!isError && !data && <Loader />}
+      {data &&
+        (data.total < 1 ? (
           <Text style={styles.contentBlank}>Data masih Kosong</Text>
         ) : (
           <FlatList
@@ -130,10 +132,7 @@ const ListItem = ({header, location, name}) => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           />
-        )
-      ) : (
-        !isError && <Loader />
-      )}
+        ))}
     </View>
   );
 };

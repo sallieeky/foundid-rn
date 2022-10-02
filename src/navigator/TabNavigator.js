@@ -42,6 +42,7 @@ const CustomTabBarButton = ({children, onPress}) => {
 
 const TabNavigator = () => {
   const [location, setLocation] = useState();
+  const [error, setError] = useState(false);
   useEffect(() => {
     getCurentLocation();
   }, []);
@@ -61,7 +62,10 @@ const TabNavigator = () => {
         setLocation(response);
       },
       error => {
-        alert('gagal');
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+        }, 5000);
       },
       {enableHighAccuracy: true},
     );
@@ -75,7 +79,7 @@ const TabNavigator = () => {
         tabBarStyle: {
           position: 'absolute',
           elevation: 0,
-          backgroundColor: '#ffffff',
+          backgroundColor: '#FFFFFF',
           height: 64,
         },
       }}>
@@ -86,6 +90,7 @@ const TabNavigator = () => {
             {...props}
             location={location}
             onReload={getCurentLocation}
+            error={error}
           />
         )}
         options={{
