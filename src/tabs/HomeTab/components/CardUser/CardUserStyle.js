@@ -135,6 +135,35 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#1262A5',
   },
+  noLoginCircle: {
+    position: 'absolute',
+    width: 128,
+    height: 128,
+    backgroundColor: '#F9F9F9',
+    top: -12,
+    left: -16,
+    borderRadius: 69,
+  },
+  noLoginImage: {
+    position: 'absolute',
+    height: 136,
+    width: 136,
+    zIndex: 7,
+    top: -16,
+    left: 0,
+  },
+  noLoginTextContainer: {
+    marginLeft: 112,
+    flexDirection: 'row',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  noLoginText: {
+    ...globalFont.normal,
+    color: '#F9F9F9',
+    fontSize: 16,
+  },
 });
 
 export default styles;
