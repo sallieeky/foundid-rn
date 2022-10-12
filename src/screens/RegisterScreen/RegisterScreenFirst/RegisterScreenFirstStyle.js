@@ -3,9 +3,10 @@ import {globalFont} from '../../../assets/style/globalStyle';
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 16,
+    paddingHorizontal: 16,
     height: '100%',
     justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
   },
   title: {
     ...globalFont.bold,

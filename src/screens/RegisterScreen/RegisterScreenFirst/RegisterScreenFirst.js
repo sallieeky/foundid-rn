@@ -1,8 +1,15 @@
-import {View, Text, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import FormInput from '../components/FormInput/FormInput';
 import styles from './RegisterScreenFirstStyle';
 import API from '../../../config/api';
+import Spinner from 'react-native-spinkit';
 
 const RegisterScreenFirst = ({navigation}) => {
   const [formData, setFormData] = useState({
@@ -18,6 +25,8 @@ const RegisterScreenFirst = ({navigation}) => {
     konfirmasiPassword: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const setState = (key, value) => {
     setFormData({
       ...formData,
@@ -26,10 +35,19 @@ const RegisterScreenFirst = ({navigation}) => {
   };
 
   const onPressNext = async () => {
-    const response = await API.post('/auth/register/first', formData);
-    setFormDataError(response.data);
-    response.data === true &&
-      navigation.push('RegisterScreenSecond', {data: formData});
+    setIsLoading(true);
+    try {
+      const response = await API.post('/auth/register/first', formData);
+      setFormDataError(response.data);
+      response.data === true &&
+        navigation.push('RegisterScreenSecond', {data: formData});
+    } catch (e) {
+      Alert.alert(
+        'Gagal Terhubung',
+        'Gagal terhubung ke internet, periksa jaringan internet anda',
+      );
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -87,7 +105,16 @@ const RegisterScreenFirst = ({navigation}) => {
         style={styles.button}
         activeOpacity={0.8}
         onPress={onPressNext}>
-        <Text style={styles.buttonText}>Selanjutnya</Text>
+        {isLoading ? (
+          <Spinner
+            isVisible={isLoading}
+            size={16}
+            type={'Circle'}
+            color={'#FFFFFF'}
+          />
+        ) : (
+          <Text style={styles.buttonText}>Selanjutnya</Text>
+        )}
       </TouchableOpacity>
     </View>
   );

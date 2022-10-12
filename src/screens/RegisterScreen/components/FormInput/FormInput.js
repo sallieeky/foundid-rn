@@ -21,7 +21,11 @@ const FormInput = ({
       <View style={styles.container}>
         <TextInput
           placeholder={placeholder}
-          style={{...styles.input, borderColor: error ? '#FF5959' : '#000000'}}
+          style={{
+            ...styles.input,
+            borderColor: error ? '#FF5959' : '#000000',
+            paddingRight: tipe === 'password' ? 48 : 8,
+          }}
           secureTextEntry={
             tipe === 'password' ? (showText === true ? false : true) : false
           }
@@ -59,7 +63,6 @@ const styles = StyleSheet.create({
     ...globalFont.normal,
     borderWidth: 1,
     paddingLeft: 8,
-    paddingRight: 48,
     borderRadius: 4,
     position: 'absolute',
     width: '100%',

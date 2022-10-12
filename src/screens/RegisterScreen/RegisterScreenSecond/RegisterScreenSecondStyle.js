@@ -3,9 +3,22 @@ import {globalFont} from '../../../assets/style/globalStyle';
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 16,
+    paddingHorizontal: 16,
     height: '100%',
     justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  label: {
+    ...globalFont.normal,
+  },
+  select: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    marginBottom: 20,
+    borderRadius: 4,
+  },
+  prokotaContainer: {
+    flexDirection: 'row',
   },
   title: {
     ...globalFont.bold,
@@ -38,6 +51,13 @@ const styles = StyleSheet.create({
   buttonText: {
     ...globalFont.bold,
     color: '#F9F9F9',
+  },
+  ktpContainer: {
+    alignItems: 'center',
+    padding: 16,
+    borderWidth: 2,
+    borderColor: '#D9D9D9',
+    borderStyle: 'dashed',
   },
 });
 
