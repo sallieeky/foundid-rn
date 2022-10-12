@@ -32,6 +32,7 @@ const FormInput = ({
           keyboardType={keyboardType}
           value={value}
           onChangeText={txt => setState(objKey, txt)}
+          autoCapitalize="none"
         />
         {tipe === 'password' && (
           <Pressable onPress={() => setShowText(!showText)} style={styles.icon}>

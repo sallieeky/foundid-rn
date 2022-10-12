@@ -39,7 +39,7 @@ const RegisterScreenFirst = ({navigation}) => {
     try {
       const response = await API.post('/auth/register/first', formData);
       setFormDataError(response.data);
-      response.data === true &&
+      response.data.status === true &&
         navigation.push('RegisterScreenSecond', {data: formData});
     } catch (e) {
       Alert.alert(

@@ -8,18 +8,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
   },
-  label: {
-    ...globalFont.normal,
-  },
-  select: {
-    borderWidth: 1,
-    borderColor: '#000000',
-    marginBottom: 20,
-    borderRadius: 4,
-  },
-  prokotaContainer: {
-    flexDirection: 'row',
-  },
   title: {
     ...globalFont.bold,
     textAlign: 'center',
@@ -30,6 +18,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     marginBottom: 32,
+  },
+  fpContainer: {
+    alignSelf: 'center',
+    marginBottom: 16,
+  },
+  fp: {
+    backgroundColor: '#8A8A8A50',
+    width: 128,
+    height: 128,
+    borderRadius: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  fpTitle: {
+    ...globalFont.normal,
+    textAlign: 'center',
+    marginTop: 8,
   },
   button: {
     backgroundColor: '#1687D1',
@@ -51,13 +57,6 @@ const styles = StyleSheet.create({
   buttonText: {
     ...globalFont.bold,
     color: '#F9F9F9',
-  },
-  ktpContainer: {
-    alignItems: 'center',
-    padding: 16,
-    borderWidth: 2,
-    borderColor: '#D9D9D9',
-    borderStyle: 'dashed',
   },
   btnKembali: {
     marginTop: 16,

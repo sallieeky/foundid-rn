@@ -87,7 +87,7 @@ const RegisterScreenSecond = ({route, navigation}) => {
     try {
       const response = await API.post('/auth/register/second', formData);
       setFormDataError(response.data);
-      response.data === true &&
+      response.data.status === true &&
         navigation.push('RegisterScreenThird', {data: formData});
     } catch (e) {
       Alert.alert(
@@ -107,8 +107,6 @@ const RegisterScreenSecond = ({route, navigation}) => {
       includeBase64: true,
     };
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
       if (response.errorCode == 'camera_unavailable') {
         alert('Camera not available on device');
         return;
@@ -127,119 +125,122 @@ const RegisterScreenSecond = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={8}>
-        <Text style={styles.title}>
-          Buat Akun{' '}
-          <Text style={{...styles.title, color: '#1687D1'}}>Found.Id</Text>
-        </Text>
-        <Text style={styles.subTitle}>Silakan mengisi data berikut</Text>
-        {/* JENIS KELAMIN */}
-        <Text style={styles.label}>Jenis Kelamin</Text>
-        <View
-          style={{
-            ...styles.select,
-            borderColor: formDataError.jenisKelamin ? '#FF5959' : '#000000',
-          }}>
-          <Picker
-            mode="dropdown"
-            selectedValue={formData.jenisKelamin}
-            onValueChange={(itemValue, itemIndex) =>
-              setState('jenisKelamin', itemValue)
-            }>
-            <Picker.Item label="Laki-laki" value="Laki-laki" />
-            <Picker.Item label="Perempuan" value="Perempuan" />
-          </Picker>
-        </View>
-        {/* NIK */}
-        <FormInput
-          label={'NIK'}
-          placeholder={'Masukkan NIK'}
-          setState={setState}
-          objKey={'nik'}
-          keyboardType="number-pad"
-          error={formDataError.nik && formDataError.nik[0]}
-        />
-        {/* PROVINSI AND KOTA */}
-        <View style={styles.prokotaContainer}>
-          <View style={{flexGrow: 1, marginRight: 16}}>
-            <Text style={styles.label}>Pilih Provinsi</Text>
-            <View
-              style={{
-                ...styles.select,
-                borderColor: formDataError.provinsi ? '#FF5959' : '#000000',
-              }}>
-              <Picker
-                selectedValue={selectedProvinsi}
-                mode="dropdown"
-                onValueChange={(itemValue, itemIndex) => {
-                  const value = itemValue.split(',');
-                  setState('provinsi', value[0]);
-                  setSelectedProvinsi(itemValue);
-                  getKota(value[1]);
+        <ScrollView>
+          <Text style={styles.title}>
+            Buat Akun{' '}
+            <Text style={{...styles.title, color: '#1687D1'}}>Found.Id</Text>
+          </Text>
+          <Text style={styles.subTitle}>Silakan mengisi data berikut</Text>
+          {/* JENIS KELAMIN */}
+          <Text style={styles.label}>Jenis Kelamin</Text>
+          <View
+            style={{
+              ...styles.select,
+              borderColor: formDataError.jenisKelamin ? '#FF5959' : '#000000',
+            }}>
+            <Picker
+              mode="dropdown"
+              selectedValue={formData.jenisKelamin}
+              onValueChange={(itemValue, itemIndex) =>
+                setState('jenisKelamin', itemValue)
+              }>
+              <Picker.Item label="Laki-laki" value="Laki-laki" />
+              <Picker.Item label="Perempuan" value="Perempuan" />
+            </Picker>
+          </View>
+          {/* NIK */}
+          <FormInput
+            label={'NIK'}
+            placeholder={'Masukkan NIK'}
+            setState={setState}
+            objKey={'nik'}
+            keyboardType="number-pad"
+            error={formDataError.nik && formDataError.nik[0]}
+          />
+          {/* PROVINSI AND KOTA */}
+          <View style={styles.prokotaContainer}>
+            <View style={{flexGrow: 1, marginRight: 16}}>
+              <Text style={styles.label}>Pilih Provinsi</Text>
+              <View
+                style={{
+                  ...styles.select,
+                  borderColor: formDataError.provinsi ? '#FF5959' : '#000000',
                 }}>
-                {provinsi &&
-                  provinsi.map((prov, i) => (
-                    <Picker.Item
-                      key={i}
-                      label={prov.nama}
-                      value={prov.nama + ',' + prov.id}
-                    />
-                  ))}
-              </Picker>
+                <Picker
+                  selectedValue={selectedProvinsi}
+                  mode="dropdown"
+                  onValueChange={(itemValue, itemIndex) => {
+                    const value = itemValue.split(',');
+                    setState('provinsi', value[0]);
+                    setSelectedProvinsi(itemValue);
+                    getKota(value[1]);
+                  }}>
+                  {provinsi &&
+                    provinsi.map((prov, i) => (
+                      <Picker.Item
+                        key={i}
+                        label={prov.nama}
+                        value={prov.nama + ',' + prov.id}
+                      />
+                    ))}
+                </Picker>
+              </View>
+            </View>
+            <View style={{flexGrow: 1}}>
+              <Text style={styles.label}>Pilih Kota/Kabupaten</Text>
+              <View
+                style={{
+                  ...styles.select,
+                  borderColor: formDataError.kota ? '#FF5959' : '#000000',
+                }}>
+                <Picker
+                  mode="dropdown"
+                  selectedValue={formData.kota}
+                  onValueChange={(itemValue, itemIndex) => {
+                    setState('kota', itemValue);
+                  }}>
+                  {kota &&
+                    kota.map((kt, i) => (
+                      <Picker.Item key={i} label={kt.nama} value={kt.nama} />
+                    ))}
+                </Picker>
+              </View>
             </View>
           </View>
-          <View style={{flexGrow: 1}}>
-            <Text style={styles.label}>Pilih Kota/Kabupaten</Text>
-            <View
-              style={{
-                ...styles.select,
-                borderColor: formDataError.kota ? '#FF5959' : '#000000',
-              }}>
-              <Picker
-                mode="dropdown"
-                selectedValue={formData.kota}
-                onValueChange={(itemValue, itemIndex) => {
-                  setState('kota', itemValue);
-                }}>
-                {kota &&
-                  kota.map((kt, i) => (
-                    <Picker.Item key={i} label={kt.nama} value={kt.nama} />
-                  ))}
-              </Picker>
-            </View>
-          </View>
-        </View>
-        {/* ALAMAT */}
-        <FormInput
-          label={'Alamat'}
-          placeholder={'Masukkan Alamat Lengkap'}
-          setState={setState}
-          objKey="alamat"
-          error={formDataError.alamat && formDataError.alamat[0]}
-        />
-        {/* FOTO KTP */}
-        <Pressable
-          style={{
-            ...styles.ktpContainer,
-            borderColor: formDataError.ktp ? '#FF5959' : '#000000',
-          }}
-          onPress={chooseFile}>
-          {fotoKtp ? (
-            <Image
-              source={{uri: fotoKtp}}
-              style={{width: '100%', height: 128}}
-              resizeMode={'cover'}
-            />
-          ) : (
-            <View style={{alignItems: 'center'}}>
-              <MaterialCommunityIcons
-                name={'upload'}
-                color={'#1687D1'}
-                size={32}
+          {/* ALAMAT */}
+          <FormInput
+            label={'Alamat'}
+            placeholder={'Masukkan Alamat Lengkap'}
+            setState={setState}
+            objKey="alamat"
+            error={formDataError.alamat && formDataError.alamat[0]}
+          />
+          {/* FOTO KTP */}
+          <Text style={styles.label}>Pilih Foto KTP</Text>
+          <Pressable
+            style={{
+              ...styles.ktpContainer,
+              borderColor: formDataError.ktp ? '#FF5959' : '#000000',
+            }}
+            onPress={chooseFile}>
+            {fotoKtp ? (
+              <Image
+                source={{uri: fotoKtp}}
+                style={{width: '100%', height: 128}}
+                resizeMode={'cover'}
               />
-              <Text>Pilih Gambar</Text>
-            </View>
-          )}
-        </Pressable>
+            ) : (
+              <View style={{alignItems: 'center'}}>
+                <MaterialCommunityIcons
+                  name={'upload'}
+                  color={'#1687D1'}
+                  size={32}
+                />
+                <Text>Pilih Gambar</Text>
+              </View>
+            )}
+          </Pressable>
+        </ScrollView>
       </KeyboardAvoidingView>
 
       <TouchableOpacity
@@ -257,6 +258,10 @@ const RegisterScreenSecond = ({route, navigation}) => {
           <Text style={styles.buttonText}>Selanjutnya</Text>
         )}
       </TouchableOpacity>
+
+      <Pressable style={styles.btnKembali} onPress={() => navigation.goBack()}>
+        <Text style={styles.btnKembaliText}>Kembali</Text>
+      </Pressable>
     </View>
   );
 };

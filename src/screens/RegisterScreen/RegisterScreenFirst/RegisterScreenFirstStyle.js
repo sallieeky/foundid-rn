@@ -40,6 +40,13 @@ const styles = StyleSheet.create({
     ...globalFont.bold,
     color: '#F9F9F9',
   },
+  btnKembali: {
+    marginTop: 16,
+    alignSelf: 'center',
+  },
+  btnKembaliText: {
+    ...globalFont.normal,
+  },
 });
 
 export default styles;
