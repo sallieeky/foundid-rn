@@ -19,16 +19,18 @@ const RegisterScreenThird = ({route, navigation}) => {
   const {data} = route.params;
   const [formData, setFormData] = useState({
     ...data,
-    foto: '',
-    noTelp: '',
-    noWa: '',
-    instagram: '',
+    foto: null,
+    namaLengkap: null,
+    noTelp: null,
+    noWa: null,
+    instagram: null,
   });
   const [formDataError, setFormDataError] = useState({
-    foto: '',
-    noTelp: '',
-    noWa: '',
-    instagram: '',
+    foto: null,
+    namaLengkap: null,
+    noTelp: null,
+    noWa: null,
+    instagram: null,
   });
 
   const [fp, setFp] = useState();
@@ -70,7 +72,7 @@ const RegisterScreenThird = ({route, navigation}) => {
       const response = await API.post('/auth/register/third', formData);
       setFormDataError(response.data);
       response.data.status === true &&
-        navigation.push('RegisterScreenFourth', {data: formData});
+        navigation.replace('RegisterScreenFourth', {data: formData});
     } catch (e) {
       Alert.alert(
         'Gagal Terhubung',
@@ -105,6 +107,15 @@ const RegisterScreenThird = ({route, navigation}) => {
           </Pressable>
           <Text style={styles.fpTitle}>Pilih Foto Profile</Text>
         </View>
+        <FormInput
+          label={'Nama Lengkap'}
+          placeholder={'Masukkan Nama Lengkap'}
+          value={formData.namaLengkap}
+          error={formDataError.namaLengkap && formDataError.namaLengkap[0]}
+          objKey="namaLengkap"
+          setState={setState}
+        />
+
         <FormInput
           label={'Nomor Telepon'}
           placeholder={'Masukkan Nomor Telepon'}

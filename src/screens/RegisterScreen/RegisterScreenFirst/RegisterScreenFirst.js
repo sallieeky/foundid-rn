@@ -13,16 +13,16 @@ import Spinner from 'react-native-spinkit';
 
 const RegisterScreenFirst = ({navigation}) => {
   const [formData, setFormData] = useState({
-    namaLengkap: '',
-    email: '',
-    password: '',
-    konfirmasiPassword: '',
+    username: null,
+    email: null,
+    password: null,
+    konfirmasiPassword: null,
   });
   const [formDataError, setFormDataError] = useState({
-    namaLengkap: '',
-    email: '',
-    password: '',
-    konfirmasiPassword: '',
+    username: null,
+    email: null,
+    password: null,
+    konfirmasiPassword: null,
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -59,11 +59,11 @@ const RegisterScreenFirst = ({navigation}) => {
         </Text>
         <Text style={styles.subTitle}>Silakan mengisi data berikut</Text>
         <FormInput
-          label={'Nama Lengkap'}
-          placeholder={'Masukkan Nama Lengkap'}
-          value={formData.namaLengkap}
-          error={formDataError.namaLengkap && formDataError.namaLengkap[0]}
-          objKey="namaLengkap"
+          label={'Username'}
+          placeholder={'Masukkan Username'}
+          value={formData.username}
+          error={formDataError.username && formDataError.username[0]}
+          objKey="username"
           setState={setState}
         />
 

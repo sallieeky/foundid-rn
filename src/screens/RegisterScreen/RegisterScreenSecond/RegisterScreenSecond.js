@@ -23,19 +23,19 @@ const RegisterScreenSecond = ({route, navigation}) => {
   const [formData, setFormData] = useState({
     ...data,
     jenisKelamin: 'Laki-laki',
-    nik: '',
-    provinsi: '',
-    kota: '',
-    alamat: '',
-    ktp: '',
+    nik: null,
+    provinsi: null,
+    kota: null,
+    alamat: null,
+    ktp: null,
   });
   const [formDataError, setFormDataError] = useState({
-    jenisKelamin: '',
-    nik: '',
-    provinsi: '',
-    kota: '',
-    alamat: '',
-    ktp: '',
+    jenisKelamin: null,
+    nik: null,
+    provinsi: null,
+    kota: null,
+    alamat: null,
+    ktp: null,
   });
 
   const [isLoading, setIsLoading] = useState(false);
