@@ -14,6 +14,7 @@ import API from '../../../config/api';
 import Spinner from 'react-native-spinkit';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {launchImageLibrary} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const RegisterScreenThird = ({route, navigation}) => {
   const {data} = route.params;
@@ -43,27 +44,38 @@ const RegisterScreenThird = ({route, navigation}) => {
     });
   };
 
-  const chooseFile = () => {
-    let options = {
-      mediaType: 'photo',
-      maxWidth: 1600,
-      maxHeight: 900,
-      quality: 1,
+  const chooseFile = async () => {
+    // let options = {
+    //   mediaType: 'photo',
+    //   maxWidth: 1600,
+    //   maxHeight: 900,
+    //   quality: 1,
+    //   includeBase64: true,
+    // };
+    // launchImageLibrary(options, response => {
+    //   if (response.errorCode == 'camera_unavailable') {
+    //     alert('Camera not available on device');
+    //     return;
+    //   } else if (response.errorCode == 'permission') {
+    //     alert('Permission not satisfied');
+    //     return;
+    //   } else if (response.errorCode == 'others') {
+    //     alert(response.errorMessage);
+    //     return;
+    //   }
+    //   setFp(response.uri);
+    //   setState('foto', response);
+    // });
+
+    const image = await ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true,
       includeBase64: true,
-    };
-    launchImageLibrary(options, response => {
-      if (response.errorCode == 'camera_unavailable') {
-        alert('Camera not available on device');
-        return;
-      } else if (response.errorCode == 'permission') {
-        alert('Permission not satisfied');
-        return;
-      } else if (response.errorCode == 'others') {
-        alert(response.errorMessage);
-        return;
-      }
-      setFp(response.uri);
+      mediaType: 'photo',
     });
+    setFp(image.path);
+    setState('foto', image);
   };
 
   const onPressNext = async () => {
@@ -72,12 +84,19 @@ const RegisterScreenThird = ({route, navigation}) => {
       const response = await API.post('/auth/register/third', formData);
       setFormDataError(response.data);
       response.data.status === true &&
-        navigation.replace('RegisterScreenFourth', {data: formData});
+        navigation.reset({
+          index: 0,
+          routes: [
+            {name: 'RegisterScreenFourth', params: {data: response.data.data}},
+          ],
+        });
+      // navigation.replace('RegisterScreenFourth', {data: response.data.data});
     } catch (e) {
-      Alert.alert(
-        'Gagal Terhubung',
-        'Gagal terhubung ke internet, periksa jaringan internet anda',
-      );
+      console.log(e);
+      // Alert.alert(
+      //   'Gagal Terhubung',
+      //   'Gagal terhubung ke internet, periksa jaringan internet anda',
+      // );
     }
     setIsLoading(false);
   };

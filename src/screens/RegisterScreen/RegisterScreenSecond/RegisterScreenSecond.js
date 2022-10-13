@@ -88,7 +88,7 @@ const RegisterScreenSecond = ({route, navigation}) => {
       const response = await API.post('/auth/register/second', formData);
       setFormDataError(response.data);
       response.data.status === true &&
-        navigation.push('RegisterScreenThird', {data: formData});
+        navigation.navigate('RegisterScreenThird', {data: formData});
     } catch (e) {
       Alert.alert(
         'Gagal Terhubung',
@@ -101,8 +101,8 @@ const RegisterScreenSecond = ({route, navigation}) => {
   const chooseFile = () => {
     let options = {
       mediaType: 'photo',
-      maxWidth: 1600,
-      maxHeight: 900,
+      maxWidth: 400,
+      maxHeight: 400,
       quality: 1,
       includeBase64: true,
     };

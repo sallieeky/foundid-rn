@@ -16,12 +16,13 @@ const CardUser = ({navigation}) => {
 
   const getUserLogin = async () => {
     const userId = await AsyncStorage.getItem('user_id');
+    console.log(userId);
     if (userId) {
       try {
-        const response = await API.get(`/home-tab/get-user-login?id${userId}`);
+        const response = await API.get(`/home-tab/get-user-login?id=${userId}`);
         setUser(response.data);
       } catch (e) {
-        console.log(e);
+        //
       }
     }
   };
@@ -66,7 +67,13 @@ const CardUser = ({navigation}) => {
             <View style={styles.profileContainer}>
               <View>
                 <Image
-                  source={require('../../../../assets/images/profile_blank.png')}
+                  source={
+                    user.foto
+                      ? require('../../../../assets/images/profile_blank.png')
+                      : {
+                          uri: `https://api.foundid.my.id/storage/foto/${user.foto}`,
+                        }
+                  }
                   style={styles.imgProfile}
                 />
                 <View style={styles.profileLvContainer}>
@@ -80,9 +87,9 @@ const CardUser = ({navigation}) => {
               </View>
               <View>
                 <Text style={styles.hello}>Hello,</Text>
-                <Text style={styles.nama}>Sallie Mansurina</Text>
+                <Text style={styles.nama}>{user.nama}</Text>
                 <View style={styles.noTelpContainer}>
-                  <Text style={styles.noTelp}>081243942304</Text>
+                  <Text style={styles.noTelp}>{user.no_telp}</Text>
                 </View>
               </View>
             </View>
