@@ -13,7 +13,6 @@ import styles from './RegisterScreenThirdStyle';
 import API from '../../../config/api';
 import Spinner from 'react-native-spinkit';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 
 const RegisterScreenThird = ({route, navigation}) => {
@@ -92,11 +91,10 @@ const RegisterScreenThird = ({route, navigation}) => {
         });
       // navigation.replace('RegisterScreenFourth', {data: response.data.data});
     } catch (e) {
-      console.log(e);
-      // Alert.alert(
-      //   'Gagal Terhubung',
-      //   'Gagal terhubung ke internet, periksa jaringan internet anda',
-      // );
+      Alert.alert(
+        'Gagal Terhubung',
+        'Gagal terhubung ke internet, periksa jaringan internet anda',
+      );
     }
     setIsLoading(false);
   };

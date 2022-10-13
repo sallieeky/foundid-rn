@@ -33,7 +33,7 @@ const CardUser = ({navigation}) => {
         <TouchableOpacity
           style={{...styles.container, height: 104}}
           activeOpacity={0.9}
-          onPress={() => navigation.push('LoginScreen')}>
+          onPress={() => navigation.push('RegisterScreenFirst')}>
           <View style={styles.noLoginCircle} />
           <Image
             source={require('../../../../assets/images/login_hometab.png')}
@@ -69,10 +69,10 @@ const CardUser = ({navigation}) => {
                 <Image
                   source={
                     user.foto
-                      ? require('../../../../assets/images/profile_blank.png')
-                      : {
+                      ? {
                           uri: `https://api.foundid.my.id/storage/foto/${user.foto}`,
                         }
+                      : require('../../../../assets/images/profile_blank.png')
                   }
                   style={styles.imgProfile}
                 />
