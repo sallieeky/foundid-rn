@@ -16,7 +16,7 @@ const HomeTab = ({navigation, location, onReload, error}) => {
     <View>
       <ScrollView style={styles.body}>
         <Header location={location} onReload={onReload} />
-        <CardUser />
+        <CardUser navigation={navigation} />
         <MapSekitar navigation={navigation} location={location} />
         <Kategori />
         <PeringkatKota navigation={navigation} />

@@ -182,7 +182,7 @@ const MapSekitar = ({navigation, location}) => {
     return (
       <Item
         nama={item.item.nama}
-        gambar={item.item.gambar}
+        gambar={item.item.gambar[0].nama}
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
         no_telp={item.user.no_telp}
@@ -323,7 +323,7 @@ const MapSekitar = ({navigation, location}) => {
         </Pressable>
       </View>
 
-      {filterDataCount === 0 && (
+      {filterDataCount === 0 && filterData && (
         <Text style={styles.contentBlank}>Data masih Kosong</Text>
       )}
       {isError && !filterData && <Error />}

@@ -126,6 +126,7 @@ const SearchTab = ({location, onReload}) => {
         `/search-tab/get-data-history?id=${search}`,
       );
       setDataHistory(response.data);
+      console.log(response.data);
     } else {
       setDataHistory();
     }
