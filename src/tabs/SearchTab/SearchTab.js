@@ -111,11 +111,15 @@ const SearchTab = ({location, onReload}) => {
 
   const getData = async (jenis = filter.jenis) => {
     setIsLoading(true);
-    const response = await API.get(
-      `/search-tab/get-data?kota=${location.detail[0].subAdminArea}&nama=${namaBarang}&order=${filter.order}&kategori=${filter.kategori}&status=${filter.status}&jenis=${jenis}`,
-    );
-    setData(response.data.data);
-    setTotalData(response.data.total);
+    try {
+      const response = await API.get(
+        `/search-tab/get-data?kota=${location.detail[0].subAdminArea}&nama=${namaBarang}&order=${filter.order}&kategori=${filter.kategori}&status=${filter.status}&jenis=${jenis}`,
+      );
+      setData(response.data.data);
+      setTotalData(response.data.total);
+    } catch (e) {
+      console.log(e);
+    }
     setIsLoading(false);
   };
 
@@ -126,6 +130,7 @@ const SearchTab = ({location, onReload}) => {
         `/search-tab/get-data-history?id=${search}`,
       );
       setDataHistory(response.data);
+      console.log(response.data);
     } else {
       setDataHistory();
     }
@@ -187,6 +192,7 @@ const SearchTab = ({location, onReload}) => {
 
   return (
     <View style={{height: '100%', backgroundColor: '#FEFEFE'}}>
+      {console.log(data)}
       <Header location={location} onReload={onReload} />
       {/* INPUT SEARCH SECTION */}
       <View style={styles.searchSectionContainer}>
@@ -253,13 +259,13 @@ const SearchTab = ({location, onReload}) => {
       {/* END FILTER SECTION */}
 
       {/* NO SEARCH HISTORY */}
-      {!dataHistory && !data && (
+      {/* {!dataHistory && !data && (
         <View style={styles.noSearchHistoryContainer}>
           <Text style={styles.noSearchHistoryText}>
             Cari nama barang yang hilang atau ditemukan
           </Text>
         </View>
-      )}
+      )} */}
       {/* END NO SEARCH HISTORY */}
 
       {/* TERKINI SECTION */}

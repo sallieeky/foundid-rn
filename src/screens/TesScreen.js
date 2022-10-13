@@ -156,30 +156,212 @@
 
 // export default TesScreen;
 
+// import {View, Text} from 'react-native';
+// import React, {useState} from 'react';
+// import CheckBox from '@react-native-community/checkbox';
+
+// const TesScreen = () => {
+//   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+//   return (
+//     <View>
+//       <CheckBox
+//         disabled={false}
+//         value={toggleCheckBox}
+//         onValueChange={newValue => setToggleCheckBox(newValue)}
+//       />
+//       <CheckBox
+//         disabled={false}
+//         value={toggleCheckBox}
+//         onValueChange={newValue => setToggleCheckBox(newValue)}
+//       />
+//       <CheckBox
+//         disabled={false}
+//         value={toggleCheckBox}
+//         onValueChange={newValue => setToggleCheckBox(newValue)}
+//       />
+//       <Text>TesScreen</Text>
+//     </View>
+//   );
+// };
+
+// export default TesScreen;
+
+// import {View, Text, Button, Image} from 'react-native';
+// import React, {useState} from 'react';
+// import ImagePicker from 'react-native-image-crop-picker';
+// import API from '../config/api';
+
+// const TesScreen = () => {
+//   const [images, setImages] = useState();
+//   const open = async () => {
+//     const images = await ImagePicker.openPicker({
+//       multiple: true,
+//       mediaType: 'photo',
+//       cropping: true,
+//     });
+
+//     let files = [];
+//     images.map((image, idx) => {
+//       let pathParts = image.path.split('/');
+//       files.push({
+//         uri: image.path,
+//         type: image.mime,
+//         name: pathParts[pathParts.length - 1],
+//       });
+//     });
+
+//     let formData = new FormData();
+//     formData.append('file', files);
+
+//     const response = await API.post('/tes/upload', {data: formData});
+//     console.log(response.data);
+//   };
+
+//   return (
+//     <View>
+//       <Text>TesScreen</Text>
+//       <Button title="Pick Photos" onPress={open} />
+//       {/* {images && (
+//         <Image
+//           source={{uri: images.path}}
+//           style={{width: '100%', height: '100%', marginBottom: 8}}
+//         />
+//       )} */}
+//       {/* {images &&
+//         images.map((image, i) => (
+//           <Image
+//             key={i}
+//             source={{uri: image.path}}
+//             style={{width: '100%', height: '100%', marginBottom: 8}}
+//           />
+//         ))} */}
+//     </View>
+//   );
+// };
+
+// export default TesScreen;
+
+// import {View, Text, ScrollView} from 'react-native';
+// import React, {useEffect, useState} from 'react';
+// import API from '../config/api';
+
+// const FetchComponent = ({
+//   fetchData,
+//   DataComponent,
+//   NullComponent,
+//   NoConnectionComponent,
+//   LoadingComponent,
+// }) => {
+//   const [data, setData] = useState({
+//     data: null,
+//     total: null,
+//   });
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [connectionError, setConnectionError] = useState();
+
+//   useEffect(() => {
+//     getData();
+//   }, []);
+
+//   const getData = async () => {
+//     setIsLoading(true);
+//     try {
+//       const response = await fetchData;
+//       setData(response.data);
+//       setConnectionError(false);
+//     } catch (e) {
+//       setConnectionError(true);
+//     }
+//     setIsLoading(false);
+//   };
+
+//   return (
+//     <View>
+//       {/* NULL */}
+//       {data.total === 0 && <NullComponent />}
+//       {/* DATA NOT NULL */}
+//       {data.data && data.total !== 0 && <DataComponent data={data.data} />}
+//       {/* CONNECTION ERROR */}
+//       {connectionError && <NoConnectionComponent />}
+//       {/* LOADING */}
+//       {isLoading && <LoadingComponent />}
+//     </View>
+//   );
+// };
+
+// const NullComponent = () => (
+//   <View>
+//     <Text>No Data</Text>
+//   </View>
+// );
+// const DataComponent = ({data}) => (
+//   <View>
+//     <Text>DATANYA ADALAH : {JSON.stringify(data)}</Text>
+//   </View>
+// );
+// const NoConnectionComponent = () => (
+//   <View>
+//     <Text>No connection</Text>
+//   </View>
+// );
+// const LoadingComponent = () => (
+//   <View>
+//     <Text>Loading</Text>
+//   </View>
+// );
+
+// const TesScreen = () => {
+//   return (
+//     <View>
+//       <FetchComponent
+//         fetchData={API.post('/tes/response')}
+//         NoConnectionComponent={NoConnectionComponent}
+//         DataComponent={DataComponent}
+//         LoadingComponent={LoadingComponent}
+//         NullComponent={NullComponent}
+//       />
+//     </View>
+//   );
+// };
+
+// export default TesScreen;
+
 import {View, Text} from 'react-native';
-import React, {useState} from 'react';
-import CheckBox from '@react-native-community/checkbox';
+import React from 'react';
+import FetchComponent from '../components/FetchComponent/FetchComponent';
+import API from '../config/api';
+
+const NullComponent = () => (
+  <View>
+    <Text>No Data</Text>
+  </View>
+);
+const DataComponent = ({data}) => (
+  <View>
+    <Text>DATANYA ADALAH : {JSON.stringify(data)}</Text>
+  </View>
+);
+const NoConnectionComponent = () => (
+  <View>
+    <Text>No connection</Text>
+  </View>
+);
+const LoadingComponent = () => (
+  <View>
+    <Text>Loading</Text>
+  </View>
+);
 
 const TesScreen = () => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
   return (
     <View>
-      <CheckBox
-        disabled={false}
-        value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}
+      <FetchComponent
+        fetchData={API.post('/tes/response')}
+        NoConnectionComponent={NoConnectionComponent}
+        DataComponent={DataComponent}
+        LoadingComponent={LoadingComponent}
+        NullComponent={NullComponent}
       />
-      <CheckBox
-        disabled={false}
-        value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}
-      />
-      <CheckBox
-        disabled={false}
-        value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}
-      />
-      <Text>TesScreen</Text>
     </View>
   );
 };

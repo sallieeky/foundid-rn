@@ -159,6 +159,7 @@ android {
                 }
             }
         }
+        vectorDrawables.useSupportLibrary = true
     }
 
     if (isNewArchitectureEnabled()) {
@@ -260,6 +261,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':react-native-geocoder')
+    implementation project(path: ':@react-native-picker_picker')
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

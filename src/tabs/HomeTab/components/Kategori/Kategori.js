@@ -47,14 +47,6 @@ const Kategori = () => {
                 <Text style={styles.namaKategori}>{item.nama}</Text>
               </TouchableOpacity>
             ))}
-          <TouchableOpacity activeOpacity={0.6} style={styles.kategori}>
-            <MaterialCommunityIcons
-              name="view-grid-outline"
-              size={32}
-              color={'#1262A5'}
-            />
-            <Text style={styles.namaKategori}>Lainnya</Text>
-          </TouchableOpacity>
         </View>
       ) : (
         <Loader />
