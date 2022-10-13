@@ -46,7 +46,7 @@ const ListItemSearch = ({data}) => {
     return (
       <Item
         nama={item.item.nama}
-        gambar={item.item.gambar}
+        gambar={item.item.gambar[0].nama}
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
         no_telp={item.user.no_telp}

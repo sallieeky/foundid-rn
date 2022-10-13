@@ -19,7 +19,7 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="RegisterScreenFirst">
+      initialRouteName="SplashScreen">
       {/* TES */}
       <Stack.Screen name="TesScreen" component={TesScreen} />
       {/* ENDTES */}
