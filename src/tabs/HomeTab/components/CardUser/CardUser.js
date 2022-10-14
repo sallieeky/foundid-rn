@@ -5,6 +5,7 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../../../../config/api';
+import {URL_STORAGE} from '../../../../config/variable';
 
 const CardUser = ({navigation}) => {
   const [user, setUser] = useState();
@@ -70,7 +71,7 @@ const CardUser = ({navigation}) => {
                   source={
                     user.foto
                       ? {
-                          uri: `https://api.foundid.my.id/storage/foto/${user.foto}`,
+                          uri: `${URL_STORAGE}/foto/${user.foto}`,
                         }
                       : require('../../../../assets/images/profile_blank.png')
                   }

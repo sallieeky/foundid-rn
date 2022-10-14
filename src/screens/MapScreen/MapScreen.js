@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import Geocoder from 'react-native-geocoder';
 import API from '../../config/api';
 import Toast from '../../helper/toast';
+import {URL_STORAGE} from '../../config/variable';
 const MapScreen = ({navigation}) => {
   const [isError, setIsError] = useState(false);
   const [location, setLocation] = useState();
@@ -208,7 +209,7 @@ const MapScreen = ({navigation}) => {
                 longitude: parseFloat(item.item.lokasi.lng),
               }}
               image={{
-                uri: 'https://api.foundid.my.id/storage/images/marker.png',
+                uri: `${URL_STORAGE}/images/marker.png`,
               }}>
               <Callout>
                 <View>
