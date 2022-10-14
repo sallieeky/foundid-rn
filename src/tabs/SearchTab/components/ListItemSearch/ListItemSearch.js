@@ -2,12 +2,13 @@ import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './ListItemStyleSearch';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {URL_STORAGE} from '../../../../config/variable';
 
 const Item = ({nama, gambar, kota, status, no_telp}) => (
   <View style={styles.content}>
     <View style={styles.contentImageContainer}>
       <Image
-        source={{uri: `https://api.foundid.my.id/storage/item/${gambar}`}}
+        source={{uri: `${URL_STORAGE}/item/${gambar}`}}
         style={styles.contentImage}
       />
       <View
