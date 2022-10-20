@@ -12,13 +12,12 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import styles from './SearchTabStyle';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import ListItem from '../../components/ListItem/ListItem';
 import API from '../../config/api';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 import CheckBox from '@react-native-community/checkbox';
 import ListItemSearch from './components/ListItemSearch/ListItemSearch';
 import Spinner from 'react-native-spinkit';
+import Toast from '../../helper/toast';
 
 const radioButtonsDataOrder = [
   {
@@ -51,7 +50,7 @@ const radioButtonsDataStatus = [
   },
 ];
 
-const SearchTab = ({location, onReload}) => {
+const SearchTab = ({location, onReload, error}) => {
   const refRBSheet = useRef();
   const [data, setData] = useState();
   const [totalData, setTotalData] = useState();
@@ -67,7 +66,6 @@ const SearchTab = ({location, onReload}) => {
   });
   const [namaBarang, setNamaBarang] = useState('');
 
-  const [dataHistory, setDataHistory] = useState();
   const [kategori, setKategori] = useState();
   const [cbKategori, setCbKategori] = useState();
   const [radioButtonsOrder, setRadioButtonsOrder] = useState(
@@ -76,9 +74,10 @@ const SearchTab = ({location, onReload}) => {
   const [radioButtonsStatus, setRadioButtonsStatus] = useState(
     radioButtonsDataStatus,
   );
+  const [internetError, setInternetError] = useState(false);
 
   useEffect(() => {
-    getSearchHistory();
+    getData();
     getKategori();
   }, []);
 
@@ -99,18 +98,13 @@ const SearchTab = ({location, onReload}) => {
     });
   }
 
-  const onChangeNamaBarang = txt => {
-    if (txt === '') {
-      setData();
-      getSearchHistory();
-    } else {
-      setDataHistory();
-      getData();
-    }
+  const onChangeNamaBarang = () => {
+    getData();
   };
 
   const getData = async (jenis = filter.jenis) => {
     setIsLoading(true);
+    setInternetError(false);
     try {
       const response = await API.get(
         `/search-tab/get-data?kota=${location.detail[0].subAdminArea}&nama=${namaBarang}&order=${filter.order}&kategori=${filter.kategori}&status=${filter.status}&jenis=${jenis}`,
@@ -118,22 +112,9 @@ const SearchTab = ({location, onReload}) => {
       setData(response.data.data);
       setTotalData(response.data.total);
     } catch (e) {
-      console.log(e);
+      setInternetError(true);
     }
     setIsLoading(false);
-  };
-
-  const getSearchHistory = async () => {
-    const search = await AsyncStorage.getItem('search');
-    if (search) {
-      const response = await API.get(
-        `/search-tab/get-data-history?id=${search}`,
-      );
-      setDataHistory(response.data);
-      console.log(response.data);
-    } else {
-      setDataHistory();
-    }
   };
 
   const getKategori = async () => {
@@ -163,6 +144,7 @@ const SearchTab = ({location, onReload}) => {
 
   const terapkanFilter = async () => {
     getData();
+    refRBSheet.current.close();
   };
 
   const onOpenFilter = () => {
@@ -192,8 +174,7 @@ const SearchTab = ({location, onReload}) => {
 
   return (
     <View style={{height: '100%', backgroundColor: '#FEFEFE'}}>
-      {console.log(data)}
-      <Header location={location} onReload={onReload} />
+      <Header location={location} onReload={onReload} error={error} />
       {/* INPUT SEARCH SECTION */}
       <View style={styles.searchSectionContainer}>
         <TextInput
@@ -257,31 +238,6 @@ const SearchTab = ({location, onReload}) => {
         </Pressable>
       </View>
       {/* END FILTER SECTION */}
-
-      {/* NO SEARCH HISTORY */}
-      {/* {!dataHistory && !data && (
-        <View style={styles.noSearchHistoryContainer}>
-          <Text style={styles.noSearchHistoryText}>
-            Cari nama barang yang hilang atau ditemukan
-          </Text>
-        </View>
-      )} */}
-      {/* END NO SEARCH HISTORY */}
-
-      {/* TERKINI SECTION */}
-      {dataHistory && !data && (
-        <View style={styles.terkiniSectionContainer}>
-          <View style={styles.terkiniSectionHead}>
-            <Text style={styles.terkiniSectionTitle}>Terkini</Text>
-            <TouchableOpacity activeOpacity={0.6}>
-              <Text style={styles.terkiniSectionHapus}>Hapus</Text>
-            </TouchableOpacity>
-          </View>
-
-          <ListItem data={dataHistory} />
-        </View>
-      )}
-      {/* END TERKINI SECTION */}
 
       {/* DATA SEARCH SECTION */}
       <Spinner

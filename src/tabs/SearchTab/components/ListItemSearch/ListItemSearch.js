@@ -4,7 +4,7 @@ import styles from './ListItemStyleSearch';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {URL_STORAGE} from '../../../../config/variable';
 
-const Item = ({nama, gambar, kota, status, no_telp}) => (
+const Item = ({nama, gambar, kota, status, username}) => (
   <View style={styles.content}>
     <View style={styles.contentImageContainer}>
       <Image
@@ -28,7 +28,7 @@ const Item = ({nama, gambar, kota, status, no_telp}) => (
       </View>
       <View style={styles.contentInfo}>
         <MaterialCommunityIcons name="account-outline" size={16} />
-        <Text style={styles.detail}>{no_telp}</Text>
+        <Text style={styles.detail}>{username}</Text>
       </View>
 
       <View style={styles.contentBottom}>
@@ -50,7 +50,7 @@ const ListItemSearch = ({data}) => {
         gambar={item.item.gambar[0].nama}
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
-        no_telp={item.user.no_telp}
+        username={item.user.username}
       />
     );
   };
