@@ -5,6 +5,7 @@ import TitleSection from './components/TitleSection/TitleSection';
 import DetailSection from './components/DetailSection/DetailSection';
 import PublisherSection from './components/PublisherSection/PublisherSection';
 import {ScrollView} from 'react-native';
+import DeskripsiSection from './components/DeskripsiSection/DeskripsiSection';
 
 const DetailPostinganScreen = ({navigation}) => {
   return (
@@ -13,6 +14,7 @@ const DetailPostinganScreen = ({navigation}) => {
       <TitleSection />
       <DetailSection />
       <PublisherSection />
+      <DeskripsiSection />
     </ScrollView>
   );
 };
