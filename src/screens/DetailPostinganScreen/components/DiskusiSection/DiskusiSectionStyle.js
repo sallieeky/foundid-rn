@@ -3,8 +3,8 @@ import {globalFont} from '../../../../assets/style/globalStyle';
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 8,
     backgroundColor: '#FFFFFF',
+    marginBottom: 8,
     paddingTop: 16,
   },
   title: {
@@ -13,15 +13,28 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 16,
   },
-  deskripsi: {
-    ...globalFont.normal,
-    textAlign: 'justify',
+  userContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
   },
-  viewMore: {
-    textAlign: 'center',
-    backgroundColor: '#FFFFFF',
+  nama: {
+    ...globalFont.normal,
+    marginLeft: 8,
+  },
+  komen: {
+    ...globalFont.normal,
+    flexBasis: '93%',
+  },
+  bottom: {
+    ...globalFont.normal,
+    fontSize: 12,
+    marginRight: 16,
+  },
+  btnText: {
+    ...globalFont.normal,
     color: '#1262A5',
-    paddingVertical: 2,
+    textAlign: 'center',
   },
 });
 
