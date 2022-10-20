@@ -17,7 +17,6 @@ const CardUser = ({navigation}) => {
 
   const getUserLogin = async () => {
     const userId = await AsyncStorage.getItem('user_id');
-    console.log(userId);
     if (userId) {
       try {
         const response = await API.get(`/home-tab/get-user-login?id=${userId}`);
@@ -34,7 +33,7 @@ const CardUser = ({navigation}) => {
         <TouchableOpacity
           style={{...styles.container, height: 104}}
           activeOpacity={0.9}
-          onPress={() => navigation.push('RegisterScreenFirst')}>
+          onPress={() => navigation.push('LoginScreen')}>
           <View style={styles.noLoginCircle} />
           <Image
             source={require('../../../../assets/images/login_hometab.png')}

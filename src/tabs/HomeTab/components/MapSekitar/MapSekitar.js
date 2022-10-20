@@ -139,7 +139,7 @@ const MapSekitar = ({navigation, location}) => {
     getData();
   };
 
-  const Item = ({nama, gambar, kota, status, no_telp}) => (
+  const Item = ({nama, gambar, kota, status, username}) => (
     <View style={styles.content}>
       <View style={styles.contentImageContainer}>
         <Image
@@ -163,7 +163,7 @@ const MapSekitar = ({navigation, location}) => {
         </View>
         <View style={styles.contentInfo}>
           <MaterialCommunityIcons name="account-outline" size={16} />
-          <Text style={styles.detail}>{no_telp}</Text>
+          <Text style={styles.detail}>{username}</Text>
         </View>
       </View>
 
@@ -186,7 +186,7 @@ const MapSekitar = ({navigation, location}) => {
         gambar={item.item.gambar[0].nama}
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
-        no_telp={item.user.no_telp}
+        username={item.user.username}
       />
     );
   };

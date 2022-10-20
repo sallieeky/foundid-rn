@@ -9,6 +9,7 @@ import Geocoder from 'react-native-geocoder';
 import API from '../../config/api';
 import Toast from '../../helper/toast';
 import {URL_STORAGE} from '../../config/variable';
+
 const MapScreen = ({navigation}) => {
   const [isError, setIsError] = useState(false);
   const [location, setLocation] = useState();
@@ -49,26 +50,28 @@ const MapScreen = ({navigation}) => {
   ];
 
   const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      async position => {
-        const CO = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        const geocoder = await Geocoder.geocodePosition(CO);
-        setLocation({
-          coords: CO,
-          detail: geocoder,
-        });
-      },
-      error => {
-        setIsError(true);
-        setTimeout(() => {
-          setIsError(false);
-        }, 5000);
-      },
-      {enableHighAccuracy: true},
-    );
+    setIsError(false);
+    try {
+      Geolocation.getCurrentPosition(
+        async position => {
+          const CO = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          const geocoder = await Geocoder.geocodePosition(CO);
+          setLocation({
+            coords: CO,
+            detail: geocoder,
+          });
+        },
+        error => {
+          setIsError(true);
+        },
+        {enableHighAccuracy: true},
+      );
+    } catch (e) {
+      setIsError(true);
+    }
   };
 
   const getData = async () => {
@@ -136,6 +139,7 @@ const MapScreen = ({navigation}) => {
         location={location}
         navigation={navigation}
         onReload={getLocation}
+        error={isError}
       />
       <View style={styles.infoContainer}>
         <View style={styles.infoTextContainer}>
@@ -227,7 +231,6 @@ const MapScreen = ({navigation}) => {
         data={filterData}
         showLocation={showLocationHandle}
       />
-      {isError && <Toast />}
     </View>
   );
 };

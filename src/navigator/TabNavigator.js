@@ -48,24 +48,26 @@ const TabNavigator = () => {
   }, []);
 
   const getCurentLocation = () => {
+    setError(false);
     Geolocation.getCurrentPosition(
       async position => {
         const CO = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        const geocoder = await Geocoder.geocodePosition(CO);
-        const response = {
-          coords: CO,
-          detail: geocoder,
-        };
-        setLocation(response);
+        try {
+          const geocoder = await Geocoder.geocodePosition(CO);
+          const response = {
+            coords: CO,
+            detail: geocoder,
+          };
+          setLocation(response);
+        } catch (e) {
+          setError(true);
+        }
       },
       error => {
         setError(true);
-        setTimeout(() => {
-          setError(false);
-        }, 5000);
       },
       {enableHighAccuracy: true},
     );
@@ -116,6 +118,7 @@ const TabNavigator = () => {
             {...props}
             location={location}
             onReload={getCurentLocation}
+            error={error}
           />
         )}
         options={{
