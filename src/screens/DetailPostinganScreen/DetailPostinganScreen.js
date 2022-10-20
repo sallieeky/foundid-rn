@@ -1,10 +1,16 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
+import styles from './DetailPostinganScreenStyle';
+import ImageSwiper from './components/ImageSwiper/ImageSwiper';
+import TitleSection from './components/TitleSection/TitleSection';
+import DetailSection from './components/DetailSection/DetailSection';
 
-const DetailPostinganScreen = () => {
+const DetailPostinganScreen = ({navigation}) => {
   return (
-    <View>
-      <Text>DetailPostinganScreen</Text>
+    <View style={styles.container}>
+      <ImageSwiper navigation={navigation} />
+      <TitleSection />
+      <DetailSection />
     </View>
   );
 };

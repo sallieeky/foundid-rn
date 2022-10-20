@@ -76,14 +76,14 @@ const CardUser = ({navigation}) => {
                   }
                   style={styles.imgProfile}
                 />
-                <View style={styles.profileLvContainer}>
+                {/* <View style={styles.profileLvContainer}>
                   <Text style={styles.profileLv}>Lv. 99</Text>
                 </View>
                 <View style={styles.profileXpContainer}>
                   <Text style={styles.profileXp}>EXP</Text>
                   <View style={styles.xpBack} />
                   <View style={{...styles.xpFront, width: 30}} />
-                </View>
+                </View> */}
               </View>
               <View>
                 <Text style={styles.hello}>Hello,</Text>

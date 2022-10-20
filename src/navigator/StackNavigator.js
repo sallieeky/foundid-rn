@@ -12,6 +12,7 @@ import TesScreen from '../screens/TesScreen';
 import RegisterScreenSecond from '../screens/RegisterScreen/RegisterScreenSecond/RegisterScreenSecond';
 import RegisterScreenThird from '../screens/RegisterScreen/RegisterScreenThird/RegisterScreenThird';
 import RegisterScreenFourth from '../screens/RegisterScreen/RegisterScreenFourth/RegisterScreenFourth';
+import ImageViewerScreen from '../screens/ImageViewerScreen/ImageViewerScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,7 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="MainScreen">
+      initialRouteName="DetailPostinganScreen">
       {/* TES */}
       <Stack.Screen name="TesScreen" component={TesScreen} />
       {/* ENDTES */}
@@ -51,6 +52,7 @@ const StackNavigator = () => {
         name="DetailPostinganScreen"
         component={DetailPostinganScreen}
       />
+      <Stack.Screen name="ImageViewer" component={ImageViewerScreen} />
     </Stack.Navigator>
   );
 };

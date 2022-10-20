@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RegisterScreenFourth = ({route, navigation}) => {
   const {data} = route.params;
-  console.log(data);
 
   useEffect(() => {
     setUser();

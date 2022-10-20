@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#fefefe',
     borderRadius: 30,
-    marginRight: 16,
+    marginRight: 8,
   },
   hello: {
     ...globalFont.normal,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   noTelpContainer: {
-    width: '100%',
+    paddingHorizontal: 16,
     backgroundColor: '#1262A5',
     borderWidth: 1,
     borderColor: '#FFFFFF',
