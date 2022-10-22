@@ -1,4 +1,5 @@
-// const URL_STORAGE = 'https://api.foundid.my.id/storage';
-const URL_STORAGE = 'http:/192.168.53.231:8000/storage';
+// const URL = 'https://api.foundid.my.id';
+const URL = 'http:/192.168.53.231:8000';
+const URL_STORAGE = `${URL}/storage`;
 
-export {URL_STORAGE};
+export {URL_STORAGE, URL};

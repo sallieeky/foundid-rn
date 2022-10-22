@@ -139,7 +139,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="AddTab"
-        component={AddTab}
+        children={props => <AddTab {...props} />}
         options={{
           tabBarIcon: ({focused, size}) => (
             <View
