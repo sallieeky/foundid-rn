@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 4,
   },
+  imageError: {
+    color: '#FF595985',
+    fontSize: 10,
+  },
   imageContainer: {
     flexBasis: '20%',
     height: 80,
@@ -52,6 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1687D1',
     marginBottom: 16,
     borderRadius: 4,
+    marginTop: 4,
   },
 });
 
