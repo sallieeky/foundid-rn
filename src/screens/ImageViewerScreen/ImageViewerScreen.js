@@ -5,6 +5,8 @@ import styles from './ImageViewerScreenStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ImageViewerScreen = ({route, navigation}) => {
+  const {data, index} = route.params;
+
   return (
     <View style={styles.container}>
       <View style={styles.head}>
@@ -16,13 +18,14 @@ const ImageViewerScreen = ({route, navigation}) => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <MaterialCommunityIcons name="close" color={'#F9F9F9'} size={32} />
+          <MaterialCommunityIcons name="close" color={'#F9F9F9'} size={24} />
         </Pressable>
       </View>
       <Swiper
         style={styles.wrapper}
         showsButtons={true}
         loop={false}
+        index={index}
         dot={
           <View
             style={{
@@ -49,41 +52,16 @@ const ImageViewerScreen = ({route, navigation}) => {
         }
         prevButton={<Text style={{fontSize: 64, color: '#F9F9F9'}}>‹</Text>}
         nextButton={<Text style={{fontSize: 64, color: '#F9F9F9'}}>›</Text>}>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../assets/images/dummy_item.jpg')}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../assets/images/dummy_item.jpg')}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../assets/images/dummy_item.jpg')}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../assets/images/dummy_item.jpg')}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../assets/images/dummy_item.jpg')}
-            style={{width: '100%', height: '100%'}}
-            resizeMode="contain"
-          />
-        </View>
+        {data &&
+          data.map((item, idx) => (
+            <View style={styles.slide} key={idx}>
+              <Image
+                source={{uri: item}}
+                style={{width: '100%', height: '100%'}}
+                resizeMode="contain"
+              />
+            </View>
+          ))}
       </Swiper>
     </View>
   );

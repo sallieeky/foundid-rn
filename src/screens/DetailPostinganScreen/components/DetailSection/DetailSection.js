@@ -4,7 +4,7 @@ import styles from './DetailSectionStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const DetailSection = () => {
+const DetailSection = ({lokasi, kategori}) => {
   return (
     <View style={styles.container}>
       <View style={styles.locationContainer}>
@@ -22,7 +22,7 @@ const DetailSection = () => {
         <Text style={styles.title}>Kategori</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Entypo name="laptop" color={'#242424'} size={24} />
-          <Text style={styles.subTitle}>Laptop</Text>
+          <Text style={styles.subTitle}>{kategori}</Text>
         </View>
       </View>
     </View>

@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './PublisherSectionStyle';
 import {SocialIcon} from 'react-native-elements';
 
-const PublisherSection = () => {
+const PublisherSection = ({user}) => {
   return (
     <View style={styles.container}>
       <View style={{...styles.sectionContainer}}>
@@ -23,7 +23,7 @@ const PublisherSection = () => {
               flex: 1,
               marginLeft: 4,
             }}>
-            <Text style={styles.nama}>Sallie Mansurina</Text>
+            <Text style={styles.nama}>{user.nama}</Text>
             <Pressable style={styles.btnLihatProfile}>
               <Text style={styles.btnLihatProfileText}>Lihat Profile</Text>
             </Pressable>
@@ -35,30 +35,47 @@ const PublisherSection = () => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
             marginTop: 8,
           }}>
-          <SocialIcon
-            button
-            onPress={() => console.log('dawdaw')}
-            iconSize={20}
-            style={{...styles.btnSosmed, backgroundColor: '#55F371'}}
-            type="whatsapp"
-          />
-          <SocialIcon
-            button
-            onPress={() => console.log('dawdaw')}
-            iconSize={20}
-            style={{...styles.btnSosmed, backgroundColor: '#27A6E6'}}
-            type="telegram"
-          />
-          <SocialIcon
-            button
-            onPress={() => console.log('dawdaw')}
-            iconSize={20}
-            style={{...styles.btnSosmed, backgroundColor: '#FE0099'}}
-            type="instagram"
-          />
+          {user.whatsapp && (
+            <SocialIcon
+              button
+              onPress={() => console.log('dawdaw')}
+              iconSize={20}
+              style={{
+                ...styles.btnSosmed,
+                backgroundColor: '#55F371',
+                marginRight: 4,
+              }}
+              type="whatsapp"
+            />
+          )}
+          {user.telegram && (
+            <SocialIcon
+              button
+              onPress={() => console.log('dawdaw')}
+              iconSize={20}
+              style={{
+                ...styles.btnSosmed,
+                backgroundColor: '#27A6E6',
+                marginRight: 4,
+              }}
+              type="telegram"
+            />
+          )}
+          {user.instagram && (
+            <SocialIcon
+              button
+              onPress={() => console.log('dawdaw')}
+              iconSize={20}
+              style={{
+                ...styles.btnSosmed,
+                backgroundColor: '#FE0099',
+                marginRight: 4,
+              }}
+              type="instagram"
+            />
+          )}
         </View>
       </View>
     </View>

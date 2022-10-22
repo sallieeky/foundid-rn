@@ -11,7 +11,7 @@ import styles from './TitleSectionStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
-const TitleSection = () => {
+const TitleSection = ({status, isDone, title}) => {
   const refRBSheetStatus = useRef();
   const refRBSheetCase = useRef();
 
@@ -32,7 +32,7 @@ const TitleSection = () => {
             backgroundColor: '#1F6BAA',
             justifyContent: 'center',
           }}>
-          <Text style={styles.infoText}>DITEMUKAN</Text>
+          <Text style={styles.infoText}>{status}</Text>
         </Pressable>
         <Pressable
           onPress={onOpenCase}
@@ -43,7 +43,9 @@ const TitleSection = () => {
             borderColor: '#FFD700',
           }}>
           <Ionicons name="search-circle" size={32} color={'#FFD700'} />
-          <Text style={{...styles.infoText, color: '#242424'}}>Case Open</Text>
+          <Text style={{...styles.infoText, color: '#242424'}}>
+            {isDone ? 'Case Open' : 'Case Closed'}
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => console.log('Berhasil')}
@@ -56,7 +58,7 @@ const TitleSection = () => {
           <Text style={{...styles.infoText, marginLeft: 4}}>Diskusi</Text>
         </Pressable>
       </View>
-      <Text style={styles.title}>Laptop Dell warna hitam dengan stylus</Text>
+      <Text style={styles.title}>{title}</Text>
 
       {/* BOTTOM SHEET STATUS */}
       <RBSheet

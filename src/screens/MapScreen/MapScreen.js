@@ -7,7 +7,6 @@ import styles from './MapScreenStyle';
 import Header from './components/Header/Header';
 import Geocoder from 'react-native-geocoder';
 import API from '../../config/api';
-import Toast from '../../helper/toast';
 import {URL_STORAGE} from '../../config/variable';
 
 const MapScreen = ({navigation}) => {

@@ -3,11 +3,11 @@ import React from 'react';
 import styles from './DeskripsiSectionStyle';
 import ViewMoreText from 'react-native-view-more-text';
 
-const DeskripsiSection = () => {
+const DeskripsiSection = ({deskripsi}) => {
   const renderViewMore = onPress => {
     return (
       <Text onPress={onPress} style={styles.viewMore}>
-        View more
+        Lihat lebih banyak
       </Text>
     );
   };
@@ -15,7 +15,7 @@ const DeskripsiSection = () => {
   const renderViewLess = onPress => {
     return (
       <Text onPress={onPress} style={styles.viewMore}>
-        View less
+        Lihat lebih sedikit
       </Text>
     );
   };
@@ -29,13 +29,7 @@ const DeskripsiSection = () => {
         renderViewMore={renderViewMore}
         renderViewLess={renderViewLess}
         textStyle={{textAlign: 'justify', paddingHorizontal: 16}}>
-        <Text style={styles.deskripsi}>
-          Ditemukan sebuah laptop warna hitam bermerk Dell lengkap dengan stylus
-          dan cover berwarna hitam dengan stiker nama di depan cover laptop
-          bernamakan anna. Lorem ipsum sit dolor amet lorem ipsum sit olor amet
-          Lorem ipsum sit dolor amet lorem ipsum sit olor amet Lorem ipsum sit
-          dolor amet lorem ipsum sit olor amet
-        </Text>
+        <Text style={styles.deskripsi}>{deskripsi}</Text>
       </ViewMoreText>
     </View>
   );

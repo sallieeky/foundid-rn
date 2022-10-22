@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#FFFFFF',
     color: '#1262A5',
-    paddingVertical: 2,
+    paddingVertical: 8,
   },
 });
 
