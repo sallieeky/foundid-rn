@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 16,
+    marginBottom: 64,
   },
   statusContainer: {
     flexDirection: 'row',

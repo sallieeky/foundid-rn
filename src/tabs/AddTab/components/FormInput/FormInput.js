@@ -3,6 +3,7 @@ import React from 'react';
 import {globalFont} from '../../../../assets/style/globalStyle';
 
 const FormInput = ({
+  style,
   placeholder,
   label,
   value,
@@ -13,6 +14,7 @@ const FormInput = ({
   icon,
   multiline,
   editable,
+  numberOfLines,
 }) => {
   return (
     <View style={{marginBottom: 4}}>
@@ -24,11 +26,13 @@ const FormInput = ({
             ...styles.input,
             borderColor: error ? '#FF5959' : '#000000',
             paddingRight: icon ? 48 : 8,
+            ...style,
           }}
           keyboardType={keyboardType}
           value={value}
           onChangeText={txt => setState(objKey, txt)}
           multiline={multiline}
+          numberOfLines={numberOfLines}
           editable={editable}
         />
         <View style={styles.icon}>{icon}</View>

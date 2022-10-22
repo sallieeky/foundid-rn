@@ -8,6 +8,7 @@ import {Picker} from '@react-native-picker/picker';
 import API from '../../config/api';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
+import {ScrollView} from 'react-native';
 
 const AddTab = ({navigation}) => {
   const [formData, setFormData] = useState({
@@ -77,7 +78,7 @@ const AddTab = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <CustomText style={{fontSize: 24, paddingVertical: 24}} bold>
         Tambah Barang
       </CustomText>
@@ -130,11 +131,11 @@ const AddTab = ({navigation}) => {
         />
 
         <View style={{marginBottom: 16}}>
-          <CustomText>Jenis Kelamin</CustomText>
+          <CustomText>Kategori</CustomText>
           <View
             style={{
               ...styles.select,
-              borderColor: formDataError.jenisKelamin ? '#FF5959' : '#000000',
+              borderColor: formDataError.kategoriId ? '#FF5959' : '#000000',
             }}>
             <Picker
               mode="dropdown"
@@ -150,7 +151,7 @@ const AddTab = ({navigation}) => {
           </View>
         </View>
 
-        <Pressable onPress={() => setOpen(true)}>
+        <Pressable onPress={() => setOpenTanggal(true)}>
           <FormInput
             label={`Tanggal ${status}`}
             placeholder={`Pilih Tanggal ${status}`}
@@ -179,8 +180,39 @@ const AddTab = ({navigation}) => {
             }}
           />
         </Pressable>
+
+        <Pressable
+          onPress={() =>
+            navigation.push('PickLocationScreen', {
+              formData,
+              setState,
+            })
+          }>
+          <FormInput
+            label={`Lokasi ${status}`}
+            placeholder={`Pilih Lokasi ${status}`}
+            objKey="lokasi"
+            error={formDataError.lokasi && formDataError.lokasi[0]}
+            setState={setState}
+            value={formData.lokasi && formData.lokasi.detail}
+            editable={false}
+            icon={<Ionicons name="location" size={24} />}
+          />
+        </Pressable>
+
+        <FormInput
+          label={'Deskripsi'}
+          placeholder={'Masukkan Deskripsi'}
+          objKey="deskripsi"
+          error={formDataError.deskripsi && formDataError.deskripsi[0]}
+          setState={setState}
+          value={formData.deskripsi}
+          multiline={true}
+          numberOfLines={5}
+          style={{textAlignVertical: 'top'}}
+        />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
