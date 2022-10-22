@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './AddTabStyle';
 import CustomText from '../../components/CustomText/CustomText';
@@ -7,8 +7,12 @@ import FormInput from './components/FormInput/FormInput';
 import {Picker} from '@react-native-picker/picker';
 import API from '../../config/api';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DatePicker from 'react-native-date-picker';
 import {ScrollView} from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Image} from 'react-native';
 
 const AddTab = ({navigation}) => {
   const [formData, setFormData] = useState({
@@ -19,6 +23,7 @@ const AddTab = ({navigation}) => {
     namaBarang: null,
     deskripsi: null,
     gambar: null,
+    status: 'Kehilangan',
   });
   const [formDataError, setFormDataError] = useState({
     userId: null,
@@ -28,6 +33,7 @@ const AddTab = ({navigation}) => {
     namaBarang: null,
     deskripsi: null,
     gambar: null,
+    status: null,
   });
 
   const setState = (key, value) => {
@@ -39,6 +45,7 @@ const AddTab = ({navigation}) => {
 
   useEffect(() => {
     getKategori();
+    getUser();
   }, []);
 
   const hari = [
@@ -65,8 +72,14 @@ const AddTab = ({navigation}) => {
     'Desember',
   ];
   const [kategori, setKategori] = useState([]);
+  const [foto, setFoto] = useState([]);
   const [status, setStatus] = useState('Kehilangan');
   const [openTanggal, setOpenTanggal] = useState(false);
+
+  const getUser = async () => {
+    const userId = await AsyncStorage.getItem('user_id');
+    setState('userId', userId);
+  };
 
   const getKategori = async () => {
     try {
@@ -75,6 +88,34 @@ const AddTab = ({navigation}) => {
     } catch (e) {
       alert('Koneksi eror', 'Gagal terhubung ke jaringan');
     }
+  };
+
+  const pickImage = async () => {
+    const images = await ImagePicker.openPicker({
+      multiple: true,
+      mediaType: 'photo',
+      includeBase64: true,
+    });
+
+    let files = [];
+    let ft = [];
+    images.slice(0, 5).map(image => {
+      let pathParts = image.path.split('/');
+      files.push({
+        uri: image.path,
+        type: image.mime,
+        name: `${
+          formData.userId
+        }_${formData.tanggal.getDate()}_${formData.tanggal.getMonth()}_${formData.tanggal.getFullYear()}_${
+          pathParts[pathParts.length - 1]
+        }`,
+        size: image.size,
+        base64: image.data,
+      });
+      ft.push(image.path);
+    });
+    setState('gambar', files);
+    setFoto(ft);
   };
 
   return (
@@ -86,7 +127,10 @@ const AddTab = ({navigation}) => {
         <CustomText style={{marginBottom: 4}}>Status Barang</CustomText>
         <View style={styles.statusContainer}>
           <Pressable
-            onPress={() => setStatus('Kehilangan')}
+            onPress={() => {
+              setState('status', 'Kehilangan');
+              setStatus('Kehilangan');
+            }}
             style={{
               ...styles.status,
               backgroundColor: status === 'Kehilangan' ? '#FC6011' : '#FFFFFF',
@@ -102,7 +146,10 @@ const AddTab = ({navigation}) => {
             </CustomText>
           </Pressable>
           <Pressable
-            onPress={() => setStatus('Ditemukan')}
+            onPress={() => {
+              setState('status', 'Ditemukan');
+              setStatus('Ditemukan');
+            }}
             style={{
               ...styles.status,
               backgroundColor: status === 'Ditemukan' ? '#1262A5' : '#FFFFFF',
@@ -121,6 +168,41 @@ const AddTab = ({navigation}) => {
       </View>
 
       <View style={{marginTop: 24}}>
+        <View style={{marginBottom: 16}}>
+          <CustomText>Gambar</CustomText>
+          {formData.gambar && (
+            <View style={styles.imageList}>
+              {formData.gambar.map((item, idx) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.push('ImageViewer', {
+                      data: foto,
+                      index: idx,
+                    })
+                  }
+                  activeOpacity={0.8}
+                  key={idx}
+                  style={styles.imageContainer}>
+                  <Image source={{uri: item.uri}} style={styles.foto} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+          <Pressable
+            onPress={pickImage}
+            style={{
+              ...styles.pickFoto,
+              borderColor: formDataError.kategoriId ? '#FF5959' : '#000000',
+            }}>
+            <MaterialCommunityIcons
+              name="upload-multiple"
+              size={40}
+              color={'#8A8A8A'}
+            />
+            <CustomText>Pilih Foto (Maksimal 5 Foto)</CustomText>
+          </Pressable>
+        </View>
+
         <FormInput
           label={'Nama Barang'}
           placeholder={'Masukkan Nama Barang'}
@@ -211,6 +293,12 @@ const AddTab = ({navigation}) => {
           numberOfLines={5}
           style={{textAlignVertical: 'top'}}
         />
+
+        <Pressable
+          style={styles.btnUpload}
+          onPress={() => console.log(formData)}>
+          <CustomText style={{color: '#F9F9F9'}}>Upload</CustomText>
+        </Pressable>
       </View>
     </ScrollView>
   );

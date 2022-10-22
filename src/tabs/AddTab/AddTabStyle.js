@@ -22,6 +22,37 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     borderRadius: 4,
   },
+  imageList: {
+    flexDirection: 'row',
+    marginBottom: 4,
+  },
+  imageContainer: {
+    flexBasis: '20%',
+    height: 80,
+    borderWidth: 0.5,
+    borderColor: '#8A8A8A',
+  },
+  pickFoto: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    borderRadius: 4,
+    borderStyle: 'dotted',
+    paddingVertical: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  foto: {
+    width: '100%',
+    height: '100%',
+  },
+  btnUpload: {
+    paddingVertical: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1687D1',
+    marginBottom: 16,
+    borderRadius: 4,
+  },
 });
 
 export default styles;
