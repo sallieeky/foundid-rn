@@ -1,5 +1,5 @@
 import {View, Text, Pressable, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Swiper from 'react-native-swiper';
 import styles from './ImageSwiperStyle';
@@ -14,7 +14,9 @@ const renderPagination = (index, total, context) => {
   );
 };
 
-const ImageSwiper = ({navigation}) => {
+const ImageSwiper = ({navigation, foto, timestamps}) => {
+  const [index, setIndex] = useState(0);
+
   return (
     <View style={styles.imageSwiperContainer}>
       <Pressable
@@ -38,34 +40,26 @@ const ImageSwiper = ({navigation}) => {
         />
         <View>
           <Text style={styles.waktuUploadText}>Diupload</Text>
-          <Text style={styles.waktuUploadText}>54 Detik Lalu</Text>
+          <Text style={styles.waktuUploadText}>{timestamps}</Text>
         </View>
       </View>
       <Pressable
         style={{flex: 1}}
-        onPress={() => navigation.navigate('ImageViewer')}>
+        onPress={() => navigation.navigate('ImageViewer', {data: foto, index})}>
         <Swiper
           showsButtons={false}
           loop={false}
-          renderPagination={renderPagination}>
-          <View style={styles.slide}>
-            <Image
-              source={require('../../../../assets/images/dummy_item.jpg')}
-              style={{width: '100%', height: '100%'}}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../../../../assets/images/dummy_item.jpg')}
-              style={{width: '100%', height: '100%'}}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../../../../assets/images/dummy_item.jpg')}
-              style={{width: '100%', height: '100%'}}
-            />
-          </View>
+          renderPagination={renderPagination}
+          onIndexChanged={idx => setIndex(idx)}>
+          {foto &&
+            foto.map((ft, idx) => (
+              <View style={styles.slide} key={idx}>
+                <Image
+                  source={{uri: ft}}
+                  style={{width: '100%', height: '100%'}}
+                />
+              </View>
+            ))}
         </Swiper>
       </Pressable>
     </View>
