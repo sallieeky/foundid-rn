@@ -29,7 +29,7 @@ const TitleSection = ({status, isDone, title}) => {
           onPress={onOpenStatus}
           style={{
             ...styles.info,
-            backgroundColor: '#1F6BAA',
+            backgroundColor: status === 'Kehilangan' ? '#FC6011' : '#1F6BAA',
             justifyContent: 'center',
           }}>
           <Text style={styles.infoText}>{status}</Text>
@@ -40,11 +40,15 @@ const TitleSection = ({status, isDone, title}) => {
             ...styles.info,
             backgroundColor: '#FFFFFF',
             borderWidth: 1,
-            borderColor: '#FFD700',
+            borderColor: isDone ? '#00AA5B' : '#FFD700',
           }}>
-          <Ionicons name="search-circle" size={32} color={'#FFD700'} />
+          <Ionicons
+            name="search-circle"
+            size={32}
+            color={isDone ? '#00AA5B' : '#FFD700'}
+          />
           <Text style={{...styles.infoText, color: '#242424'}}>
-            {isDone ? 'Case Open' : 'Case Closed'}
+            {isDone ? 'Case Closed' : 'Case Open'}
           </Text>
         </Pressable>
         <Pressable
