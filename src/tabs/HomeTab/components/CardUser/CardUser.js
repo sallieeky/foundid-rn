@@ -1,32 +1,11 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './CardUserStyle';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import API from '../../../../config/api';
 import {URL_STORAGE} from '../../../../config/variable';
 
-const CardUser = ({navigation}) => {
-  const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState();
-
-  useEffect(() => {
-    getUserLogin();
-  }, []);
-
-  const getUserLogin = async () => {
-    const userId = await AsyncStorage.getItem('user_id');
-    if (userId) {
-      try {
-        const response = await API.get(`/home-tab/get-user-login?id=${userId}`);
-        setUser(response.data);
-      } catch (e) {
-        //
-      }
-    }
-  };
-
+const CardUser = ({navigation, user}) => {
   return (
     <View>
       {!user && (

@@ -45,8 +45,22 @@ const Error = ({pressHandler}) => (
   </TouchableOpacity>
 );
 
-const Item = ({nama, gambar, kota, status, username}) => (
-  <TouchableOpacity activeOpacity={0.8} style={styles.content}>
+const Item = ({
+  nama,
+  gambar,
+  kota,
+  status,
+  username,
+  postingan,
+  navigation,
+  location,
+}) => (
+  <TouchableOpacity
+    activeOpacity={0.8}
+    style={styles.content}
+    onPress={() =>
+      navigation.push('DetailPostinganScreen', {postingan, location})
+    }>
     <View style={styles.contentImageSection}>
       <Image
         source={{uri: `${URL_STORAGE}/item/${gambar}`}}
@@ -76,20 +90,21 @@ const Item = ({nama, gambar, kota, status, username}) => (
     </View>
   </TouchableOpacity>
 );
-
-const renderItem = ({item}) => {
-  return (
-    <Item
-      nama={item.item.nama}
-      gambar={item.item.gambar[0].nama}
-      kota={item.item.lokasi.kota}
-      status={item.hilang_ditemukan}
-      username={item.user.username}
-    />
-  );
-};
-
-const ListItem = ({header, location}) => {
+const ListItem = ({header, location, id, navigation}) => {
+  const renderItem = ({item}) => {
+    return (
+      <Item
+        nama={item.item.nama}
+        gambar={item.item.gambar[0].nama}
+        kota={item.item.lokasi.kota}
+        status={item.hilang_ditemukan}
+        username={item.user.username}
+        postingan={item}
+        location={location}
+        navigation={navigation}
+      />
+    );
+  };
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState();
 
@@ -103,9 +118,8 @@ const ListItem = ({header, location}) => {
       const response = await API.get(
         `/global/get-list-item-postingan?kota=${
           location ? location.detail[0].subAdminArea : ''
-        }`,
+        }&exclude=${id}`,
       );
-      console.log(response.data);
       setData(response.data);
     } catch (e) {
       setIsError(true);

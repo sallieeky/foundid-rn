@@ -28,6 +28,8 @@ const BottomSheet = ({
   onPressDitemukan,
   data,
   showLocation,
+  location,
+  navigation,
 }) => {
   const [isDrag, setIsDrag] = useState(false);
 
@@ -149,7 +151,12 @@ const BottomSheet = ({
 
         {/* LIST ITEM */}
         <View style={styles.listContainer}>
-          <ListItem data={data} showLocation={showLocation} />
+          <ListItem
+            data={data}
+            showLocation={showLocation}
+            location={location}
+            navigation={navigation}
+          />
         </View>
       </Animated.View>
     </View>

@@ -12,6 +12,8 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoder';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import API from '../config/api';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,10 +43,12 @@ const CustomTabBarButton = ({children, onPress}) => {
 };
 
 const TabNavigator = () => {
+  const [user, setUser] = useState();
   const [location, setLocation] = useState();
   const [error, setError] = useState(false);
   useEffect(() => {
     getCurentLocation();
+    getUserLogin();
   }, []);
 
   const getCurentLocation = () => {
@@ -73,6 +77,18 @@ const TabNavigator = () => {
     );
   };
 
+  const getUserLogin = async () => {
+    const userId = await AsyncStorage.getItem('user_id');
+    if (userId) {
+      try {
+        const response = await API.get(`/global/get-user-login?id=${userId}`);
+        setUser(response.data);
+      } catch (e) {
+        alert('Gagal Terhubung', 'Gagal terhubung ke internet');
+      }
+    }
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -93,6 +109,7 @@ const TabNavigator = () => {
             location={location}
             onReload={getCurentLocation}
             error={error}
+            user={user}
           />
         )}
         options={{
@@ -139,7 +156,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="AddTab"
-        children={props => <AddTab {...props} />}
+        children={props => <AddTab {...props} user={user} />}
         options={{
           tabBarIcon: ({focused, size}) => (
             <View
@@ -156,7 +173,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="HistoryTab"
-        component={HistoryTab}
+        children={props => <HistoryTab {...props} user={user} />}
         options={{
           tabBarIcon: ({focused, size}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -175,7 +192,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="ProfileTab"
-        component={ProfileTab}
+        children={props => <ProfileTab {...props} user={user} />}
         options={{
           tabBarIcon: ({focused, size}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
