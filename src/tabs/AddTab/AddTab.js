@@ -1,4 +1,4 @@
-import {TouchableOpacity, View} from 'react-native';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './AddTabStyle';
 import CustomText from '../../components/CustomText/CustomText';
@@ -152,196 +152,236 @@ const AddTab = ({navigation}) => {
         <CustomText style={{fontSize: 24, paddingVertical: 24}} bold>
           Tambah Barang
         </CustomText>
-        <View>
-          <CustomText style={{marginBottom: 4}}>Status Barang</CustomText>
-          <View style={styles.statusContainer}>
-            <Pressable
-              onPress={() => {
-                setState('status', 'Kehilangan');
-                setStatus('Kehilangan');
-              }}
-              style={{
-                ...styles.status,
-                backgroundColor:
-                  status === 'Kehilangan' ? '#FC6011' : '#FFFFFF',
-                borderTopRightRadius: 4,
-                borderBottomRightRadius: 4,
-              }}>
-              <CustomText
-                style={{
-                  color: status === 'Kehilangan' ? '#F9F9F9' : '#C8D1E1',
-                  fontSize: 16,
-                }}>
-                Kehilangan
-              </CustomText>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                setState('status', 'Ditemukan');
-                setStatus('Ditemukan');
-              }}
-              style={{
-                ...styles.status,
-                backgroundColor: status === 'Ditemukan' ? '#1262A5' : '#FFFFFF',
-                borderTopRightRadius: 4,
-                borderBottomRightRadius: 4,
-              }}>
-              <CustomText
-                style={{
-                  color: status === 'Ditemukan' ? '#FFFFFF' : '#C8D1E1',
-                  fontSize: 16,
-                }}>
-                Ditemukan
-              </CustomText>
-            </Pressable>
-          </View>
-        </View>
 
-        <View style={{marginTop: 24}}>
-          <View style={{marginBottom: 4}}>
-            <CustomText>Gambar</CustomText>
-            {formData.gambar && (
-              <View style={styles.imageList}>
-                {formData.gambar.map((item, idx) => (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.push('ImageViewer', {
-                        data: foto,
-                        index: idx,
-                      })
-                    }
-                    activeOpacity={0.8}
-                    key={idx}
-                    style={styles.imageContainer}>
-                    <Image source={{uri: item.uri}} style={styles.foto} />
-                  </TouchableOpacity>
-                ))}
+        {!formData.userId && (
+          <View
+            style={{
+              height: Dimensions.get('window').height - 156,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('../../assets/images/login_first.png')}
+              style={{width: '100%', height: '60%'}}
+            />
+            <CustomText bold>Silakan Login Terlebih Dahulu</CustomText>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.push('LoginScreen')}
+              style={{
+                marginTop: 16,
+                borderRadius: 4,
+                backgroundColor: '#1262A5',
+                width: '50%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingVertical: 8,
+              }}>
+              <CustomText style={{color: '#F9F9F9'}}>Login</CustomText>
+            </TouchableOpacity>
+          </View>
+        )}
+        {formData.userId && (
+          <View>
+            <View>
+              <CustomText style={{marginBottom: 4}}>Status Barang</CustomText>
+              <View style={styles.statusContainer}>
+                <Pressable
+                  onPress={() => {
+                    setState('status', 'Kehilangan');
+                    setStatus('Kehilangan');
+                  }}
+                  style={{
+                    ...styles.status,
+                    backgroundColor:
+                      status === 'Kehilangan' ? '#FC6011' : '#FFFFFF',
+                    borderTopRightRadius: 4,
+                    borderBottomRightRadius: 4,
+                  }}>
+                  <CustomText
+                    style={{
+                      color: status === 'Kehilangan' ? '#F9F9F9' : '#C8D1E1',
+                      fontSize: 16,
+                    }}>
+                    Kehilangan
+                  </CustomText>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    setState('status', 'Ditemukan');
+                    setStatus('Ditemukan');
+                  }}
+                  style={{
+                    ...styles.status,
+                    backgroundColor:
+                      status === 'Ditemukan' ? '#1262A5' : '#FFFFFF',
+                    borderTopRightRadius: 4,
+                    borderBottomRightRadius: 4,
+                  }}>
+                  <CustomText
+                    style={{
+                      color: status === 'Ditemukan' ? '#FFFFFF' : '#C8D1E1',
+                      fontSize: 16,
+                    }}>
+                    Ditemukan
+                  </CustomText>
+                </Pressable>
               </View>
-            )}
-            <Pressable
-              onPress={pickImage}
-              style={{
-                ...styles.pickFoto,
-                borderColor: formDataError.gambar ? '#FF5959' : '#000000',
-              }}>
-              <MaterialCommunityIcons
-                name="upload-multiple"
-                size={40}
-                color={'#8A8A8A'}
+            </View>
+
+            <View style={{marginTop: 24}}>
+              <View style={{marginBottom: 4}}>
+                <CustomText>Gambar</CustomText>
+                {formData.gambar && (
+                  <View style={styles.imageList}>
+                    {formData.gambar.map((item, idx) => (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.push('ImageViewer', {
+                            data: foto,
+                            index: idx,
+                          })
+                        }
+                        activeOpacity={0.8}
+                        key={idx}
+                        style={styles.imageContainer}>
+                        <Image source={{uri: item.uri}} style={styles.foto} />
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
+                <Pressable
+                  onPress={pickImage}
+                  style={{
+                    ...styles.pickFoto,
+                    borderColor: formDataError.gambar ? '#FF5959' : '#000000',
+                  }}>
+                  <MaterialCommunityIcons
+                    name="upload-multiple"
+                    size={40}
+                    color={'#8A8A8A'}
+                  />
+                  <CustomText>Pilih Foto (Maksimal 5 Foto)</CustomText>
+                </Pressable>
+                <CustomText style={styles.imageError}>
+                  {formDataError.gambar && formDataError.gambar[0]}
+                </CustomText>
+              </View>
+
+              <FormInput
+                label={'Nama Barang'}
+                placeholder={'Masukkan Nama Barang'}
+                objKey="namaBarang"
+                error={formDataError.namaBarang && formDataError.namaBarang[0]}
+                setState={setState}
+                value={formData.namaBarang}
               />
-              <CustomText>Pilih Foto (Maksimal 5 Foto)</CustomText>
-            </Pressable>
-            <CustomText style={styles.imageError}>
-              {formDataError.gambar && formDataError.gambar[0]}
-            </CustomText>
-          </View>
 
-          <FormInput
-            label={'Nama Barang'}
-            placeholder={'Masukkan Nama Barang'}
-            objKey="namaBarang"
-            error={formDataError.namaBarang && formDataError.namaBarang[0]}
-            setState={setState}
-            value={formData.namaBarang}
-          />
+              <View style={{marginBottom: 16}}>
+                <CustomText>Kategori</CustomText>
+                <View
+                  style={{
+                    ...styles.select,
+                    borderColor: formDataError.kategoriId
+                      ? '#FF5959'
+                      : '#000000',
+                  }}>
+                  <Picker
+                    mode="dropdown"
+                    selectedValue={formData.kategoriId}
+                    onValueChange={(itemValue, itemIndex) => {
+                      setState('kategoriId', itemValue);
+                    }}>
+                    {kategori &&
+                      kategori.map((item, i) => (
+                        <Picker.Item
+                          key={i}
+                          label={item.nama}
+                          value={item.id}
+                        />
+                      ))}
+                  </Picker>
+                </View>
+              </View>
 
-          <View style={{marginBottom: 16}}>
-            <CustomText>Kategori</CustomText>
-            <View
-              style={{
-                ...styles.select,
-                borderColor: formDataError.kategoriId ? '#FF5959' : '#000000',
-              }}>
-              <Picker
-                mode="dropdown"
-                selectedValue={formData.kategoriId}
-                onValueChange={(itemValue, itemIndex) => {
-                  setState('kategoriId', itemValue);
-                }}>
-                {kategori &&
-                  kategori.map((item, i) => (
-                    <Picker.Item key={i} label={item.nama} value={item.id} />
-                  ))}
-              </Picker>
+              <Pressable onPress={() => setOpenTanggal(true)}>
+                <FormInput
+                  label={`Tanggal ${status}`}
+                  placeholder={`Pilih Tanggal ${status}`}
+                  objKey="namaBarang"
+                  error={formDataError.tanggal && formDataError.tanggal[0]}
+                  setState={setState}
+                  value={`${
+                    hari[formData.tanggal.getDay()]
+                  }, ${formData.tanggal.getDate()} ${
+                    bulan[formData.tanggal.getMonth()]
+                  } ${formData.tanggal.getFullYear()}`}
+                  editable={false}
+                  icon={<Ionicons name="calendar" size={24} />}
+                />
+                <DatePicker
+                  modal
+                  open={openTanggal}
+                  mode="date"
+                  date={formData.tanggal}
+                  onConfirm={date => {
+                    setState('tanggal', date);
+                    setOpenTanggal(false);
+                  }}
+                  onCancel={() => {
+                    setOpenTanggal(false);
+                  }}
+                />
+              </Pressable>
+
+              <Pressable
+                onPress={() =>
+                  navigation.push('PickLocationScreen', {
+                    formData,
+                    setState,
+                  })
+                }>
+                <FormInput
+                  label={`Lokasi ${status}`}
+                  placeholder={`Pilih Lokasi ${status}`}
+                  objKey="lokasi"
+                  error={formDataError.lokasi && formDataError.lokasi[0]}
+                  setState={setState}
+                  value={formData.lokasi && formData.lokasi.detail}
+                  editable={false}
+                  icon={<Ionicons name="location" size={24} />}
+                />
+              </Pressable>
+
+              <FormInput
+                label={'Deskripsi'}
+                placeholder={'Masukkan Deskripsi'}
+                objKey="deskripsi"
+                error={formDataError.deskripsi && formDataError.deskripsi[0]}
+                setState={setState}
+                value={formData.deskripsi}
+                multiline={true}
+                numberOfLines={5}
+                style={{textAlignVertical: 'top'}}
+              />
+
+              <Pressable
+                style={styles.btnUpload}
+                onPress={() => setOpenModal(true)}>
+                <Spinner
+                  style={{}}
+                  isVisible={isLoading}
+                  size={19}
+                  type={'FadingCircleAlt'}
+                  color={'#F9F9F9'}
+                />
+                {!isLoading && (
+                  <CustomText style={{color: '#F9F9F9'}}>Upload</CustomText>
+                )}
+              </Pressable>
             </View>
           </View>
-
-          <Pressable onPress={() => setOpenTanggal(true)}>
-            <FormInput
-              label={`Tanggal ${status}`}
-              placeholder={`Pilih Tanggal ${status}`}
-              objKey="namaBarang"
-              error={formDataError.tanggal && formDataError.tanggal[0]}
-              setState={setState}
-              value={`${
-                hari[formData.tanggal.getDay()]
-              }, ${formData.tanggal.getDate()} ${
-                bulan[formData.tanggal.getMonth()]
-              } ${formData.tanggal.getFullYear()}`}
-              editable={false}
-              icon={<Ionicons name="calendar" size={24} />}
-            />
-            <DatePicker
-              modal
-              open={openTanggal}
-              mode="date"
-              date={formData.tanggal}
-              onConfirm={date => {
-                setState('tanggal', date);
-                setOpenTanggal(false);
-              }}
-              onCancel={() => {
-                setOpenTanggal(false);
-              }}
-            />
-          </Pressable>
-
-          <Pressable
-            onPress={() =>
-              navigation.push('PickLocationScreen', {
-                formData,
-                setState,
-              })
-            }>
-            <FormInput
-              label={`Lokasi ${status}`}
-              placeholder={`Pilih Lokasi ${status}`}
-              objKey="lokasi"
-              error={formDataError.lokasi && formDataError.lokasi[0]}
-              setState={setState}
-              value={formData.lokasi && formData.lokasi.detail}
-              editable={false}
-              icon={<Ionicons name="location" size={24} />}
-            />
-          </Pressable>
-
-          <FormInput
-            label={'Deskripsi'}
-            placeholder={'Masukkan Deskripsi'}
-            objKey="deskripsi"
-            error={formDataError.deskripsi && formDataError.deskripsi[0]}
-            setState={setState}
-            value={formData.deskripsi}
-            multiline={true}
-            numberOfLines={5}
-            style={{textAlignVertical: 'top'}}
-          />
-
-          <Pressable
-            style={styles.btnUpload}
-            onPress={() => setOpenModal(true)}>
-            <Spinner
-              style={{}}
-              isVisible={isLoading}
-              size={19}
-              type={'FadingCircleAlt'}
-              color={'#F9F9F9'}
-            />
-            {!isLoading && (
-              <CustomText style={{color: '#F9F9F9'}}>Upload</CustomText>
-            )}
-          </Pressable>
-        </View>
+        )}
       </ScrollView>
       {openModal && (
         <Modal

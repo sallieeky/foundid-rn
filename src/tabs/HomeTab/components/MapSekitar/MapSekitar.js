@@ -139,7 +139,15 @@ const MapSekitar = ({navigation, location}) => {
     getData();
   };
 
-  const Item = ({nama, gambar, kota, status, username, postingan}) => (
+  const Item = ({
+    nama,
+    gambar,
+    kota,
+    status,
+    username,
+    postingan,
+    location,
+  }) => (
     <View style={styles.content}>
       <View style={styles.contentImageContainer}>
         <Image
@@ -170,7 +178,9 @@ const MapSekitar = ({navigation, location}) => {
       <TouchableOpacity
         style={styles.floatingButtonContainer}
         activeOpacity={0.6}
-        onPress={() => navigation.push('DetailPostinganScreen', {postingan})}>
+        onPress={() =>
+          navigation.push('DetailPostinganScreen', {postingan, location})
+        }>
         <MaterialCommunityIcons
           name="note-text-outline"
           size={24}
@@ -189,6 +199,7 @@ const MapSekitar = ({navigation, location}) => {
         status={item.hilang_ditemukan}
         username={item.user.username}
         postingan={item}
+        location={location}
       />
     );
   };
