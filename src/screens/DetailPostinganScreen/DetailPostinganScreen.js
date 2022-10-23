@@ -8,9 +8,10 @@ import {ScrollView} from 'react-native';
 import DeskripsiSection from './components/DeskripsiSection/DeskripsiSection';
 import DiskusiSection from './components/DiskusiSection/DiskusiSection';
 import {URL_STORAGE} from '../../config/variable';
+import ListItem from './components/ListItem/ListItem';
 
 const DetailPostinganScreen = ({route, navigation}) => {
-  const {postingan} = route.params;
+  const {postingan, location} = route.params;
   const [foto, setFoto] = useState([]);
   useEffect(() => {
     getFoto();
@@ -43,6 +44,7 @@ const DetailPostinganScreen = ({route, navigation}) => {
       <PublisherSection user={postingan.user} />
       <DeskripsiSection deskripsi={postingan.item.deskripsi} />
       <DiskusiSection komentar={postingan.komentar} />
+      <ListItem header={'Disekitar Anda'} location={location} />
     </ScrollView>
   );
 };
