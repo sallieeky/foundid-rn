@@ -32,6 +32,10 @@ const RegisterScreenFirst = ({navigation}) => {
       ...formData,
       [key]: value,
     });
+    setFormDataError({
+      ...formDataError,
+      [key]: null,
+    });
   };
 
   const onPressNext = async () => {

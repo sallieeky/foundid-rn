@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   },
   deskripsi: {
     ...globalFont.normal,
-    textAlign: 'justify',
   },
   viewMore: {
     textAlign: 'center',

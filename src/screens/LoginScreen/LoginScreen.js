@@ -23,6 +23,10 @@ const LoginScreen = ({navigation}) => {
       ...formData,
       [key]: value,
     });
+    setFormDataError({
+      ...formDataError,
+      [key]: null,
+    });
   };
 
   const onPressLogin = async () => {

@@ -21,12 +21,9 @@ const PublisherSection = ({user}) => {
           <View
             style={{
               flex: 1,
-              marginLeft: 4,
+              marginLeft: 8,
             }}>
             <Text style={styles.nama}>{user.nama}</Text>
-            <Pressable style={styles.btnLihatProfile}>
-              <Text style={styles.btnLihatProfileText}>Lihat Profile</Text>
-            </Pressable>
           </View>
         </View>
       </View>

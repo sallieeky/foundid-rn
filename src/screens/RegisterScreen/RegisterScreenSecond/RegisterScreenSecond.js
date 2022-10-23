@@ -53,6 +53,10 @@ const RegisterScreenSecond = ({route, navigation}) => {
       ...formData,
       [key]: value,
     });
+    setFormDataError({
+      ...formDataError,
+      [key]: null,
+    });
   };
 
   const getProvinsi = async () => {

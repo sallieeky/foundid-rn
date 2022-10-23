@@ -14,7 +14,6 @@ const DetailPostinganScreen = ({route, navigation}) => {
   const [foto, setFoto] = useState([]);
   useEffect(() => {
     getFoto();
-    console.log(postingan);
   }, []);
 
   const getFoto = () => {

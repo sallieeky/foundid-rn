@@ -41,6 +41,10 @@ const RegisterScreenThird = ({route, navigation}) => {
       ...formData,
       [key]: value,
     });
+    setFormDataError({
+      ...formDataError,
+      [key]: null,
+    });
   };
 
   const chooseFile = async () => {
@@ -69,6 +73,7 @@ const RegisterScreenThird = ({route, navigation}) => {
         });
       // navigation.replace('RegisterScreenFourth', {data: response.data.data});
     } catch (e) {
+      console.log(e);
       Alert.alert(
         'Gagal Terhubung',
         'Gagal terhubung ke internet, periksa jaringan internet anda',
