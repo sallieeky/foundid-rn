@@ -4,7 +4,16 @@ import styles from './ListItemStyleSearch';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {URL_STORAGE} from '../../../../config/variable';
 
-const Item = ({nama, gambar, kota, status, username}) => (
+const Item = ({
+  nama,
+  gambar,
+  kota,
+  status,
+  username,
+  postingan,
+  navigation,
+  location,
+}) => (
   <View style={styles.content}>
     <View style={styles.contentImageContainer}>
       <Image
@@ -34,7 +43,10 @@ const Item = ({nama, gambar, kota, status, username}) => (
       <View style={styles.contentBottom}>
         <TouchableOpacity
           style={styles.contentBottomDetail}
-          activeOpacity={0.6}>
+          activeOpacity={0.6}
+          onPress={() =>
+            navigation.push('DetailPostinganScreen', {postingan, location})
+          }>
           <Text style={styles.contentBottomDetailText}>KUNJUNGI DETAIL</Text>
         </TouchableOpacity>
       </View>
@@ -42,7 +54,7 @@ const Item = ({nama, gambar, kota, status, username}) => (
   </View>
 );
 
-const ListItemSearch = ({data}) => {
+const ListItemSearch = ({data, navigation, location}) => {
   const renderItem = ({item}) => {
     return (
       <Item
@@ -51,6 +63,9 @@ const ListItemSearch = ({data}) => {
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
         username={item.user.username}
+        postingan={item}
+        navigation={navigation}
+        location={location}
       />
     );
   };

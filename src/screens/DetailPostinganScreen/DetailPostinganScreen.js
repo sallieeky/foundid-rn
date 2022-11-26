@@ -44,7 +44,12 @@ const DetailPostinganScreen = ({route, navigation}) => {
       <PublisherSection user={postingan.user} />
       <DeskripsiSection deskripsi={postingan.item.deskripsi} />
       <DiskusiSection komentar={postingan.komentar} />
-      <ListItem header={'Disekitar Anda'} location={location} />
+      <ListItem
+        header={'Disekitar Anda'}
+        location={location}
+        id={postingan.id}
+        navigation={navigation}
+      />
     </ScrollView>
   );
 };

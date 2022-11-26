@@ -210,9 +210,6 @@ const MapScreen = ({navigation}) => {
               coordinate={{
                 latitude: parseFloat(item.item.lokasi.lat),
                 longitude: parseFloat(item.item.lokasi.lng),
-              }}
-              image={{
-                uri: `${URL_STORAGE}/images/marker.png`,
               }}>
               <Callout>
                 <View>
@@ -229,6 +226,8 @@ const MapScreen = ({navigation}) => {
         onPressDitemukan={onPressDitemukan}
         data={filterData}
         showLocation={showLocationHandle}
+        location={location}
+        navigation={navigation}
       />
     </View>
   );

@@ -11,12 +11,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import DatePicker from 'react-native-date-picker';
 import {ScrollView} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Image} from 'react-native';
 import Modal from '../../components/Modal/Modal';
 import Spinner from 'react-native-spinkit';
 
-const AddTab = ({navigation}) => {
+const AddTab = ({navigation, user}) => {
   const [formData, setFormData] = useState({
     userId: null,
     kategoriId: null,
@@ -51,7 +50,7 @@ const AddTab = ({navigation}) => {
 
   useEffect(() => {
     getKategori();
-    getUser();
+    user && setState('userId', user.id);
   }, []);
 
   const hari = [
@@ -86,14 +85,9 @@ const AddTab = ({navigation}) => {
   const [openModal, setOpenModal] = useState(false);
   const [berhasilModal, setBerhasilModal] = useState(false);
 
-  const getUser = async () => {
-    const userId = await AsyncStorage.getItem('user_id');
-    setState('userId', userId);
-  };
-
   const getKategori = async () => {
     try {
-      const response = await API.get('/add-tab/get-kategori');
+      const response = await API.get('/global/get-kategori');
       setKategori(response.data);
     } catch (e) {
       alert('Koneksi eror', 'Gagal terhubung ke jaringan');

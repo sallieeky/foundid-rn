@@ -75,6 +75,7 @@ const PickLocationScreen = ({navigation, route}) => {
       lat: res.nativeEvent.coordinate.latitude,
       lng: res.nativeEvent.coordinate.longitude,
     });
+    setIsLoading(true);
     try {
       const CO = {
         lat: res.nativeEvent.coordinate.latitude,
@@ -109,8 +110,7 @@ const PickLocationScreen = ({navigation, route}) => {
           longitudeDelta: location ? 0.015 : 50,
         }}
         onPress={res => {
-          setMarkerDetail();
-          setIsLoading(true);
+          setMarkerLocation();
           setMarker(res);
         }}>
         {markerLocation && (

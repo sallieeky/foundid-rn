@@ -8,7 +8,7 @@ import Kategori from './components/Kategori/Kategori';
 import Tips from './components/Tips/Tips';
 import MapSekitar from './components/MapSekitar/MapSekitar';
 
-const HomeTab = ({navigation, location, onReload, error}) => {
+const HomeTab = ({navigation, location, onReload, error, user}) => {
   const [isRefresh, setIsRefresh] = useState(false);
 
   return (
@@ -26,15 +26,18 @@ const HomeTab = ({navigation, location, onReload, error}) => {
           />
         }>
         <Header location={location} onReload={onReload} error={error} />
-        <CardUser navigation={navigation} />
+        <CardUser navigation={navigation} user={user} />
         <MapSekitar navigation={navigation} location={location} />
         <Kategori />
+
         <ListItem
+          navigation={navigation}
           header={'Barang Ditemukan'}
           location={location}
           name={'ditemukan'}
         />
         <ListItem
+          navigation={navigation}
           header={'Barang Hilang'}
           location={location}
           name={'hilang'}
