@@ -50,7 +50,7 @@ const radioButtonsDataStatus = [
   },
 ];
 
-const SearchTab = ({location, onReload, error}) => {
+const SearchTab = ({location, onReload, error, navigation}) => {
   const refRBSheet = useRef();
   const [data, setData] = useState();
   const [totalData, setTotalData] = useState();
@@ -249,7 +249,11 @@ const SearchTab = ({location, onReload, error}) => {
       />
       {data && !isLoading && totalData > 0 && (
         <View style={styles.dataSectionContainer}>
-          <ListItemSearch data={data} />
+          <ListItemSearch
+            data={data}
+            location={location}
+            navigation={navigation}
+          />
         </View>
       )}
       {data && totalData < 1 && !isLoading && (

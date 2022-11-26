@@ -17,7 +17,7 @@ import Spinner from 'react-native-spinkit';
 
 const AddTab = ({navigation, user}) => {
   const [formData, setFormData] = useState({
-    userId: user.id,
+    userId: null,
     kategoriId: null,
     lokasi: null,
     tanggal: new Date(),
@@ -50,6 +50,7 @@ const AddTab = ({navigation, user}) => {
 
   useEffect(() => {
     getKategori();
+    user && setState('userId', user.id);
   }, []);
 
   const hari = [

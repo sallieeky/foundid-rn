@@ -2,6 +2,7 @@ import {View, Text, Image, Pressable} from 'react-native';
 import React from 'react';
 import styles from './PublisherSectionStyle';
 import {SocialIcon} from 'react-native-elements';
+import {URL_STORAGE} from '../../../../config/variable';
 
 const PublisherSection = ({user}) => {
   return (
@@ -15,7 +16,11 @@ const PublisherSection = ({user}) => {
             marginTop: 8,
           }}>
           <Image
-            source={require('../../../../assets/images/profile_blank.png')}
+            source={
+              user.foto
+                ? {uri: `${URL_STORAGE}/foto/${user.foto}`}
+                : require('../../../../assets/images/profile_blank.png')
+            }
             style={{width: 56, height: 56, borderRadius: 28}}
           />
           <View

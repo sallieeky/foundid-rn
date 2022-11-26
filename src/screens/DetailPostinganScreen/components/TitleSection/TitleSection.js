@@ -40,15 +40,15 @@ const TitleSection = ({status, isDone, title}) => {
             ...styles.info,
             backgroundColor: '#FFFFFF',
             borderWidth: 1,
-            borderColor: isDone ? '#00AA5B' : '#FFD700',
+            borderColor: isDone == true ? '#00AA5B' : '#FFD700',
           }}>
           <Ionicons
             name="search-circle"
             size={32}
-            color={isDone ? '#00AA5B' : '#FFD700'}
+            color={isDone == true ? '#00AA5B' : '#FFD700'}
           />
           <Text style={{...styles.infoText, color: '#242424'}}>
-            {isDone ? 'Case Closed' : 'Case Open'}
+            {isDone == true ? 'Case Closed' : 'Case Open'}
           </Text>
         </Pressable>
         <Pressable

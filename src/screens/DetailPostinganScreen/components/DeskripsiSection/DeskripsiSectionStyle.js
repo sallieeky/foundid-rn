@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     backgroundColor: '#FFFFFF',
     paddingTop: 16,
+    paddingBottom: 16,
   },
   title: {
     ...globalFont.bold,
