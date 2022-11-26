@@ -41,31 +41,13 @@ const RegisterScreenThird = ({route, navigation}) => {
       ...formData,
       [key]: value,
     });
+    setFormDataError({
+      ...formDataError,
+      [key]: null,
+    });
   };
 
   const chooseFile = async () => {
-    // let options = {
-    //   mediaType: 'photo',
-    //   maxWidth: 1600,
-    //   maxHeight: 900,
-    //   quality: 1,
-    //   includeBase64: true,
-    // };
-    // launchImageLibrary(options, response => {
-    //   if (response.errorCode == 'camera_unavailable') {
-    //     alert('Camera not available on device');
-    //     return;
-    //   } else if (response.errorCode == 'permission') {
-    //     alert('Permission not satisfied');
-    //     return;
-    //   } else if (response.errorCode == 'others') {
-    //     alert(response.errorMessage);
-    //     return;
-    //   }
-    //   setFp(response.uri);
-    //   setState('foto', response);
-    // });
-
     const image = await ImagePicker.openPicker({
       width: 400,
       height: 400,
@@ -91,6 +73,7 @@ const RegisterScreenThird = ({route, navigation}) => {
         });
       // navigation.replace('RegisterScreenFourth', {data: response.data.data});
     } catch (e) {
+      console.log(e);
       Alert.alert(
         'Gagal Terhubung',
         'Gagal terhubung ke internet, periksa jaringan internet anda',

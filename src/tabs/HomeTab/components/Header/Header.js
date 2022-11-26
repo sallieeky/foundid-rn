@@ -4,7 +4,7 @@ import styles from './HeaderStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Header = ({location, onReload}) => {
+const Header = ({location, onReload, error}) => {
   return (
     <View style={styles.header}>
       <View>
@@ -16,10 +16,12 @@ const Header = ({location, onReload}) => {
             color={'#1687D1'}
           />
           <Text style={styles.lokasi}>
-            {location ? location.detail[0].subAdminArea : 'Melacak lokasi'}
+            {error && 'Lokasi tidak ditemukan'}
+            {!error &&
+              (location ? location.detail[0].subAdminArea : 'Melacak lokasi')}
           </Text>
 
-          {!location && (
+          {error && (
             <TouchableOpacity activeOpacity={0.6} onPress={onReload}>
               <MaterialIcons name="refresh" size={24} color={'#242424'} />
             </TouchableOpacity>

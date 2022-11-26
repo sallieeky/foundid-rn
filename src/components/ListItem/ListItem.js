@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {URL_STORAGE} from '../../config/variable';
 
 const Loader = () => (
   <SkeletonPlaceholder>
@@ -47,7 +48,7 @@ const Item = ({nama, gambar, kota, status, no_telp}) => (
   <View style={styles.content}>
     <View style={styles.contentImageSection}>
       <Image
-        source={{uri: `https://api.foundid.my.id/storage/item/${gambar}`}}
+        source={{uri: `${URL_STORAGE}/item/${gambar}`}}
         style={styles.contentImage}
       />
       <View style={styles.contentTitleSection}>

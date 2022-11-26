@@ -1,39 +1,18 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './CardUserStyle';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import API from '../../../../config/api';
+import {URL_STORAGE} from '../../../../config/variable';
 
-const CardUser = ({navigation}) => {
-  const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState();
-
-  useEffect(() => {
-    getUserLogin();
-  }, []);
-
-  const getUserLogin = async () => {
-    const userId = await AsyncStorage.getItem('user_id');
-    console.log(userId);
-    if (userId) {
-      try {
-        const response = await API.get(`/home-tab/get-user-login?id=${userId}`);
-        setUser(response.data);
-      } catch (e) {
-        //
-      }
-    }
-  };
-
+const CardUser = ({navigation, user}) => {
   return (
     <View>
       {!user && (
         <TouchableOpacity
           style={{...styles.container, height: 104}}
           activeOpacity={0.9}
-          onPress={() => navigation.push('RegisterScreenFirst')}>
+          onPress={() => navigation.push('LoginScreen')}>
           <View style={styles.noLoginCircle} />
           <Image
             source={require('../../../../assets/images/login_hometab.png')}
@@ -70,20 +49,20 @@ const CardUser = ({navigation}) => {
                   source={
                     user.foto
                       ? {
-                          uri: `https://api.foundid.my.id/storage/foto/${user.foto}`,
+                          uri: `${URL_STORAGE}/foto/${user.foto}`,
                         }
                       : require('../../../../assets/images/profile_blank.png')
                   }
                   style={styles.imgProfile}
                 />
-                <View style={styles.profileLvContainer}>
+                {/* <View style={styles.profileLvContainer}>
                   <Text style={styles.profileLv}>Lv. 99</Text>
                 </View>
                 <View style={styles.profileXpContainer}>
                   <Text style={styles.profileXp}>EXP</Text>
                   <View style={styles.xpBack} />
                   <View style={{...styles.xpFront, width: 30}} />
-                </View>
+                </View> */}
               </View>
               <View>
                 <Text style={styles.hello}>Hello,</Text>

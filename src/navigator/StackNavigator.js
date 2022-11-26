@@ -12,6 +12,8 @@ import TesScreen from '../screens/TesScreen';
 import RegisterScreenSecond from '../screens/RegisterScreen/RegisterScreenSecond/RegisterScreenSecond';
 import RegisterScreenThird from '../screens/RegisterScreen/RegisterScreenThird/RegisterScreenThird';
 import RegisterScreenFourth from '../screens/RegisterScreen/RegisterScreenFourth/RegisterScreenFourth';
+import ImageViewerScreen from '../screens/ImageViewerScreen/ImageViewerScreen';
+import PickLocationScreen from '../tabs/AddTab/additionalPage/PickLocationScreen/PickLocationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +53,8 @@ const StackNavigator = () => {
         name="DetailPostinganScreen"
         component={DetailPostinganScreen}
       />
+      <Stack.Screen name="ImageViewer" component={ImageViewerScreen} />
+      <Stack.Screen name="PickLocationScreen" component={PickLocationScreen} />
     </Stack.Navigator>
   );
 };

@@ -2,12 +2,22 @@ import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './ListItemStyleSearch';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {URL_STORAGE} from '../../../../config/variable';
 
-const Item = ({nama, gambar, kota, status, no_telp}) => (
+const Item = ({
+  nama,
+  gambar,
+  kota,
+  status,
+  username,
+  postingan,
+  navigation,
+  location,
+}) => (
   <View style={styles.content}>
     <View style={styles.contentImageContainer}>
       <Image
-        source={{uri: `https://api.foundid.my.id/storage/item/${gambar}`}}
+        source={{uri: `${URL_STORAGE}/item/${gambar}`}}
         style={styles.contentImage}
       />
       <View
@@ -27,13 +37,16 @@ const Item = ({nama, gambar, kota, status, no_telp}) => (
       </View>
       <View style={styles.contentInfo}>
         <MaterialCommunityIcons name="account-outline" size={16} />
-        <Text style={styles.detail}>{no_telp}</Text>
+        <Text style={styles.detail}>{username}</Text>
       </View>
 
       <View style={styles.contentBottom}>
         <TouchableOpacity
           style={styles.contentBottomDetail}
-          activeOpacity={0.6}>
+          activeOpacity={0.6}
+          onPress={() =>
+            navigation.push('DetailPostinganScreen', {postingan, location})
+          }>
           <Text style={styles.contentBottomDetailText}>KUNJUNGI DETAIL</Text>
         </TouchableOpacity>
       </View>
@@ -41,7 +54,7 @@ const Item = ({nama, gambar, kota, status, no_telp}) => (
   </View>
 );
 
-const ListItemSearch = ({data}) => {
+const ListItemSearch = ({data, navigation, location}) => {
   const renderItem = ({item}) => {
     return (
       <Item
@@ -49,7 +62,10 @@ const ListItemSearch = ({data}) => {
         gambar={item.item.gambar[0].nama}
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
-        no_telp={item.user.no_telp}
+        username={item.user.username}
+        postingan={item}
+        navigation={navigation}
+        location={location}
       />
     );
   };

@@ -1,8 +1,9 @@
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './ListItemStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {URL_STORAGE} from '../../../../config/variable';
 
 const Loader = () => (
   <SkeletonPlaceholder>
@@ -42,11 +43,14 @@ const Item = ({
   showLocation,
   lat,
   lng,
+  location,
+  navigation,
+  postingan,
 }) => (
   <View style={styles.content}>
     <View style={styles.contentImageContainer}>
       <Image
-        source={{uri: `https://api.foundid.my.id/storage/item/${gambar}`}}
+        source={{uri: `${URL_STORAGE}/item/${gambar}`}}
         style={styles.contentImage}
       />
       <View
@@ -72,7 +76,10 @@ const Item = ({
       <View style={styles.contentBottom}>
         <TouchableOpacity
           style={styles.contentBottomDetail}
-          activeOpacity={0.6}>
+          onPress={() =>
+            navigation.push('DetailPostinganScreen', {postingan, location})
+          }
+          activeOpacity={0.8}>
           <Text style={styles.contentBottomDetailText}>KUNJUNGI DETAIL</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -92,7 +99,7 @@ const Item = ({
   </View>
 );
 
-const ListItem = ({data, showLocation}) => {
+const ListItem = ({data, showLocation, location, navigation}) => {
   const renderItem = ({item}) => {
     return (
       <Item
@@ -104,6 +111,9 @@ const ListItem = ({data, showLocation}) => {
         showLocation={showLocation}
         lat={item.item.lokasi.lat}
         lng={item.item.lokasi.lng}
+        location={location}
+        navigation={navigation}
+        postingan={item}
       />
     );
   };

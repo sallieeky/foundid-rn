@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import API from '../../../../config/api';
 
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {URL_STORAGE} from '../../../../config/variable';
 
 const Loader = () => (
   <SkeletonPlaceholder>
@@ -138,11 +139,19 @@ const MapSekitar = ({navigation, location}) => {
     getData();
   };
 
-  const Item = ({nama, gambar, kota, status, no_telp}) => (
+  const Item = ({
+    nama,
+    gambar,
+    kota,
+    status,
+    username,
+    postingan,
+    location,
+  }) => (
     <View style={styles.content}>
       <View style={styles.contentImageContainer}>
         <Image
-          source={{uri: `https://api.foundid.my.id/storage/item/${gambar}`}}
+          source={{uri: `${URL_STORAGE}/item/${gambar}`}}
           style={styles.contentImage}
         />
         <View
@@ -162,13 +171,16 @@ const MapSekitar = ({navigation, location}) => {
         </View>
         <View style={styles.contentInfo}>
           <MaterialCommunityIcons name="account-outline" size={16} />
-          <Text style={styles.detail}>{no_telp}</Text>
+          <Text style={styles.detail}>{username}</Text>
         </View>
       </View>
 
       <TouchableOpacity
         style={styles.floatingButtonContainer}
-        activeOpacity={0.6}>
+        activeOpacity={0.6}
+        onPress={() =>
+          navigation.push('DetailPostinganScreen', {postingan, location})
+        }>
         <MaterialCommunityIcons
           name="note-text-outline"
           size={24}
@@ -185,7 +197,9 @@ const MapSekitar = ({navigation, location}) => {
         gambar={item.item.gambar[0].nama}
         kota={item.item.lokasi.kota}
         status={item.hilang_ditemukan}
-        no_telp={item.user.no_telp}
+        username={item.user.username}
+        postingan={item}
+        location={location}
       />
     );
   };
@@ -267,9 +281,6 @@ const MapSekitar = ({navigation, location}) => {
                 coordinate={{
                   latitude: parseFloat(item.item.lokasi.lat),
                   longitude: parseFloat(item.item.lokasi.lng),
-                }}
-                image={{
-                  uri: 'https://api.foundid.my.id/storage/images/marker.png',
                 }}>
                 <Callout>
                   <View>
